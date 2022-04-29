@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "557528941932",
+    "project_id": "empathy-of-a-day",
+    "storage_bucket": "empathy-of-a-day.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557528941932:android:3eef6c805d1bb68cfadf49",
+        "android_client_info": {
+          "package_name": "com.project2022.emotiondiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557528941932-iq5nhs22jksk4j46242no7ab6vcto8tr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJght-rhNc_4M0bhL5c6Vey0ZL8Uy_RIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557528941932-iq5nhs22jksk4j46242no7ab6vcto8tr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
