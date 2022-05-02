@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmotionDiary">
         <activity
+            android:name=".DiaryWrite"
+            android:exported="false" />
+        <activity
+            android:name=".MyRoom"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
