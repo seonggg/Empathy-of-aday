@@ -11,10 +11,8 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="131dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="132dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="11dp"
         android:text="@string/my_room"
         android:textSize="30sp"
         android:textColor="#6A8CE0"/>
@@ -38,7 +36,7 @@
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="30dp"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/room_image" />
+        app:srcCompat="@drawable/room_image"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,9 +52,10 @@
             android:id="@+id/write_btn"
             android:layout_width="match_parent"
             android:layout_height="75dp"
+            android:layout_weight="1"
             android:background="@drawable/shape_for_circle_button"
             app:srcCompat="@drawable/ic_baseline_menu_book_24"
-            android:layout_weight="1"/>
+            tools:ignore="SpeakableTextPresentCheck"/>
 
         <View
             android:layout_width="wrap_content"
@@ -67,11 +66,12 @@
             android:id="@+id/setting_btn"
             android:layout_width="match_parent"
             android:layout_height="75dp"
+            android:layout_weight="1"
             android:background="@drawable/shape_for_circle_button"
             android:padding="10sp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/cogwheel"
-            android:layout_weight="1"/>
+            tools:ignore="SpeakableTextPresentCheck"/>
 
         <View
             android:layout_width="wrap_content"

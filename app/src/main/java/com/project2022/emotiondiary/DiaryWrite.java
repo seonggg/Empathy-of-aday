@@ -4,14 +4,18 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +31,7 @@ public class DiaryWrite extends AppCompatActivity {
 
     ImageView imageview;
     Button completeBtn;
+    ImageButton weatherB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,15 @@ public class DiaryWrite extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault());
         String strDate = dateFormat.format(currentTime);
         date.setText((strDate));
+
+        //날씨 다이얼로그
+        weatherB = (ImageButton)findViewById(R.id.weather_button);
+        weatherB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OnClickHandler(view);
+            }
+        });
 
         //이미지 업로드
         imageview = findViewById(R.id.photoView);
@@ -78,4 +92,32 @@ public class DiaryWrite extends AppCompatActivity {
                     }
                 }
             });
+
+    //날씨 선택 다이얼로그 이벤트
+    public void OnClickHandler(View view)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("날씨 선택");
+
+        builder.setItems(R.array.LAN, new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int pos)
+            {
+                String[] items = getResources().getStringArray(R.array.LAN);
+                Toast.makeText(getApplicationContext(),items[pos],Toast.LENGTH_LONG).show();
+                if(items[pos].equals("맑음"))
+                    weatherB.setImageResource(R.drawable.sunny);
+                if(items[pos].equals("흐림"))
+                    weatherB.setImageResource(R.drawable.cloudy);
+                if(items[pos].equals("비"))
+                    weatherB.setImageResource(R.drawable.rainy);
+                if(items[pos].equals("눈"))
+                    weatherB.setImageResource(R.drawable.snowy);
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 }
