@@ -69,8 +69,9 @@ public class DiaryWrite extends AppCompatActivity {
         completeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast toast = Toast.makeText(getApplicationContext(), "작성완료",Toast.LENGTH_SHORT);
-                toast.show();
+                // 감정 분석 화면으로 전환
+                Intent intent = new Intent(getApplicationContext(), BeadsMaking.class);
+                startActivity(intent);
             }
         });
     }
@@ -105,7 +106,6 @@ public class DiaryWrite extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int pos)
             {
                 String[] items = getResources().getStringArray(R.array.LAN);
-                Toast.makeText(getApplicationContext(),items[pos],Toast.LENGTH_LONG).show();
                 if(items[pos].equals("맑음"))
                     weatherB.setImageResource(R.drawable.sunny);
                 if(items[pos].equals("흐림"))

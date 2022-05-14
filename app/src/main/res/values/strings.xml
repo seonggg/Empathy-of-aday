@@ -17,7 +17,7 @@
     <string name="todo">TODO</string>
     <string name="writeTitle">일기 작성</string>
 
-    <string-array name = "LAN">
+    <string-array name="LAN">
         <item>"맑음"</item>
         <item>"흐림"</item>
         <item>"비"</item>
