@@ -2,9 +2,7 @@ package com.project2022.emotiondiary;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,11 +10,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // 3초 뒤 자동 화면 전환
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(MainActivity.this,MyRoom.class);
-            startActivity(intent);
-        },3000);
     }
 }
