@@ -40,13 +40,6 @@ public class BeadsMakingFinish extends AppCompatActivity {
         // 구슬 혼합
         mix = (Button)findViewById(R.id.button2);
         mix.setOnClickListener(view -> MixButton());
-
-        // 다시 분석
-        re_analizing = (Button)findViewById(R.id.button3);
-        re_analizing.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), BeadsMaking.class);
-            startActivity(intent);
-        });
     }
 
     //뒤로가기 막기
@@ -81,10 +74,10 @@ public class BeadsMakingFinish extends AppCompatActivity {
         emoArray = new ArrayList<>(); // 감정 6개 리스트
         emoArray.add(new Emo("angry", 8)); // 빨강
         emoArray.add(new Emo("sad", 56)); // 하늘
-        emoArray.add(new Emo("anxiety", 40)); // 남색
-        emoArray.add(new Emo("hurt", 80)); // 보라
+        emoArray.add(new Emo("anxiety", 1)); // 남색
+        emoArray.add(new Emo("hurt", 40)); // 보라
         emoArray.add(new Emo("emb", 60)); // 연두
-        emoArray.add(new Emo("happy", 40)); // 노랑
+        emoArray.add(new Emo("happy", 20)); // 노랑
 
         topArray = new ArrayList<>(); // 상위 감정 리스트
 
@@ -96,34 +89,13 @@ public class BeadsMakingFinish extends AppCompatActivity {
                     maxIndex = j;
                 }
             }
-            if(emoArray.get(maxIndex).ratio>=50){
-                topArray.add(emoArray.get(maxIndex).emo_name); // 찾은 최대값이 50이상인 경우에만 topArray에 삽입
-            }
+            topArray.add(emoArray.get(maxIndex).emo_name); // topArray에 추가
             emoArray.remove(maxIndex); // emoArray에서 삭제
         }
 
-        // 한 개만 추출된 경우
-        if(topArray.size()==1){
-            Toast toast = Toast.makeText(getApplicationContext(), "추출된 감정:"+topArray.get(0),Toast.LENGTH_LONG);
-            toast.show();
-        }
-        // 두 개 추출된 경우
-        else if(topArray.size()==2){
-            Toast toast = Toast.makeText(getApplicationContext(), "추출된 감정:"+topArray.get(0)
-                    +","+topArray.get(1),Toast.LENGTH_LONG);
-            toast.show();
-        }
-        // 세 개 추출된 경우
-        else if(topArray.size()==3){
-            Toast toast = Toast.makeText(getApplicationContext(), "추출된 감정:"+topArray.get(0)
-                    +","+topArray.get(1)+","+topArray.get(2),Toast.LENGTH_LONG);
-            toast.show();
-        }
-        // 그 외(4개 이상)
-        else{
-            Toast toast = Toast.makeText(getApplicationContext(), "추출된 감정: 없음",Toast.LENGTH_LONG);
-            toast.show();
-        }
+        Toast toast = Toast.makeText(getApplicationContext(), "추출된 감정:"+topArray.get(0)
+                +","+topArray.get(1)+","+topArray.get(2),Toast.LENGTH_LONG);
+        toast.show();
 
         BeadsMaking();
     }
