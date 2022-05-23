@@ -21,7 +21,7 @@ public class MixResult extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mix_result);
 
-        bead = (ImageView) findViewById(R.id.bead_img);
+        bead = findViewById(R.id.bead_img);
 
         Intent intent = getIntent();
         topArray = new ArrayList<>();
@@ -34,7 +34,7 @@ public class MixResult extends AppCompatActivity {
         BeadsMix();
 
         //방으로 돌아가기 버튼
-        room = (Button) findViewById(R.id.room_btn);
+        room = findViewById(R.id.room_btn);
         room.setOnClickListener(view -> {
             Intent intent1 = new Intent(getApplicationContext(),MyRoom.class);
             startActivity(intent1);
