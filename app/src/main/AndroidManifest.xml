@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmotionDiary">
         <activity
+            android:name=".BeadsSelect"
+            android:exported="false" />
+        <activity
+            android:name=".MixResult"
+            android:exported="false" />
+        <activity
             android:name=".BeadsMakingFinish"
             android:exported="false" />
         <activity

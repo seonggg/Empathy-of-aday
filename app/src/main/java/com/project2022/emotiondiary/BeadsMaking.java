@@ -13,13 +13,16 @@ public class BeadsMaking extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beads_making);
 
-        // 임시로 3초 뒤 자동 화면 전환
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
-                startActivity(intent);
-            }
+        // 3초 뒤 자동 화면 전환
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
+            startActivity(intent);
         },3000);
+    }
+
+    //뒤로가기 막기
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
     }
 }

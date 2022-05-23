@@ -8,28 +8,36 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <TextView
+        android:id="@+id/top_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="감정 구슬 생성이 완료되었습니다."
+        android:layout_margin="20dp"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
 
         <ImageView
             android:id="@+id/beadsImage1"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            tools:srcCompat="@drawable/circle_red" />
+            tools:srcCompat="@drawable/angry" />
 
         <ImageView
             android:id="@+id/beadsImage2"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            tools:srcCompat="@drawable/circle_red"
+            tools:srcCompat="@drawable/angry"
             android:layout_marginHorizontal="10dp"/>
 
         <ImageView
             android:id="@+id/beadsImage3"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            tools:srcCompat="@drawable/circle_red"/>
+            tools:srcCompat="@drawable/angry"/>
 
     </LinearLayout>
 
@@ -38,15 +46,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center">
-
-        <TextView
-            android:id="@+id/top_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="감정 분석이 완료되었습니다"
-            tools:layout_editor_absoluteX="124dp"
-            tools:layout_editor_absoluteY="99dp"
-            android:layout_margin="20dp"/>
 
         <Button
             android:id="@+id/button"

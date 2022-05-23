@@ -7,7 +7,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,11 +32,15 @@ public class DiaryWrite extends AppCompatActivity {
     ImageView imageview;
     Button completeBtn;
     ImageButton weatherB;
+    EditText editText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_write);
+
+        editText = (EditText)findViewById(R.id.editText);
 
         //날짜 표시
         TextView date = (TextView) findViewById(R.id.date_display);
@@ -47,12 +51,7 @@ public class DiaryWrite extends AppCompatActivity {
 
         //날씨 다이얼로그
         weatherB = (ImageButton)findViewById(R.id.weather_button);
-        weatherB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OnClickHandler(view);
-            }
-        });
+        weatherB.setOnClickListener(this::OnClickHandler);
 
         //이미지 업로드
         imageview = findViewById(R.id.photoView);
@@ -66,9 +65,13 @@ public class DiaryWrite extends AppCompatActivity {
 
         //작성완료 버튼 이벤트
         completeBtn = (Button)findViewById(R.id.ok_btn);
-        completeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        completeBtn.setOnClickListener(view -> {
+            //예외 처리
+            if(editText.getText().toString().length() == 0){
+                Toast toast = Toast.makeText(getApplicationContext(),"내용을 입력하세요",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            else{
                 // 감정 분석 화면으로 전환
                 Intent intent = new Intent(getApplicationContext(), BeadsMaking.class);
                 startActivity(intent);
@@ -88,6 +91,7 @@ public class DiaryWrite extends AppCompatActivity {
                         Log.e(TAG, "result : " + result);
                         Intent intent = result.getData();
                         Log.e(TAG, "intent : " + intent);
+                        assert intent != null;
                         Uri uri = intent.getData();
                         imageview.setImageURI(uri);
                     }
@@ -101,20 +105,16 @@ public class DiaryWrite extends AppCompatActivity {
 
         builder.setTitle("날씨 선택");
 
-        builder.setItems(R.array.LAN, new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int pos)
-            {
-                String[] items = getResources().getStringArray(R.array.LAN);
-                if(items[pos].equals("맑음"))
-                    weatherB.setImageResource(R.drawable.sunny);
-                if(items[pos].equals("흐림"))
-                    weatherB.setImageResource(R.drawable.cloudy);
-                if(items[pos].equals("비"))
-                    weatherB.setImageResource(R.drawable.rainy);
-                if(items[pos].equals("눈"))
-                    weatherB.setImageResource(R.drawable.snowy);
-            }
+        builder.setItems(R.array.LAN, (dialog, pos) -> {
+            String[] items = getResources().getStringArray(R.array.LAN);
+            if(items[pos].equals("맑음"))
+                weatherB.setImageResource(R.drawable.sunny);
+            if(items[pos].equals("흐림"))
+                weatherB.setImageResource(R.drawable.cloudy);
+            if(items[pos].equals("비"))
+                weatherB.setImageResource(R.drawable.rainy);
+            if(items[pos].equals("눈"))
+                weatherB.setImageResource(R.drawable.snowy);
         });
 
         AlertDialog alertDialog = builder.create();
