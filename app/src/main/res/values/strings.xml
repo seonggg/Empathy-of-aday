@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">EmotionDiary</string>
+    <string name="title_activity_my_room">MyRoom</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="my_room">My Room</string>
+    <string name="date">날짜</string>
+    <string name="weather">날씨</string>
+    <string name="button">Button</string>
+    <string name="dateDis">여기에 현재 날짜 표시</string>
+    <string name="todo">TODO</string>
+    <string name="writeTitle">일기 작성</string>
+
+    <string-array name="LAN">
+        <item>"맑음"</item>
+        <item>"흐림"</item>
+        <item>"비"</item>
+        <item>"눈"</item>
+    </string-array>
 </resources>
