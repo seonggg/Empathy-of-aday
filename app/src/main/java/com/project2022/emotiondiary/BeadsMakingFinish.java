@@ -20,7 +20,6 @@ public class BeadsMakingFinish extends AppCompatActivity {
     ImageView bead3;
     Button select;
     Button mix;
-    Button re_analizing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
