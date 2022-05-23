@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="원하는 구슬을 선택하세요"
+        android:fontFamily="@font/applesdgothicneo"
         android:textAlignment="center"/>
 
     <LinearLayout
@@ -84,6 +85,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="선택 완료"
+        android:fontFamily="@font/applesdgothicneo"
+        android:background="#e9f0ff"
+        android:textColor="#365191"
         android:layout_marginTop="20dp"/>
 
 </LinearLayout>

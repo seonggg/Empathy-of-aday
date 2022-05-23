@@ -13,9 +13,10 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
+        android:layout_gravity="center"
         android:layout_marginTop="11dp"
         android:text="@string/writeTitle"
+        android:fontFamily="@font/applesdgothicneo"
         android:textSize="30sp"
         android:textColor="#6A8CE0"/>
 
@@ -51,6 +52,7 @@
                     android:layout_marginTop="10dp"
                     android:paddingStart="25dp"
                     android:text="@string/date"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textAlignment="center"
                     android:textSize="20sp"/>
 
@@ -61,6 +63,7 @@
                     android:layout_marginTop="10dp"
                     android:paddingStart="15dp"
                     android:text="@string/dateDis"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textSize="20sp"/>
 
             </LinearLayout>
@@ -76,6 +79,7 @@
                     android:paddingTop="10dp"
                     android:paddingStart="25dp"
                     android:text="@string/weather"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textAlignment="center"
                     android:textSize="20sp"/>
 
@@ -88,6 +92,7 @@
                     android:scaleType="fitXY"
                     android:background="@android:color/transparent"
                     android:text="날씨 선택"
+                    android:fontFamily="@font/applesdgothicneo"
                     app:srcCompat="@drawable/sunny"/>
 
             </LinearLayout>
@@ -115,6 +120,7 @@
                 android:background="#e9f0ff"
                 android:gravity="top"
                 android:hint="일기를 작성하세요"
+                android:fontFamily="@font/applesdgothicneo"
                 android:inputType="textMultiLine"
                 android:scrollHorizontally="false"
                 android:textColorHint="#546E7A"
@@ -131,6 +137,7 @@
                 android:layout_marginBottom="11dp"
                 android:background="@drawable/btn_style"
                 android:text="작성 완료"
+                android:fontFamily="@font/applesdgothicneo"
                 android:textColor="#FFFFFF" />
 
         </LinearLayout>

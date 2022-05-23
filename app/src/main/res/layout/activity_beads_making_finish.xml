@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="감정 구슬 생성이 완료되었습니다."
+        android:fontFamily="@font/applesdgothicneo"
         android:layout_margin="20dp"/>
 
     <LinearLayout
@@ -52,14 +53,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="구슬 선택"
+            android:fontFamily="@font/applesdgothicneo"
+            android:background="#e9f0ff"
+            android:textColor="#365191"
             tools:layout_editor_absoluteX="161dp"
-            tools:layout_editor_absoluteY="378dp"/>
+            tools:layout_editor_absoluteY="378dp"
+            android:layout_marginBottom="20dp"/>
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="구슬 혼합"
+            android:fontFamily="@font/applesdgothicneo"
+            android:background="#e9f0ff"
+            android:textColor="#365191"
             tools:layout_editor_absoluteX="161dp"
             tools:layout_editor_absoluteY="439dp"/>
 

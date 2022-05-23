@@ -19,26 +19,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="멘트가 들어갈 자리"
+        android:fontFamily="@font/applesdgothicneo"
         android:layout_marginVertical="100dp"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
 
         <Button
             android:id="@+id/share_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="100dp"
             android:layout_weight="1"
-            android:text="구슬 공유" />
+            android:background="#e9f0ff"
+            android:fontFamily="@font/applesdgothicneo"
+            android:text="구슬 공유"
+            android:textColor="#365191"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/room_btn"
+            tools:layout_editor_absoluteY="0dp"
+            tools:ignore="MissingConstraints"/>
 
         <Button
             android:id="@+id/room_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
             android:layout_weight="1"
-            android:text="방으로 가기" />
+            android:background="#e9f0ff"
+            android:fontFamily="@font/applesdgothicneo"
+            android:text="방으로 가기"
+            android:textColor="#365191"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/share_btn"
+            tools:ignore="MissingConstraints"/>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
