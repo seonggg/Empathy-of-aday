@@ -1,76 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BeadsMakingFinish"
-    android:orientation="vertical"
-    android:gravity="center">
+    tools:context=".BeadsMakingFinish">
 
     <TextView
         android:id="@+id/top_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="감정 구슬 생성이 완료되었습니다."
+        android:layout_marginTop="150dp"
         android:fontFamily="@font/applesdgothicneo"
-        android:layout_margin="20dp"/>
+        android:text="감정 구슬 생성이 완료되었습니다."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp">
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_textview">
 
         <ImageView
             android:id="@+id/beadsImage1"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            tools:srcCompat="@drawable/angry" />
+            tools:srcCompat="@drawable/angry"
+            />
 
         <ImageView
             android:id="@+id/beadsImage2"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            tools:srcCompat="@drawable/angry"
-            android:layout_marginHorizontal="10dp"/>
+            android:layout_marginHorizontal="10dp"
+            tools:srcCompat="@drawable/angry" />
 
         <ImageView
             android:id="@+id/beadsImage3"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            tools:srcCompat="@drawable/angry"/>
+            tools:srcCompat="@drawable/angry" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
-        android:gravity="center">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="구슬 선택"
-            android:fontFamily="@font/applesdgothicneo"
+            android:layout_marginBottom="20dp"
             android:background="#e9f0ff"
+            android:fontFamily="@font/applesdgothicneo"
+            android:text="구슬 선택"
             android:textColor="#365191"
             tools:layout_editor_absoluteX="161dp"
-            tools:layout_editor_absoluteY="378dp"
-            android:layout_marginBottom="20dp"/>
+            tools:layout_editor_absoluteY="378dp" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="구슬 혼합"
-            android:fontFamily="@font/applesdgothicneo"
             android:background="#e9f0ff"
+            android:fontFamily="@font/applesdgothicneo"
+            android:text="구슬 혼합"
             android:textColor="#365191"
             tools:layout_editor_absoluteX="161dp"
-            tools:layout_editor_absoluteY="439dp"/>
+            tools:layout_editor_absoluteY="439dp" />
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

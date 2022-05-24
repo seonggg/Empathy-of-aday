@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DiaryWrite"
-    android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
@@ -13,87 +12,96 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="11dp"
-        android:text="@string/writeTitle"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/applesdgothicneo"
+        android:text="@string/writeTitle"
+        android:textColor="#6A8CE0"
         android:textSize="30sp"
-        android:textColor="#6A8CE0"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="380dp"
         android:layout_height="3dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
         android:background="#6A8CE0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"/>
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:id="@+id/linearLayout6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                app:layout_constraintStart_toStartOf="@+id/photoView"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:paddingStart="25dp"
                     android:text="@string/date"
-                    android:fontFamily="@font/applesdgothicneo"
                     android:textAlignment="center"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/date_display"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:paddingStart="15dp"
                     android:text="@string/dateDis"
-                    android:fontFamily="@font/applesdgothicneo"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:id="@+id/linearLayout5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout6"
+                app:layout_constraintTop_toTopOf="@id/linearLayout6">
 
                 <TextView
                     android:id="@+id/weather"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:paddingStart="25dp"
-                    android:text="@string/weather"
                     android:fontFamily="@font/applesdgothicneo"
+                    android:paddingStart="25dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/weather"
                     android:textAlignment="center"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <ImageButton
                     android:id="@+id/weather_button"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="10dp"
-                    android:scaleType="fitXY"
                     android:background="@android:color/transparent"
-                    android:text="날씨 선택"
                     android:fontFamily="@font/applesdgothicneo"
-                    app:srcCompat="@drawable/sunny"/>
+                    android:scaleType="fitXY"
+                    android:text="날씨 선택"
+                    app:srcCompat="@drawable/sunny" />
 
             </LinearLayout>
 
@@ -101,47 +109,49 @@
                 android:id="@+id/photoView"
                 android:layout_width="346dp"
                 android:layout_height="219dp"
-                android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
                 android:adjustViewBounds="true"
+                android:foreground="@drawable/square_border_black"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/photochoose"
-                android:foreground="@drawable/square_border_black"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+                app:srcCompat="@drawable/photochoose" />
 
             <EditText
                 android:id="@+id/editText"
                 android:layout_width="350dp"
                 android:layout_height="250dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:autofillHints=""
                 android:background="#e9f0ff"
-                android:gravity="top"
-                android:hint="일기를 작성하세요"
                 android:fontFamily="@font/applesdgothicneo"
+                android:hint="일기를 작성하세요"
                 android:inputType="textMultiLine"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
                 android:scrollHorizontally="false"
                 android:textColorHint="#546E7A"
-                tools:ignore="SpeakableTextPresentCheck"
-                android:paddingTop="10dp"
-                android:paddingStart="10dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/photoView"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <Button
                 android:id="@+id/ok_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="155dp"
-                android:layout_marginEnd="162dp"
-                android:layout_marginBottom="11dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/btn_style"
-                android:text="작성 완료"
                 android:fontFamily="@font/applesdgothicneo"
-                android:textColor="#FFFFFF" />
+                android:text="작성 완료"
+                android:textColor="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
