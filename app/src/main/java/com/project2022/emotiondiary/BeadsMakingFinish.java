@@ -1,17 +1,32 @@
 package com.project2022.emotiondiary;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.annotations.NotNull;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firestore.v1.WriteResult;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BeadsMakingFinish extends AppCompatActivity {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     ArrayList<Emo> emoArray;
     ArrayList<String> topArray;
@@ -26,11 +41,22 @@ public class BeadsMakingFinish extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beads_making_finish);
 
+        Intent intent = getIntent();
+        String docid = intent.getStringExtra("docid");
+        Toast.makeText(getApplicationContext(),docid,Toast.LENGTH_LONG).show();
+
         bead1 = (ImageView)findViewById(R.id.beadsImage1);
         bead2 = (ImageView)findViewById(R.id.beadsImage2);
         bead3 = (ImageView)findViewById(R.id.beadsImage3);
 
         EmoExtraction();
+        
+        //추출된 감정 정보 파이어베이스 문서에 저장
+        Map<String, Object> data = new HashMap<>();
+        data.put("emotion", topArray);
+
+        db.collection("diary").document(docid)
+                .set(data, SetOptions.merge());
 
         //구슬 선택
         select = (Button)findViewById(R.id.button);

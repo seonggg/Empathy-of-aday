@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,12 +21,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firestore.v1.WriteResult;
+
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class DiaryWrite extends AppCompatActivity {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private final String TAG = this.getClass().getSimpleName();
 
@@ -34,6 +48,8 @@ public class DiaryWrite extends AppCompatActivity {
     ImageButton weatherB;
     EditText editText;
 
+    String weather="맑음";
+    String docid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +88,33 @@ public class DiaryWrite extends AppCompatActivity {
                 toast.show();
             }
             else{
-                // 감정 분석 화면으로 전환
-                Intent intent = new Intent(getApplicationContext(), BeadsMaking.class);
-                startActivity(intent);
+                //firebase에 저장
+                Long datetime = System.currentTimeMillis();
+                Timestamp timestamp = new Timestamp(datetime);
+                Diary data = new Diary("id",editText.getText().toString(),timestamp,weather);
+                data.toMap();
+                Log.i("firebase_diary",data.toString());
+
+                db.collection("diary")
+                        .add(data)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                //docid = documentReference.getPath();
+                                docid = documentReference.getId();
+                                // 감정 분석 화면으로 전환
+                                Intent intent = new Intent(getApplicationContext(), BeadsMaking.class);
+                                intent.putExtra("docid", docid);
+                                startActivity(intent);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error adding document", e);
+                            }
+                        });
             }
         });
     }
@@ -107,14 +147,22 @@ public class DiaryWrite extends AppCompatActivity {
 
         builder.setItems(R.array.LAN, (dialog, pos) -> {
             String[] items = getResources().getStringArray(R.array.LAN);
-            if(items[pos].equals("맑음"))
+            if(items[pos].equals("맑음")) {
                 weatherB.setImageResource(R.drawable.sunny);
-            if(items[pos].equals("흐림"))
+                weather="맑음";
+            }
+            if(items[pos].equals("흐림")) {
                 weatherB.setImageResource(R.drawable.cloudy);
-            if(items[pos].equals("비"))
+                weather="흐림";
+            }
+            if(items[pos].equals("비")) {
                 weatherB.setImageResource(R.drawable.rainy);
-            if(items[pos].equals("눈"))
+                weather="비";
+            }
+            if(items[pos].equals("눈")) {
                 weatherB.setImageResource(R.drawable.snowy);
+                weather="눈";
+            }
         });
 
         AlertDialog alertDialog = builder.create();
