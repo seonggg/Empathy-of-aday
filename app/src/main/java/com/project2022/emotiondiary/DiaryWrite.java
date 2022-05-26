@@ -9,8 +9,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,25 +26,33 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firestore.v1.WriteResult;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
+
+import io.grpc.Context;
 
 public class DiaryWrite extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
 
     private final String TAG = this.getClass().getSimpleName();
+
+    private final int GALLEY_CODE=10;
 
     ImageView imageview;
     Button completeBtn;
@@ -50,6 +61,9 @@ public class DiaryWrite extends AppCompatActivity {
 
     String weather="맑음";
     String docid;
+
+    ArrayList<Uri> imageArray;
+    Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +87,14 @@ public class DiaryWrite extends AppCompatActivity {
         imageview = findViewById(R.id.photoView);
 
         imageview.setOnClickListener(v -> {
+
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             launcher.launch(intent);
+
+
+            //loadAlbum();
         });
 
         //작성완료 버튼 이벤트
@@ -103,6 +121,7 @@ public class DiaryWrite extends AppCompatActivity {
                                 Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
                                 //docid = documentReference.getPath();
                                 docid = documentReference.getId();
+                                uploadImg(uri);
                                 // 감정 분석 화면으로 전환
                                 Intent intent = new Intent(getApplicationContext(), BeadsMaking.class);
                                 intent.putExtra("docid", docid);
@@ -119,6 +138,7 @@ public class DiaryWrite extends AppCompatActivity {
         });
     }
 
+
     //이미지 받아오기
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>()
@@ -132,11 +152,13 @@ public class DiaryWrite extends AppCompatActivity {
                         Intent intent = result.getData();
                         Log.e(TAG, "intent : " + intent);
                         assert intent != null;
-                        Uri uri = intent.getData();
+                        uri = intent.getData();
                         imageview.setImageURI(uri);
+                        //imageArray.add(uri);
                     }
                 }
             });
+
 
     //날씨 선택 다이얼로그 이벤트
     public void OnClickHandler(View view)
@@ -168,4 +190,35 @@ public class DiaryWrite extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+    //storage에 사진 저장
+    private void uploadImg(Uri file){
+        StorageReference storageRef = storage.getReference();
+        StorageReference riversRef = storageRef.child("diary/"+docid+"1.jpg");
+        UploadTask uploadTask = riversRef.putFile(file);
+
+            try{
+                InputStream in = getContentResolver().openInputStream(file);
+                Bitmap img = BitmapFactory.decodeStream(in);
+                in.close();
+                imageview.setImageBitmap(img);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(DiaryWrite.this, "사진 업로드 실패",Toast.LENGTH_SHORT).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(DiaryWrite.this, "사진 업로드 성공",Toast.LENGTH_SHORT).show();
+                }
+            });
+    }
+
 }
