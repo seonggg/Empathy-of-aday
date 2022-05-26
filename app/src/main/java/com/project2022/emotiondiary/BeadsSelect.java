@@ -24,6 +24,8 @@ public class BeadsSelect extends AppCompatActivity {
     CheckBox cb3;
     Button btn;
 
+    String docid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,8 @@ public class BeadsSelect extends AppCompatActivity {
             topArray.add(intent.getStringExtra("감정"+i));
         }
 
+        docid=intent.getStringExtra("docid");
+
         BeadsSetting();
     }
 
@@ -66,6 +70,7 @@ public class BeadsSelect extends AppCompatActivity {
             put_intent.putExtra("감정"+i,checkArray.get(i-1));
         }
         put_intent.putExtra("크기",checkArray.size());
+        put_intent.putExtra("docid",docid);
         startActivity(put_intent);
     }
 

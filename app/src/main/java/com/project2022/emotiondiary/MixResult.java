@@ -7,14 +7,23 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MixResult extends AppCompatActivity {
+
+    FirebaseFirestore db= FirebaseFirestore.getInstance();
 
     ArrayList<String> topArray;
     ImageView bead;
     int size;
-    Button room;
+    Button room, share;
+
+    String docid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +40,33 @@ public class MixResult extends AppCompatActivity {
             topArray.add(intent.getStringExtra("감정"+i));
         }
 
+        docid=intent.getStringExtra("docid");
+
         BeadsMix();
+
+        //선택한 구슬 색깔 정보 db 저장
+        Map<String, Object> beads = new HashMap<>();
+        beads.put("beads", topArray);
+
+        db.collection("diary").document(docid)
+                .set(beads, SetOptions.merge());
 
         //방으로 돌아가기 버튼
         room = findViewById(R.id.room_btn);
         room.setOnClickListener(view -> {
             Intent intent1 = new Intent(getApplicationContext(),MyRoom.class);
             startActivity(intent1);
+        });
+
+        //공유하기 버튼
+        share = findViewById(R.id.share_btn);
+        share.setOnClickListener(view -> {
+            //공유 허용 정보 db 저장
+            Map<String, Object> data = new HashMap<>();
+            data.put("share", true);
+
+            db.collection("diary").document(docid)
+                    .set(data, SetOptions.merge());
         });
     }
 

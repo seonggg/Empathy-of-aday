@@ -36,14 +36,16 @@ public class BeadsMakingFinish extends AppCompatActivity {
     Button select;
     Button mix;
 
+    String docid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beads_making_finish);
 
         Intent intent = getIntent();
-        String docid = intent.getStringExtra("docid");
-        Toast.makeText(getApplicationContext(),docid,Toast.LENGTH_LONG).show();
+        docid = intent.getStringExtra("docid");
+        //Toast.makeText(getApplicationContext(),docid,Toast.LENGTH_LONG).show();
 
         bead1 = (ImageView)findViewById(R.id.beadsImage1);
         bead2 = (ImageView)findViewById(R.id.beadsImage2);
@@ -80,6 +82,7 @@ public class BeadsMakingFinish extends AppCompatActivity {
         for(int i=1; i<topArray.size()+1;i++){
             intent.putExtra("감정"+i,topArray.get(i-1));
         }
+        intent.putExtra("docid",docid);
         startActivity(intent);
     }
 
@@ -90,6 +93,7 @@ public class BeadsMakingFinish extends AppCompatActivity {
         for(int i=1; i<topArray.size()+1;i++){
             intent.putExtra("감정"+i,topArray.get(i-1));
         }
+        intent.putExtra("docid",docid);
         startActivity(intent);
     }
 
