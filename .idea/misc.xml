@@ -7,11 +7,13 @@
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_beads_making.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_beads_making_finish.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_beads_select.xml" value="0.17916666666666667" />
-        <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_diary_write.xml" value="0.15517241379310345" />
+        <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_diary_write.xml" value="0.1" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_login.xml" value="0.11574074074074074" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_mix_result.xml" value="0.22" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_my_room.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/item_slider.xml" value="0.134375" />
+        <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/multi_img_item.xml" value="0.17916666666666667" />
       </map>
     </option>
   </component>

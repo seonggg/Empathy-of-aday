@@ -51,4 +51,9 @@ dependencies {
 
     //이미지 저장을 위한 firebase-storage
     implementation 'com.google.firebase:firebase-storage'
+    //이미지 슬라이더 ViewPager2, Glide
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'me.relex:circleindicator:2.1.6'
 }
