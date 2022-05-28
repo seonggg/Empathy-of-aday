@@ -9,7 +9,7 @@ import java.util.Map;
 public class Diary {
     private String writer_id;
     private String content;
-    private ArrayList<String> pictures=new ArrayList<String>();
+    private Integer pictures;
     private Timestamp date;
     private String weather;
     private ArrayList<String> emotion =new ArrayList<String>();
@@ -18,17 +18,16 @@ public class Diary {
     public Diary(){
     }
 
-    public Diary(String writer_id,String content, Timestamp date, String weather){
+    public Diary(String writer_id,String content, Timestamp date, String weather, Integer pictures){
         this.writer_id=writer_id;
         this.content=content;
-        //this.pictures=pictures;
+        this.pictures=pictures;
         this.date=date;
         this.weather=weather;
-        //this.emotion.add("emo");
         this.share=false;
     }
 
-    public Diary(String writer_id, String content, ArrayList<String> pictures, Timestamp date, String weather, ArrayList<String> emotion, Boolean share){
+    public Diary(String writer_id, String content, Integer pictures, Timestamp date, String weather, ArrayList<String> emotion, Boolean share){
         this.writer_id=writer_id;
         this.content=content;
         this.pictures=pictures;
@@ -60,7 +59,7 @@ public class Diary {
         return content;
     }
 
-    public ArrayList<String> getPictures() {
+    public Integer getPictures() {
         return pictures;
     }
 
@@ -88,7 +87,7 @@ public class Diary {
         this.content = content;
     }
 
-    public void setPictures(ArrayList<String> pictures) {
+    public void setPictures(Integer pictures) {
         this.pictures = pictures;
     }
 

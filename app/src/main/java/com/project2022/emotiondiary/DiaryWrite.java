@@ -5,10 +5,10 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.ClipData;
@@ -19,6 +19,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -51,12 +54,12 @@ public class DiaryWrite extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = storage.getReference();
 
     private final String TAG = this.getClass().getSimpleName();
 
+    Toolbar toolbar;
+
     ImageView imageview;
-    Button completeBtn;
     ImageButton weatherB;
     EditText editText;
 
@@ -73,6 +76,14 @@ public class DiaryWrite extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_write);
 
+        //액션바 커스텀
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
+        actionBar.setDisplayHomeAsUpEnabled(true); //뒤로 가기 버튼
+
         editText = (EditText)findViewById(R.id.editText);
 
         //날짜 표시
@@ -86,13 +97,12 @@ public class DiaryWrite extends AppCompatActivity {
         weatherB = (ImageButton)findViewById(R.id.weather_button);
         weatherB.setOnClickListener(this::OnClickHandler);
 
-        //이미지 업로드
+        //이미지 처리
         imageview = findViewById(R.id.photoView);
         recyclerCase = findViewById(R.id.recyclerCase);
         sliderViewPager=findViewById(R.id.sliderViewPager);
 
-
-        //imageview.setOnClickListener(v -> {
+        //이미지 업로드 클릭시
         recyclerCase.setOnClickListener(v -> {
 
             Intent intent = new Intent(Intent.ACTION_PICK);
@@ -100,55 +110,10 @@ public class DiaryWrite extends AppCompatActivity {
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-            imageview.setVisibility(View.GONE);
-            sliderViewPager.setVisibility(View.VISIBLE);
             launcher.launch(intent);
 
         });
-
-        //작성완료 버튼 이벤트
-        completeBtn = (Button)findViewById(R.id.ok_btn);
-        completeBtn.setOnClickListener(view -> {
-            //예외 처리
-            if(editText.getText().toString().length() == 0){
-                Toast toast = Toast.makeText(getApplicationContext(),"내용을 입력하세요",Toast.LENGTH_SHORT);
-                toast.show();
-            }
-            else{
-                //firebase에 저장
-                Long datetime = System.currentTimeMillis();
-                Timestamp timestamp = new Timestamp(datetime);
-                Diary data = new Diary("id",editText.getText().toString(),timestamp,weather);
-                data.toMap();
-                Log.i("firebase_diary",data.toString());
-
-                db.collection("diary")
-                        .add(data)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
-                                //docid = documentReference.getPath();
-                                docid = documentReference.getId();
-                                for(int i=0;i<=uriList.size()-1;i++) {
-                                    uploadImg(uriList.get(i),i);
-                                }
-                                // 감정 분석 화면으로 전환
-                                Intent intent = new Intent(getApplicationContext(), BeadsMaking.class);
-                                intent.putExtra("docid", docid);
-                                startActivity(intent);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                            }
-                        });
-            }
-        });
     }
-
 
     //이미지 받아오기
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -193,6 +158,9 @@ public class DiaryWrite extends AppCompatActivity {
                             }
 
                             //선택한 이미지 viewpager2에 출력
+                            imageview.setVisibility(View.GONE);
+                            sliderViewPager.setVisibility(View.VISIBLE);
+
                             sliderViewPager.setOffscreenPageLimit(1);
                             sliderViewPager.setAdapter(new ImageSliderAdapter(getApplicationContext(), uriList));
 
@@ -239,28 +207,90 @@ public class DiaryWrite extends AppCompatActivity {
         StorageReference riversRef = storageRef.child("diary/"+docid+"_"+num+".jpg");
         UploadTask uploadTask = riversRef.putFile(file);
 
-            try{
-                InputStream in = getContentResolver().openInputStream(file);
-                Bitmap img = BitmapFactory.decodeStream(in);
-                in.close();
-                imageview.setImageBitmap(img);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try{
+            InputStream in = getContentResolver().openInputStream(file);
+            Bitmap img = BitmapFactory.decodeStream(in);
+            in.close();
+            imageview.setImageBitmap(img);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(DiaryWrite.this, "사진 업로드 실패",Toast.LENGTH_SHORT).show();
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(DiaryWrite.this, "사진 업로드 실패",Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(DiaryWrite.this, "사진 업로드 성공",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_write, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            //작성 완료 버튼 클릭
+            case R.id.add_btn:
+                //예외 처리
+                if(editText.getText().toString().length() == 0){
+                    Toast toast = Toast.makeText(getApplicationContext(),"내용을 입력하세요",Toast.LENGTH_SHORT);
+                    toast.show();
                 }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(DiaryWrite.this, "사진 업로드 성공",Toast.LENGTH_SHORT).show();
+                else{
+                    //firebase에 저장
+                    Long datetime = System.currentTimeMillis();
+                    Timestamp timestamp = new Timestamp(datetime);
+                    Integer pictures = uriList.size();
+                    Diary data = new Diary("id",editText.getText().toString(),timestamp,weather,pictures);
+                    data.toMap();
+                    Log.i("firebase_diary",data.toString());
+
+                    db.collection("diary")
+                            .add(data)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+
+                                    //파이어베이스 storage에 이미지 저장
+                                    docid = documentReference.getId();
+                                    for(int i=0;i<=uriList.size()-1;i++) {
+                                        uploadImg(uriList.get(i),i);
+                                    }
+
+                                    // 감정 분석 화면으로 전환
+                                    Intent intent = new Intent(getApplicationContext(), BeadsMaking.class);
+                                    intent.putExtra("docid", docid);
+                                    startActivity(intent);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
                 }
-            });
+                return true;
+            case android.R.id.home:
+                //select back button
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }
