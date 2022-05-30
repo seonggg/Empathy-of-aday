@@ -10,28 +10,31 @@ public class Diary {
     private String writer_id;
     private String content;
     private Integer pictures;
-    private Timestamp date;
+    private Timestamp timestamp;
+    private String date;
     private String weather;
     private ArrayList<String> emotion =new ArrayList<String>();
+    private ArrayList<String> beads = new ArrayList<>();
     private Boolean share;
 
     public Diary(){
     }
 
-    public Diary(String writer_id,String content, Timestamp date, String weather, Integer pictures){
+    public Diary(String writer_id,String content, Timestamp timestamp, String date, String weather, Integer pictures){
         this.writer_id=writer_id;
         this.content=content;
         this.pictures=pictures;
+        this.timestamp=timestamp;
         this.date=date;
         this.weather=weather;
         this.share=false;
     }
 
-    public Diary(String writer_id, String content, Integer pictures, Timestamp date, String weather, ArrayList<String> emotion, Boolean share){
+    public Diary(String writer_id, String content, Integer pictures, Timestamp timestamp, String weather, ArrayList<String> emotion, Boolean share){
         this.writer_id=writer_id;
         this.content=content;
         this.pictures=pictures;
-        this.date=date;
+        this.timestamp=timestamp;
         this.weather=weather;
         this.emotion=emotion;
         this.share=share;
@@ -43,7 +46,7 @@ public class Diary {
         diary.put("writer_id", writer_id);
         diary.put("content", content);
         diary.put("pictures", pictures);
-        diary.put("date", date);
+        diary.put("timestamp", timestamp);
         diary.put("weather", weather);
         diary.put("emotion", emotion);
         diary.put("share", share);
@@ -63,8 +66,8 @@ public class Diary {
         return pictures;
     }
 
-    public Timestamp getDate() {
-        return date;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
     public String getWeather() {
@@ -79,6 +82,10 @@ public class Diary {
         return share;
     }
 
+    public ArrayList<String> getBeads() {
+        return beads;
+    }
+
     public void setWriter_id(String writer_id) {
         this.writer_id = writer_id;
     }
@@ -91,10 +98,6 @@ public class Diary {
         this.pictures = pictures;
     }
 
-    public void setDate(Timestamp date) {
-        this.date = date;
-    }
-
     public void setWeather(String weather) {
         this.weather = weather;
     }
@@ -105,5 +108,21 @@ public class Diary {
 
     public void setShare(Boolean share) {
         this.share = share;
+    }
+
+    public void setBeads(ArrayList<String> beads) {
+        this.beads = beads;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

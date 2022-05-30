@@ -69,6 +69,8 @@ public class DiaryWrite extends AppCompatActivity {
     String weather="맑음";
     String docid;
 
+    String strDate;
+
     ArrayList<Uri> uriList= new ArrayList<>();
 
     @Override
@@ -90,7 +92,7 @@ public class DiaryWrite extends AppCompatActivity {
         TextView date = (TextView) findViewById(R.id.date_display);
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault());
-        String strDate = dateFormat.format(currentTime);
+        strDate = dateFormat.format(currentTime);
         date.setText((strDate));
 
         //날씨 다이얼로그
@@ -253,7 +255,7 @@ public class DiaryWrite extends AppCompatActivity {
                     Long datetime = System.currentTimeMillis();
                     Timestamp timestamp = new Timestamp(datetime);
                     Integer pictures = uriList.size();
-                    Diary data = new Diary("id",editText.getText().toString(),timestamp,weather,pictures);
+                    Diary data = new Diary("id",editText.getText().toString(),timestamp,strDate,weather,pictures);
                     data.toMap();
                     Log.i("firebase_diary",data.toString());
 
