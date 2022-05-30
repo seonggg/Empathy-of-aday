@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 2초 뒤 자동 화면 전환
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(MainActivity.this,MyRoom.class);
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
             startActivity(intent);
         },2000);
     }

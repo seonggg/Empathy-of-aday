@@ -8,19 +8,32 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MyRoom extends AppCompatActivity {
 
     long backKeyPressingTime = 0;
+    ImageButton writeBtn;
+    ImageButton settingBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_room);
 
         //일기작성 버튼 이벤트
-        ImageButton writeBtn = (ImageButton)findViewById(R.id.write_btn);
-
+        writeBtn = findViewById(R.id.write_btn);
         writeBtn.setOnClickListener(view -> {
             Intent intent = new Intent(MyRoom.this,DiaryWrite.class);
+            startActivity(intent);
+        });
+
+        // 임시 로그아웃(원래는 환경설정)
+        settingBtn = findViewById(R.id.setting_btn);
+        settingBtn.setOnClickListener(view -> {
+            //FirebaseAuth.getInstance().signOut();
+            //Toast.makeText(MyRoom.this,"로그아웃되었습니다",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MyRoom.this,SettingActivity.class);
             startActivity(intent);
         });
 

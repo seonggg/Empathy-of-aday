@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmotionDiary.NoActionBar">
         <activity
+            android:name=".SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignUp"
+            android:exported="false" />
+        <activity
+            android:name=".EmailLogin"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
