@@ -255,7 +255,7 @@ public class DiaryWrite extends AppCompatActivity {
                     Long datetime = System.currentTimeMillis();
                     Timestamp timestamp = new Timestamp(datetime);
                     Integer pictures = uriList.size();
-                    Diary data = new Diary("id",editText.getText().toString(),timestamp,strDate,weather,pictures);
+                    Diary data = new Diary("id","nickname", editText.getText().toString(),timestamp,strDate,weather,pictures);
                     data.toMap();
                     Log.i("firebase_diary",data.toString());
 

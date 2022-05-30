@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class Diary {
     private String writer_id;
+    private String nickname;
     private String content;
     private Integer pictures;
     private Timestamp timestamp;
@@ -20,8 +21,9 @@ public class Diary {
     public Diary(){
     }
 
-    public Diary(String writer_id,String content, Timestamp timestamp, String date, String weather, Integer pictures){
+    public Diary(String writer_id, String nickname, String content, Timestamp timestamp, String date, String weather, Integer pictures){
         this.writer_id=writer_id;
+        this.nickname=nickname;
         this.content=content;
         this.pictures=pictures;
         this.timestamp=timestamp;
@@ -30,8 +32,9 @@ public class Diary {
         this.share=false;
     }
 
-    public Diary(String writer_id, String content, Integer pictures, Timestamp timestamp, String weather, ArrayList<String> emotion, Boolean share){
+    public Diary(String writer_id, String nickname, String content, Integer pictures, Timestamp timestamp, String weather, ArrayList<String> emotion, Boolean share){
         this.writer_id=writer_id;
+        this.nickname=nickname;
         this.content=content;
         this.pictures=pictures;
         this.timestamp=timestamp;
@@ -124,5 +127,14 @@ public class Diary {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
