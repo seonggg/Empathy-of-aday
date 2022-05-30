@@ -73,7 +73,7 @@ public class ShowDiary extends AppCompatActivity {
 
         sliderViewPager=findViewById(R.id.sliderViewPager);
 
-        DocumentReference docRef = db.collection("diary").document("6phbofKiksXX07VqR8JJ");
+        DocumentReference docRef = db.collection("diary").document("XeUE4Tlbv7pNOfIaJdkk");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
