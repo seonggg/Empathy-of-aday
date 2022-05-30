@@ -46,14 +46,4 @@ dependencies {
     //firebase 연동
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
     implementation 'com.google.firebase:firebase-analytics-ktx:20.1.2'
-
-    // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:29.3.1')
-
-    // Declare the dependency for the Firebase Authentication library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-auth'
-
-    // firestore 라이브러리
-    implementation 'com.google.firebase:firebase-firestore:24.1.2'
 }

@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DiaryWrite"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    tools:context=".ShowDiary">
 
     <androidx.appcompat.widget.Toolbar
         app:layout_constraintTop_toTopOf="parent"
@@ -15,16 +13,13 @@
         android:layout_height="wrap_content"
         app:theme="@style/ToolbarTheme">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="25sp"
-            android:text="일기 작성"
-            android:textColor="#6A8CE0"
-            android:fontFamily="@font/applesdgothicneo">
+        <ImageView
+            android:id="@+id/beads_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center">
 
-        </TextView>
+        </ImageView>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -67,7 +62,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/applesdgothicneo"
                     android:paddingStart="15dp"
-                    android:text="@string/dateDis"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -92,14 +86,12 @@
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
-                <ImageButton
-                    android:id="@+id/weather_button"
+                <ImageView
+                    android:id="@+id/weather_img"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@android:color/transparent"
-                    android:fontFamily="@font/applesdgothicneo"
                     android:scaleType="fitXY"
-                    android:text="날씨 선택"
                     app:srcCompat="@drawable/sunny" />
 
             </LinearLayout>
@@ -117,30 +109,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
-                <ImageView
-                    android:id="@+id/photoView"
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:adjustViewBounds="true"
-                    android:foreground="@drawable/square_border_black"
-                    android:scaleType="centerCrop"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-                    app:srcCompat="@drawable/photochoose" />
-
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/sliderViewPager"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
-                    android:orientation="horizontal"
-                    android:visibility="gone" />
+                    android:orientation="horizontal"/>
 
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/editText"
+            <TextView
+                android:id="@+id/content"
                 android:layout_width="0dp"
                 android:layout_height="250dp"
                 android:layout_marginStart="30dp"
@@ -150,7 +128,6 @@
                 android:gravity="top"
                 android:background="#e9f0ff"
                 android:fontFamily="@font/applesdgothicneo"
-                android:hint="일기를 작성하세요"
                 android:inputType="textMultiLine"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
@@ -160,7 +137,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerCase"
                 tools:ignore="SpeakableTextPresentCheck" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

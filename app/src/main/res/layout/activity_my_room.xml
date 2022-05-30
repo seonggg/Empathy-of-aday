@@ -8,10 +8,17 @@
     android:background="@drawable/main"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/show_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="일기보기" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="550dp"
+        android:layout_marginTop="520dp"
         android:orientation="horizontal">
 
         <View
@@ -52,82 +59,5 @@
 
     </LinearLayout>
 
-    <!--
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/applesdgothicneo"
-        android:textStyle="normal"
-        android:textSize="18.7sp"
-        android:textColor="#c7b8a9"
-        android:lineSpacingExtra="6sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        tools:text="MY ROOM"/>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="380dp"
-        android:layout_height="3dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:background="#c7b8a9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/room_image"
-        android:layout_margin="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="bottom">
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <ImageButton
-                android:id="@+id/write_btn"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_weight="1"
-                android:background="@drawable/shape_for_circle_button"
-                app:srcCompat="@drawable/ic_baseline_menu_book_24"
-                tools:ignore="SpeakableTextPresentCheck"/>
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <ImageButton
-                android:id="@+id/setting_btn"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_weight="1"
-                android:background="@drawable/shape_for_circle_button"
-                android:padding="10sp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/cogwheel"
-                tools:ignore="SpeakableTextPresentCheck"/>
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-    -->
 
 </LinearLayout>

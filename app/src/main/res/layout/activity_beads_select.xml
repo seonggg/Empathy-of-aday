@@ -1,55 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BeadsSelect"
-    android:orientation="vertical"
-    android:gravity="center">
+    tools:context=".BeadsSelect">
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="원하는 구슬을 선택하세요"
-        android:fontFamily="@font/applesdgothicneo"
-        android:textAlignment="center"/>
-
-    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:fontFamily="@font/applesdgothicneo"
+        android:text="원하는 구슬을 선택하세요"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:layout_margin="20dp"
-        android:gravity="center">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <CheckBox
             android:id="@+id/checkbox1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp" />
 
         <ImageView
             android:id="@+id/bead_select1"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            app:srcCompat="@drawable/angry"/>
+            app:srcCompat="@drawable/angry" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:layout_margin="20dp"
-        android:gravity="center">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <CheckBox
             android:id="@+id/checkbox2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp" />
 
         <ImageView
             android:id="@+id/bead_select2"
@@ -60,17 +67,20 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:layout_margin="20dp"
-        android:gravity="center">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <CheckBox
             android:id="@+id/checkbox3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp" />
 
         <ImageView
             android:id="@+id/bead_select3"
@@ -84,10 +94,13 @@
         android:id="@+id/btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="선택 완료"
-        android:fontFamily="@font/applesdgothicneo"
+        android:layout_marginTop="20dp"
         android:background="#e9f0ff"
+        android:fontFamily="@font/applesdgothicneo"
+        android:text="선택 완료"
         android:textColor="#365191"
-        android:layout_marginTop="20dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
