@@ -27,6 +27,7 @@ public class SettingActivity extends AppCompatActivity {
     TextView logout;
     String emailText;
 
+    //아직 미완성 액티비티
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +37,11 @@ public class SettingActivity extends AppCompatActivity {
         logout = findViewById(R.id.logout_textView);
 
         //현재 로그인 된 계정 확인
-        FirebaseUser currentUser = mAuth.getInstance().getCurrentUser();
-        //Toast.makeText(SettingActivity.this,currentUser.getEmail(),Toast.LENGTH_SHORT).show();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        Toast.makeText(SettingActivity.this,currentUser.getEmail(),Toast.LENGTH_SHORT).show();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("user").document(currentUser.getEmail());
+        DocumentReference docRef = db.collection("user").document("test5@naver.com");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -47,8 +49,8 @@ public class SettingActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        //emailText = currentUser.getEmail().toString();
-                        //email.setText(emailText);
+                        emailText = document.get("user_email").toString();
+                        email.setText(emailText);
                     } else {
                         Log.d(TAG, "No such document");
                     }

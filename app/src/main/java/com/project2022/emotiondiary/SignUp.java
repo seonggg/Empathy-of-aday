@@ -34,10 +34,6 @@ public class SignUp extends AppCompatActivity {
     EditText birthdate_edit;
     //String email;
     //String emailValidation;
-    Calendar c;
-    int mYear;
-    int mMonth;
-    int mDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +45,6 @@ public class SignUp extends AppCompatActivity {
         //emailValidation = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"; // 이메일 정규식
         pw_edit = findViewById(R.id.pw_editText);
         nickname_edit = findViewById(R.id.nickname_editText);
-        birthdate_edit = findViewById(R.id.birthdate_editText);
 
         // FirebaseAuth 객체의 공유 인스턴스를 가져옴
         mAuth = FirebaseAuth.getInstance();
@@ -58,35 +53,14 @@ public class SignUp extends AppCompatActivity {
         signup_ok_btn.setOnClickListener(view -> {
             if (!email_edit.getText().toString().equals("") && !pw_edit.getText().toString().equals("")
             && !nickname_edit.getText().toString().equals("")) {
-                // 이메일과 비밀번호가 공백이 아닌 경우
+                // 공백이 없는 경우
                 createAccount(email_edit.getText().toString(), pw_edit.getText().toString()
                         , nickname_edit.getText().toString());
             }
             else {
-                // 이메일 혹은 비밀번호가 공백인 경우
+                // 공백이 하나라도 있는 경우
                 Toast.makeText(SignUp.this, "이메일, 비밀번호, 닉네임은 필수입력사항입니다", Toast.LENGTH_LONG).show();
             }
-        });
-
-        // 생일 선택
-        c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar
-                ,new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                birthdate_edit.setText(year+"." + (month+1) + "." + dayOfMonth);
-            }
-        }, mYear, mMonth, mDay);
-
-        datePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-        birthdate_edit.setInputType(0);
-        birthdate_edit.setOnClickListener(view -> {
-            datePickerDialog.show();
         });
     }
 
@@ -115,7 +89,6 @@ public class SignUp extends AppCompatActivity {
         Map<String, Object> user = new HashMap<>();
         user.put("user_email", email);
         user.put("user_nickname", nickname);
-        user.put("user_birthdate", Arrays.asList(mYear,mMonth,mDay));
 
         db.collection("user").document(email)
                 .set(user)

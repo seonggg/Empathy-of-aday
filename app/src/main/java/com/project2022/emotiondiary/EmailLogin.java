@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,7 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class EmailLogin extends AppCompatActivity {
 
@@ -38,29 +36,24 @@ public class EmailLogin extends AppCompatActivity {
         email_edit = findViewById(R.id.email_editText);
         pw_edit = findViewById(R.id.pw_editText);
 
-        login_btn.setOnClickListener(view -> {
-            signIn(email_edit.getText().toString(),pw_edit.getText().toString());
-        });
+        login_btn.setOnClickListener(view -> signIn(email_edit.getText().toString(),pw_edit.getText().toString()));
     }
 
     // 로그인
     private void signIn(String email, String password) {
         if (!email_edit.getText().toString().equals("") && !pw_edit.getText().toString().equals("")) {
             mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(EmailLogin.this, "로그인되었습니다", Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, "signInWithEmail:success");
-                                Intent intent = new Intent(EmailLogin.this,MyRoom.class);
-                                startActivity(intent);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(EmailLogin.this, "로그인 실패", Toast.LENGTH_SHORT).show();
-                            }
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(EmailLogin.this, "로그인되었습니다", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "signInWithEmail:success");
+                            Intent intent = new Intent(EmailLogin.this,MyRoom.class);
+                            startActivity(intent);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(EmailLogin.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                         }
                     });
         }

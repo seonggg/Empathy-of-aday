@@ -36,12 +36,12 @@ public class MyRoom extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // 임시 로그아웃(원래는 환경설정)
+        // 임시 로그아웃
         settingBtn = findViewById(R.id.setting_btn);
         settingBtn.setOnClickListener(view -> {
-            //FirebaseAuth.getInstance().signOut();
-            //Toast.makeText(MyRoom.this,"로그아웃되었습니다",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MyRoom.this,SettingActivity.class);
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(MyRoom.this,"로그아웃되었습니다",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MyRoom.this,LoginActivity.class);
             startActivity(intent);
         });
 

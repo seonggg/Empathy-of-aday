@@ -27,14 +27,12 @@ public class LoginActivity extends AppCompatActivity {
         onStart();
 
         email = findViewById(R.id.email_login_btn);
-
         email.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this,EmailLogin.class);
             startActivity(intent);
         });
 
         signUp = findViewById(R.id.signup_btn);
-
         signUp.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this,SignUp.class);
             startActivity(intent);
