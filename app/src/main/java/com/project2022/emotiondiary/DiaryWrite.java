@@ -110,7 +110,9 @@ public class DiaryWrite extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            intent.setAction(Intent.ACTION_GET_CONTENT);
             intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
 
             launcher.launch(intent);
 

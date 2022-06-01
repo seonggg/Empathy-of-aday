@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -52,6 +53,8 @@ public class ShowDiary extends AppCompatActivity {
 
     ArrayList<Uri> imgArray = new ArrayList<>();
 
+    String docid="XeUE4Tlbv7pNOfIaJdkk";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +76,7 @@ public class ShowDiary extends AppCompatActivity {
 
         sliderViewPager=findViewById(R.id.sliderViewPager);
 
-        DocumentReference docRef = db.collection("diary").document("XeUE4Tlbv7pNOfIaJdkk");
+        DocumentReference docRef = db.collection("diary").document(docid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -110,32 +113,35 @@ public class ShowDiary extends AppCompatActivity {
                         }
 
                         //이미지 불러오기
-                        String docid = document.getId();
                         Integer pictures = Integer.valueOf(document.get("pictures").toString());
-                        ArrayList<Uri> uriArray = new ArrayList<>();
-                        StorageReference storageRef = storage.getReference();
-                        StorageReference pathRef = storageRef.child("diary");
-                        if (pathRef == null){
-                            Toast.makeText(getApplicationContext(), "저장소에 사진이 없습니다.", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            for (int i=0;i<pictures;i++){
-                                storageRef.child("diary/"+docid+"_"+i+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        // Got the download URL for 'users/me/profile.png'
-                                        uriArray.add(uri);
-                                        //불러온 이미지 viewpager2에 출력
-                                        sliderViewPager.setOffscreenPageLimit(1);
-                                        sliderViewPager.setAdapter(new ImageSliderAdapter(getApplicationContext(), uriArray));
+
+                        if (pictures !=0) {
+                            ArrayList<Uri> uriArray = new ArrayList<>();
+                            StorageReference storageRef = storage.getReference();
+                            StorageReference pathRef = storageRef.child("diary");
+                            if (pathRef == null) {
+                                Toast.makeText(getApplicationContext(), "저장소에 사진이 없습니다.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                for (int i = 0; i < pictures; i++) {
+                                    storageRef.child("diary/" + docid + "_" + i + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            // Got the download URL for 'users/me/profile.png'
+                                            uriArray.add(uri);
+                                            //불러온 이미지 viewpager2에 출력
+                                            sliderViewPager.setOffscreenPageLimit(1);
+                                            sliderViewPager.setAdapter(new ImageSliderAdapter(getApplicationContext(), uriArray));
                                         }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        // Handle any errors
-                                    }
-                                });
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception exception) {
+                                            // Handle any errors
+                                        }
+                                    });
+                                }
                             }
+                        }else {
+                            sliderViewPager.setVisibility(View.GONE);
                         }
 
                     } else {
@@ -161,6 +167,9 @@ public class ShowDiary extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.edit_btn:
                 Toast.makeText(getApplicationContext(),"수정하기",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), EditDiary.class);
+                intent.putExtra("docid", docid);
+                startActivity(intent);
 
                 return true;
             case R.id.delete_btn:

@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmotionDiary.NoActionBar">
         <activity
+            android:name=".EditDiary"
+            android:exported="false" />
+        <activity
             android:name=".ShowDiary"
             android:exported="false" />
         <activity
