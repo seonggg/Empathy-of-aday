@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -54,6 +55,7 @@ public class DiaryWrite extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    private FirebaseAuth mAuth;
 
     private final String TAG = this.getClass().getSimpleName();
 
@@ -77,6 +79,8 @@ public class DiaryWrite extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_write);
+
+        String user_uid = mAuth.getUid();
 
         //액션바 커스텀
         toolbar = findViewById(R.id.toolbar);

@@ -71,7 +71,8 @@ public class SignUp extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseAuth.getInstance().signOut(); // 자동 로그인 방지
-                        writeNewUser(email,nickname);
+                        String uid=task.getResult().getUser().getUid();
+                        writeNewUser(email,nickname,uid);
                         Toast.makeText(SignUp.this, "계정 생성 성공", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignUp.this,EmailLogin.class);
                         startActivity(intent);
@@ -82,7 +83,7 @@ public class SignUp extends AppCompatActivity {
                 });
     }
 
-    private void writeNewUser(String email, String nickname){
+    private void writeNewUser(String email, String nickname,String uid){
         // 이메일, 닉네임 저장
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -90,7 +91,7 @@ public class SignUp extends AppCompatActivity {
         user.put("user_email", email);
         user.put("user_nickname", nickname);
 
-        db.collection("user").document(email)
+        db.collection("user").document(uid)
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
