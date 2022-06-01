@@ -310,9 +310,7 @@ public class EditDiary extends AppCompatActivity {
                     //firebase에 저장
                     //파이어베이스 storage 전 이미지 삭제
                     if (img_change != 0) {
-                        for (int i = 0; i < pictures; i++) {
-                            delete_img(docid, i);
-                        }
+                        delete_img(docid, pictures);
                         //파이어베이스 storage에 이미지 저장
                         for (int i = 0; i <newUri.size(); i++) {
                             uploadImg(newUri.get(i), i);
@@ -372,17 +370,18 @@ public class EditDiary extends AppCompatActivity {
 
     //storage에 이미지 제거
     private void delete_img(String docid, Integer size) {
-        //for (int i=0;i<size;i++){
-        storage.getReference().child("diary/" + docid + "_" + size + ".jpg").delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(getApplicationContext(), "삭제완료", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "삭제 실패", Toast.LENGTH_SHORT).show();
-            }
-        });
+        for (int i = 0; i < size; i++) {
+            storage.getReference().child("diary/" + docid + "_" + i + ".jpg").delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText(getApplicationContext(), "삭제완료", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(), "삭제 실패", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

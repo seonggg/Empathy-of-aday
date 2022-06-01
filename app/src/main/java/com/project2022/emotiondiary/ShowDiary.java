@@ -2,10 +2,12 @@ package com.project2022.emotiondiary;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -53,7 +55,9 @@ public class ShowDiary extends AppCompatActivity {
 
     ArrayList<Uri> imgArray = new ArrayList<>();
 
-    String docid="XeUE4Tlbv7pNOfIaJdkk";
+    String docid="hhOI8jVlqRg5Q5TY1bTm";
+
+    Integer pictures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +117,7 @@ public class ShowDiary extends AppCompatActivity {
                         }
 
                         //이미지 불러오기
-                        Integer pictures = Integer.valueOf(document.get("pictures").toString());
+                        pictures = Integer.valueOf(document.get("pictures").toString());
 
                         if (pictures !=0) {
                             ArrayList<Uri> uriArray = new ArrayList<>();
@@ -174,7 +178,21 @@ public class ShowDiary extends AppCompatActivity {
                 return true;
             case R.id.delete_btn:
                 Toast.makeText(getApplicationContext(),"삭제하기",Toast.LENGTH_SHORT).show();
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(ShowDiary.this);
+                builder.setTitle("일기 삭제하기");
+                builder.setMessage("일기를 삭제하면 복구할 수 없습니다.\n삭제하시겠습니까?");
+                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        db.collection("diary").document(docid).delete();
+                        delete_img(docid, pictures);
+                        Intent intent = new Intent(getApplicationContext(), MyRoom.class);
+                        startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("아니오", null);
+                builder.setNeutralButton("취소", null);
+                builder.create().show();
                 return true;
             case android.R.id.home:
                 //select back button
@@ -343,5 +361,22 @@ public class ShowDiary extends AppCompatActivity {
             }
         }
         return uriArray;
+    }
+
+    //storage에 이미지 제거
+    private void delete_img(String docid, Integer size) {
+        for (int i=0;i<size;i++){
+            storage.getReference().child("diary/" + docid + "_" + i + ".jpg").delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText(getApplicationContext(), "삭제완료", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(), "삭제 실패", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }
