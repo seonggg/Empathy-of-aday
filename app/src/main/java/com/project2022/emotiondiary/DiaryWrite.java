@@ -20,8 +20,10 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,6 +35,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -55,6 +59,7 @@ public class DiaryWrite extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    private FirebaseAuth mAuth;
 
     private final String TAG = this.getClass().getSimpleName();
 
@@ -69,10 +74,9 @@ public class DiaryWrite extends AppCompatActivity {
 
     String weather="맑음";
     String docid;
-    String email;
-    String nickname;
+    String nick, id;
+
     String strDate;
-    Diary data;
 
     ArrayList<Uri> uriList= new ArrayList<>();
 
@@ -81,8 +85,11 @@ public class DiaryWrite extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_write);
 
-        Intent intent_e = getIntent();
-        email = intent_e.getStringExtra("email");
+        mAuth=FirebaseAuth.getInstance();
+        String user_uid = mAuth.getCurrentUser().getUid();
+        Toast.makeText(getApplicationContext(), user_uid, Toast.LENGTH_LONG).show();
+        id = ((Info)this.getApplication()).getId();
+        nick = get_nickname(user_uid);
 
         //액션바 커스텀
         toolbar = findViewById(R.id.toolbar);
@@ -116,29 +123,12 @@ public class DiaryWrite extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            intent.setAction(Intent.ACTION_GET_CONTENT);
             intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
 
             launcher.launch(intent);
 
-        });
-
-        //사용자 닉네임 불러오기
-        DocumentReference docRef = db.collection("user").document(email);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        nickname = document.get("user_nickname").toString();
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
         });
     }
 
@@ -280,8 +270,7 @@ public class DiaryWrite extends AppCompatActivity {
                     Long datetime = System.currentTimeMillis();
                     Timestamp timestamp = new Timestamp(datetime);
                     Integer pictures = uriList.size();
-
-                    data = new Diary(email,nickname,editText.getText().toString(),timestamp,strDate,weather,pictures);
+                    Diary data = new Diary(id,nick, editText.getText().toString(),timestamp,strDate,weather,pictures);
                     data.toMap();
                     Log.i("firebase_diary",data.toString());
 
@@ -319,5 +308,26 @@ public class DiaryWrite extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    //사용자 닉네임 가져오기
+    private String get_nickname(String uid){
+        DocumentReference docRef = db.collection("user").document(uid);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()){
+                        nick = document.get("user_nickname").toString();
+                    }else {
+                        Log.d("TAG", "No such document");
+                    }
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                }
+            }
+        });
+        return nick;
     }
 }
