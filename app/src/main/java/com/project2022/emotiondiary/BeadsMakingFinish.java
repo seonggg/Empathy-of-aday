@@ -56,6 +56,7 @@ public class BeadsMakingFinish extends AppCompatActivity {
         //추출된 감정 정보 파이어베이스 문서에 저장
         Map<String, Object> data = new HashMap<>();
         data.put("emotion", topArray);
+        data.put("docid",docid);
 
         db.collection("diary").document(docid)
                 .set(data, SetOptions.merge());

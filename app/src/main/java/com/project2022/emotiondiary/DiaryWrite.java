@@ -87,7 +87,7 @@ public class DiaryWrite extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         String user_uid = mAuth.getCurrentUser().getUid();
         Toast.makeText(getApplicationContext(), user_uid, Toast.LENGTH_LONG).show();
-        id = get_id(user_uid);
+        id = ((Info)this.getApplication()).getId();
         nick = get_nickname(user_uid);
 
         //액션바 커스텀
@@ -328,26 +328,5 @@ public class DiaryWrite extends AppCompatActivity {
             }
         });
         return nick;
-    }
-
-    //사용자 아이디 가져오기
-    private String get_id(String uid){
-        DocumentReference docRef = db.collection("user").document(uid);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()){
-                        id = document.get("user_email").toString();
-                    }else {
-                        Log.d("TAG", "No such document");
-                    }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
-                }
-            }
-        });
-        return id;
     }
 }

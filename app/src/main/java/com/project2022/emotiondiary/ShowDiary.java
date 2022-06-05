@@ -15,11 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,19 +23,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 public class ShowDiary extends AppCompatActivity {
 
@@ -55,7 +50,7 @@ public class ShowDiary extends AppCompatActivity {
 
     ArrayList<Uri> imgArray = new ArrayList<>();
 
-    String docid="hhOI8jVlqRg5Q5TY1bTm";
+    String docid;
 
     Integer pictures;
 
@@ -79,6 +74,9 @@ public class ShowDiary extends AppCompatActivity {
         date_display=findViewById(R.id.date_display);
 
         sliderViewPager=findViewById(R.id.sliderViewPager);
+
+        Intent intent = getIntent();
+        docid = intent.getStringExtra("docid");
 
         DocumentReference docRef = db.collection("diary").document(docid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -154,6 +152,11 @@ public class ShowDiary extends AppCompatActivity {
                 } else {
                     Log.d("TAG", "get failed with ", task.getException());
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "최신 일기 불러오기 실패", Toast.LENGTH_SHORT).show();
             }
         });
 
