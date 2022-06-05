@@ -37,6 +37,7 @@ public class MyRoom extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         String user_uid = mAuth.getCurrentUser().getUid();
         ((Info)this.getApplication()).setId(user_uid);
+        ((Info)this.getApplication()).setNick(user_uid);
 
         Button showBtn = findViewById(R.id.show_btn);
         showBtn.setOnClickListener(view -> {

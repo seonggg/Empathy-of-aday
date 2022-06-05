@@ -88,7 +88,7 @@ public class DiaryWrite extends AppCompatActivity {
         String user_uid = mAuth.getCurrentUser().getUid();
         Toast.makeText(getApplicationContext(), user_uid, Toast.LENGTH_LONG).show();
         id = ((Info)this.getApplication()).getId();
-        nick = get_nickname(user_uid);
+        nick = ((Info)this.getApplication()).getNick();
 
         //액션바 커스텀
         toolbar = findViewById(R.id.toolbar);
@@ -260,18 +260,17 @@ public class DiaryWrite extends AppCompatActivity {
             //작성 완료 버튼 클릭
             case R.id.add_btn:
                 //예외 처리
-                if(editText.getText().toString().length() == 0){
-                    Toast toast = Toast.makeText(getApplicationContext(),"내용을 입력하세요",Toast.LENGTH_SHORT);
+                if (editText.getText().toString().length() == 0) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "내용을 입력하세요", Toast.LENGTH_SHORT);
                     toast.show();
-                }
-                else{
+                } else {
                     //firebase에 저장
                     Long datetime = System.currentTimeMillis();
                     Timestamp timestamp = new Timestamp(datetime);
                     Integer pictures = uriList.size();
-                    Diary data = new Diary(id,nick, editText.getText().toString(),timestamp,strDate,weather,pictures);
+                    Diary data = new Diary(id, nick, editText.getText().toString(), timestamp, strDate, weather, pictures);
                     data.toMap();
-                    Log.i("firebase_diary",data.toString());
+                    Log.i("firebase_diary", data.toString());
 
                     db.collection("diary")
                             .add(data)
@@ -282,8 +281,8 @@ public class DiaryWrite extends AppCompatActivity {
 
                                     //파이어베이스 storage에 이미지 저장
                                     docid = documentReference.getId();
-                                    for(int i=0;i<=uriList.size()-1;i++) {
-                                        uploadImg(uriList.get(i),i);
+                                    for (int i = 0; i <= uriList.size() - 1; i++) {
+                                        uploadImg(uriList.get(i), i);
                                     }
 
                                     // 감정 분석 화면으로 전환
@@ -307,26 +306,5 @@ public class DiaryWrite extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    //사용자 닉네임 가져오기
-    private String get_nickname(String uid){
-        DocumentReference docRef = db.collection("user").document(uid);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()){
-                        nick = document.get("user_nickname").toString();
-                    }else {
-                        Log.d("TAG", "No such document");
-                    }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
-                }
-            }
-        });
-        return nick;
     }
 }

@@ -15,6 +15,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
 public class Info extends Application {
+
+    private String id;
+
     public String getId() {
         return id;
     }
@@ -22,8 +25,6 @@ public class Info extends Application {
     public void setId(String id) {
         this.id = get_id(id);
     }
-
-    private String id;
 
     //사용자 아이디 가져오기
     private String get_id(String uid){
@@ -45,6 +46,38 @@ public class Info extends Application {
         });
         return id;
     }
+
+    private String nick;
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = get_nickname(nick);
+    }
+
+    //사용자 닉네임 가져오기
+    private String get_nickname(String uid){
+        DocumentReference docRef = FirebaseFirestore.getInstance().collection("user").document(uid);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()){
+                        nick = document.get("user_nickname").toString();
+                    }else {
+                        Log.d("TAG", "No such document");
+                    }
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                }
+            }
+        });
+        return nick;
+    }
+
 }
 
 
