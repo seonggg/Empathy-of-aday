@@ -41,6 +41,7 @@ public class MyRoom extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         String user_uid = mAuth.getCurrentUser().getUid();
         ((Info)this.getApplication()).setId(user_uid);
+        ((Info)this.getApplication()).setNick(user_uid);
 
         Intent intent_e = getIntent();
         email = intent_e.getStringExtra("email");
