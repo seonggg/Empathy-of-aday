@@ -1,9 +1,12 @@
 package com.project2022.emotiondiary;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -67,6 +70,26 @@ public class MixResult extends AppCompatActivity {
 
             db.collection("diary").document(docid)
                     .set(data, SetOptions.merge());
+
+            AlertDialog.Builder dlg = new AlertDialog.Builder(MixResult.this);
+            dlg.setMessage("공유가 완료되었습니다.\n같은 구슬을 공유한 사람들을 보시겠습니까?");
+            dlg.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(getApplicationContext(),ShareList.class);
+                    for(int j = 1; j<topArray.size()+1; j++){
+                        intent.putExtra("감정"+j,topArray.get(j-1));
+                    }
+                    intent.putExtra("size",size);
+                    startActivity(intent);
+                }
+            });
+            dlg.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+            dlg.show();
         });
     }
 

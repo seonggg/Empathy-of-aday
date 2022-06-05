@@ -36,7 +36,7 @@ public class EmailLogin extends AppCompatActivity {
         email_edit = findViewById(R.id.email_editText);
         pw_edit = findViewById(R.id.pw_editText);
 
-        login_btn.setOnClickListener(view -> signIn(email_edit.getText().toString(),pw_edit.getText().toString()));
+        login_btn.setOnClickListener(view -> signIn(email_edit.getText().toString().trim(),pw_edit.getText().toString().trim()));
     }
 
     // 로그인
@@ -49,6 +49,7 @@ public class EmailLogin extends AppCompatActivity {
                             Toast.makeText(EmailLogin.this, "로그인되었습니다", Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "signInWithEmail:success");
                             Intent intent = new Intent(EmailLogin.this,MyRoom.class);
+                            intent.putExtra("email",email);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.

@@ -1,6 +1,5 @@
 package com.project2022.emotiondiary;
 
-import java.lang.reflect.Array;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,10 +42,10 @@ public class Diary {
         this.share=share;
     }
 
-
     public Map<String, Object> toMap() {
         HashMap<String, Object> diary = new HashMap<>();
         diary.put("writer_id", writer_id);
+        diary.put("nickname", nickname);
         diary.put("content", content);
         diary.put("pictures", pictures);
         diary.put("timestamp", timestamp);
@@ -59,6 +58,10 @@ public class Diary {
 
     public String getWriter_id() {
         return writer_id;
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 
     public String getContent() {
@@ -91,6 +94,10 @@ public class Diary {
 
     public void setWriter_id(String writer_id) {
         this.writer_id = writer_id;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public void setContent(String content) {
@@ -127,14 +134,5 @@ public class Diary {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 }

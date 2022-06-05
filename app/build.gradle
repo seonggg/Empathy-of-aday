@@ -57,6 +57,9 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'me.relex:circleindicator:2.1.6'
 
-    // 로그인 시 필요
+    //로그인 시 필요
+    // Firebase 인증 Android 라이브러리의 종속 항목 선언
     implementation 'com.google.firebase:firebase-auth'
+    //구글 로그인에 필요한 Google Play 서비스 SDK
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
 }

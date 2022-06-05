@@ -20,10 +20,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -32,9 +30,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -68,8 +69,10 @@ public class DiaryWrite extends AppCompatActivity {
 
     String weather="맑음";
     String docid;
-
+    String email;
+    String nickname;
     String strDate;
+    Diary data;
 
     ArrayList<Uri> uriList= new ArrayList<>();
 
@@ -77,6 +80,9 @@ public class DiaryWrite extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_write);
+
+        Intent intent_e = getIntent();
+        email = intent_e.getStringExtra("email");
 
         //액션바 커스텀
         toolbar = findViewById(R.id.toolbar);
@@ -86,17 +92,17 @@ public class DiaryWrite extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
         actionBar.setDisplayHomeAsUpEnabled(true); //뒤로 가기 버튼
 
-        editText = (EditText)findViewById(R.id.editText);
+        editText = findViewById(R.id.editText);
 
         //날짜 표시
-        TextView date = (TextView) findViewById(R.id.date_display);
+        TextView date = findViewById(R.id.date_display);
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault());
         strDate = dateFormat.format(currentTime);
         date.setText((strDate));
 
         //날씨 다이얼로그
-        weatherB = (ImageButton)findViewById(R.id.weather_button);
+        weatherB = findViewById(R.id.weather_button);
         weatherB.setOnClickListener(this::OnClickHandler);
 
         //이미지 처리
@@ -114,6 +120,25 @@ public class DiaryWrite extends AppCompatActivity {
 
             launcher.launch(intent);
 
+        });
+
+        //사용자 닉네임 불러오기
+        DocumentReference docRef = db.collection("user").document(email);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        nickname = document.get("user_nickname").toString();
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
         });
     }
 
@@ -255,7 +280,8 @@ public class DiaryWrite extends AppCompatActivity {
                     Long datetime = System.currentTimeMillis();
                     Timestamp timestamp = new Timestamp(datetime);
                     Integer pictures = uriList.size();
-                    Diary data = new Diary("id","nickname", editText.getText().toString(),timestamp,strDate,weather,pictures);
+
+                    data = new Diary(email,nickname,editText.getText().toString(),timestamp,strDate,weather,pictures);
                     data.toMap();
                     Log.i("firebase_diary",data.toString());
 
@@ -294,5 +320,4 @@ public class DiaryWrite extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MyRoom extends AppCompatActivity {
 
@@ -17,10 +18,16 @@ public class MyRoom extends AppCompatActivity {
     ImageButton writeBtn;
     ImageButton settingBtn;
 
+    //테스트
+    String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_room);
+
+        Intent intent_e = getIntent();
+        email = intent_e.getStringExtra("email");
 
         Button showBtn = findViewById(R.id.show_btn);
         showBtn.setOnClickListener(view -> {
@@ -28,23 +35,27 @@ public class MyRoom extends AppCompatActivity {
             startActivity(intent);
         });
 
-
-        //일기작성 버튼 이벤트
+        //일기작성 버튼
         writeBtn = findViewById(R.id.write_btn);
         writeBtn.setOnClickListener(view -> {
             Intent intent = new Intent(MyRoom.this,DiaryWrite.class);
+            intent.putExtra("email",email);
             startActivity(intent);
         });
 
-        // 임시 로그아웃
+        // 환경설정 버튼
         settingBtn = findViewById(R.id.setting_btn);
         settingBtn.setOnClickListener(view -> {
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(MyRoom.this,"로그아웃되었습니다",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MyRoom.this,LoginActivity.class);
             startActivity(intent);
+            /*
+            Toast.makeText(MyRoom.this,"로그아웃되었습니다",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MyRoom.this,SettingActivity.class);
+            intent.putExtra("email",email);
+            startActivity(intent);*/
         });
-
     }
 
     @Override

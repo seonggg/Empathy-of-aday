@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
+    long backKeyPressingTime = 0;
     Button email;
     TextView signUp;
     private FirebaseAuth mAuth;
@@ -46,7 +48,25 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             Intent intent = new Intent(LoginActivity.this,MyRoom.class);
+            intent.putExtra("email",currentUser.getEmail());
             startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //뒤로가기 막기
+        //super.onBackPressed();
+
+        // 뒤로가기 연속 두 번 클릭 시 종료
+        if(System.currentTimeMillis()>backKeyPressingTime + 2500){
+            backKeyPressingTime = System.currentTimeMillis();
+            Toast toast = Toast.makeText(getApplicationContext(), "뒤로가기 두 번 누르면 종료",Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+        if(System.currentTimeMillis()<=backKeyPressingTime + 2500){
+            finishAffinity();
         }
     }
 }

@@ -123,7 +123,7 @@ public class BeadsMakingFinish extends AppCompatActivity {
         }
 
         Toast toast = Toast.makeText(getApplicationContext(), "추출된 감정:"+topArray.get(0)
-                +","+topArray.get(1)+","+topArray.get(2),Toast.LENGTH_LONG);
+                +","+topArray.get(1)+","+topArray.get(2),Toast.LENGTH_SHORT);
         toast.show();
 
         BeadsMaking();
