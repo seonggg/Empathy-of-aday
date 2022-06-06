@@ -81,6 +81,7 @@ public class MixResult extends AppCompatActivity {
                         intent.putExtra("감정"+j,topArray.get(j-1));
                     }
                     intent.putExtra("size",size);
+                    intent.putExtra("docid",docid);
                     startActivity(intent);
                 }
             });

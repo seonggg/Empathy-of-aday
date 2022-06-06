@@ -10,4 +10,8 @@
         android:title="삭제"
         android:fontFamily="@font/applesdgothicneo"/>
 
+    <item android:id="@+id/show_btn"
+        android:title="같은 감정의 일기 보기"
+        android:fontFamily="@font/applesdgothicneo"/>
+
 </menu>

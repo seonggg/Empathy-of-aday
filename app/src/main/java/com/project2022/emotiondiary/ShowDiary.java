@@ -51,6 +51,7 @@ public class ShowDiary extends AppCompatActivity {
     ArrayList<Uri> imgArray = new ArrayList<>();
 
     String docid;
+    Boolean actionBarView;
 
     Integer pictures;
 
@@ -77,6 +78,8 @@ public class ShowDiary extends AppCompatActivity {
 
         Intent intent = getIntent();
         docid = intent.getStringExtra("docid");
+
+        actionBarView = intent.getBooleanExtra("actionbar",true);
 
         DocumentReference docRef = db.collection("diary").document(docid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -164,7 +167,9 @@ public class ShowDiary extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_show, menu);
+        if(actionBarView){
+            getMenuInflater().inflate(R.menu.menu_show, menu);
+        }
         return true;
     }
 
@@ -197,6 +202,11 @@ public class ShowDiary extends AppCompatActivity {
                 builder.setNeutralButton("취소", null);
                 builder.create().show();
                 return true;
+            case R.id.show_btn:
+                Intent intent2 = new Intent(getApplicationContext(),ShareList.class);
+                intent2.putExtra("show",true);
+                intent2.putExtra("docid",docid);
+                startActivity(intent2);
             case android.R.id.home:
                 //select back button
                 finish();
