@@ -93,37 +93,8 @@ public class MyRoom extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-
-        GridLayoutManager gridmanager = new GridLayoutManager(this, 4);
-        recyclerView.setLayoutManager(gridmanager);
-
-        adapter = new RecyclerViewAdapter();
-        recyclerView.setAdapter(adapter);
-
-        db.collection("diary")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
-                .whereEqualTo("writer_id", email)
-                .limit(24)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (DocumentSnapshot ds : queryDocumentSnapshots.getDocuments()) {
-                            String docid = ds.getId();
-                            String beads = ds.get("beads").toString();
-                            int img = printBead(beads.split(",").length, beads);
-                            DataBead data = new DataBead(img, docid);
-                            adapter.addItem(data);
-                        }
-                        adapter.notifyDataSetChanged();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("MyRoomBeads","fail");
-                    }
-                });
+        init();
+        getData();
     }
 
 //    @Override
