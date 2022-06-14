@@ -6,17 +6,15 @@ public class CommentData {
     String time;
     String content;
     boolean del_vision;
+    String commentId;
+    String diaryId;
 
-    CommentData(String nickname, String time, String content){
-        this.nickname = nickname;
-        this.time = time;
-        this.content = content;
-    }
-
-    CommentData(String nickname, String time, String content, boolean del_vision){
+    CommentData(String nickname, String time, String content, boolean del_vision, String commentId, String diaryId){
         this.nickname = nickname;
         this.time = time;
         this.content = content;
         this.del_vision = del_vision;
+        this.commentId = commentId;
+        this.diaryId = diaryId;
     }
 }
