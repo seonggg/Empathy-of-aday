@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -13,11 +15,27 @@ import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BeadsMaking extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    // server의 url(매번 변경해야 함)
+    private final String BASE_URL = "https://6a9d-222-101-88-23.jp.ngrok.io";
+    private EmotionAPI emotionAPI;
+
+    String content, result, emotion;
+    String docid;
+
+    ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +43,76 @@ public class BeadsMaking extends AppCompatActivity {
         setContentView(R.layout.activity_beads_making);
 
         Intent get_intent = getIntent();
-        String docid = get_intent.getStringExtra("docid");
+        docid = get_intent.getStringExtra("docid");
+        content = get_intent.getStringExtra("content");
 
-        // 3초 뒤 자동 화면 전환
+        img=findViewById(R.id.imageView);
+
+        //서버 연결
+        initAPI(BASE_URL);
+        //emotion = analysis_emotion(content);
+
+        //서버를 통해 감정분석 진행
+        Log.d("감정분석","POST");
+        TextItem item = new TextItem();
+        item.setText(content);
+        Log.d("감정분석",item.getText());
+        Call<TextItem> postCall = emotionAPI.text_text(item);
+        postCall.enqueue(new Callback<TextItem>() {
+            @Override
+            public void onResponse(Call<TextItem> call, Response<TextItem> response) {
+                if(response.isSuccessful()){
+                    Log.d("감정분석","등록 완료");
+                }else {
+                    Log.d("감정분석","Status Code : " + response.code());
+                    Log.d("감정분석",response.errorBody().toString());
+                    Log.d("감정분석",call.request().body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TextItem> call, Throwable t) {
+                Log.d("감정분석","Fail msg : " + t.getMessage());
+            }
+        });
+
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
-            intent.putExtra("docid",docid);
-            startActivity(intent);
-        },3000);
+            Log.d("감정분석","GET");
+            Call<List<TextItem>> getCall = emotionAPI.get_text();
+            getCall.enqueue(new Callback<List<TextItem>>() {
+                @Override
+                public void onResponse(Call<List<TextItem>> call, Response<List<TextItem>> response) {
+                    if (response.isSuccessful()) {
+                        List<TextItem> mList = response.body();
+                        for (TextItem item : mList) {
+                            result = item.getText();
+                        }
+                    } else {
+                        Log.d("감정분석", "Status Code : " + response.code());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<TextItem>> call, Throwable t) {
+                    Log.d("감정분석", "Fail msg : " + t.getMessage());
+                }
+            });
+
+            new Handler().postDelayed(() -> {
+                //서버 연결이 안되면 임의의 값 집어넣기
+                if (result==null){
+                    Log.d("감정분석", "결과값 비었음");
+                    result="['happy', 'sad', 'hurt']";
+                }
+
+                Log.d("감정분석",result);
+                Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
+                intent.putExtra("docid",docid);
+                intent.putExtra("emotion",result);
+                startActivity(intent);
+            },5000);
+        },100000);
+
     }
 
     //뒤로가기 막기
@@ -40,4 +120,16 @@ public class BeadsMaking extends AppCompatActivity {
     public void onBackPressed() {
         //super.onBackPressed();
     }
+
+    private void initAPI(String baseUrl){
+
+        Log.d("감정분석","initAPI : " + baseUrl);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        emotionAPI = retrofit.create(EmotionAPI.class);
+    }
+
 }

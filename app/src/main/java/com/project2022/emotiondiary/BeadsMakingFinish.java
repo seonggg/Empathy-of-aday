@@ -20,23 +20,27 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firestore.v1.WriteResult;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BeadsMakingFinish extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    ArrayList<Emo> emoArray;
-    ArrayList<String> topArray;
+    ArrayList<Integer> emoArray=new ArrayList<>();
+    ArrayList<String> topArray=new ArrayList<>();
     ImageView bead1;
     ImageView bead2;
     ImageView bead3;
     Button select;
     Button mix;
 
-    String docid;
+    String docid, emotion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +49,14 @@ public class BeadsMakingFinish extends AppCompatActivity {
 
         Intent intent = getIntent();
         docid = intent.getStringExtra("docid");
-        //Toast.makeText(getApplicationContext(),docid,Toast.LENGTH_LONG).show();
+        emotion = intent.getStringExtra("emotion");
+        Log.d("감정분석", "emotion 넘겨받은 값:"+emotion);
 
         bead1 = (ImageView)findViewById(R.id.beadsImage1);
         bead2 = (ImageView)findViewById(R.id.beadsImage2);
         bead3 = (ImageView)findViewById(R.id.beadsImage3);
 
-        EmoExtraction();
+        EmoExtraction(emotion);
         
         //추출된 감정 정보 파이어베이스 문서에 저장
         Map<String, Object> data = new HashMap<>();
@@ -98,28 +103,79 @@ public class BeadsMakingFinish extends AppCompatActivity {
     }
 
     // 상위 감정 3개 추출
-    public void EmoExtraction(){
+    public void EmoExtraction(String emotion){
 
-        emoArray = new ArrayList<>(); // 감정 6개 리스트
-        emoArray.add(new Emo("angry", 8)); // 빨강
-        emoArray.add(new Emo("sad", 56)); // 하늘
-        emoArray.add(new Emo("anxiety", 1)); // 남색
-        emoArray.add(new Emo("hurt", 40)); // 보라
-        emoArray.add(new Emo("emb", 60)); // 연두
-        emoArray.add(new Emo("happy", 20)); // 노랑
+//        emoArray = new ArrayList<>(); // 감정 6개 리스트
+//        emoArray.add(new Emo("angry", 8)); // 빨강
+//        emoArray.add(new Emo("sad", 56)); // 하늘
+//        emoArray.add(new Emo("anxiety", 1)); // 남색
+//        emoArray.add(new Emo("hurt", 40)); // 보라
+//        emoArray.add(new Emo("emb", 60)); // 연두
+//        emoArray.add(new Emo("happy", 20)); // 노랑
+//
+//        topArray = new ArrayList<>(); // 상위 감정 리스트
+//
+//        // 비율이 가장 높은 감정 3개 찾기
+//        for(int i=0; i<3; i++){
+//            int maxIndex = 0;
+//            for(int j = 1; j<emoArray.size(); j++){
+//                if(emoArray.get(j).ratio>emoArray.get(maxIndex).ratio){
+//                    maxIndex = j;
+//                }
+//            }
+//            topArray.add(emoArray.get(maxIndex).emo_name); // topArray에 추가
+//            emoArray.remove(maxIndex); // emoArray에서 삭제
+//        }
 
-        topArray = new ArrayList<>(); // 상위 감정 리스트
+//        emoArray.add(new Emo("angry", 8)); // 빨강
+//        emoArray.add(new Emo("sad", 56)); // 하늘
+//        emoArray.add(new Emo("anxiety", 1)); // 남색
+//        emoArray.add(new Emo("hurt", 40)); // 보라
+//        emoArray.add(new Emo("emb", 60)); // 연두
+//        emoArray.add(new Emo("happy", 20)); // 노랑
 
-        // 비율이 가장 높은 감정 3개 찾기
-        for(int i=0; i<3; i++){
-            int maxIndex = 0;
-            for(int j = 1; j<emoArray.size(); j++){
-                if(emoArray.get(j).ratio>emoArray.get(maxIndex).ratio){
-                    maxIndex = j;
-                }
+        //서버에서 받은 문자열로 감정 가져오기
+        if (emotion.indexOf("happy")>=0){
+            emoArray.add(emotion.indexOf("happy"));
+        }
+        if (emotion.indexOf("angry")>=0){
+            emoArray.add(emotion.indexOf("angry"));
+        }
+        if (emotion.indexOf("sad")>=0){
+            emoArray.add(emotion.indexOf("sad"));
+        }
+        if (emotion.indexOf("anxiety")>=0){
+            emoArray.add(emotion.indexOf("anxiety"));
+        }
+        if (emotion.indexOf("hurt")>=0){
+            emoArray.add(emotion.indexOf("hurt"));
+        }
+        if (emotion.indexOf("emb")>=0){
+            emoArray.add(emotion.indexOf("emb"));
+        }
+
+        Collections.sort(emoArray, Collections.reverseOrder());
+
+        for (int i=0; i<3; i++){
+            if (emotion.indexOf("happy") == emoArray.get(i)){
+                topArray.add("happy");
+                continue;
+            } else if (emotion.indexOf("angry") == emoArray.get(i)){
+                topArray.add("angry");
+                continue;
+            } else if (emotion.indexOf("sad") == emoArray.get(i)){
+                topArray.add("sad");
+                continue;
+            } else if (emotion.indexOf("anxiety") == emoArray.get(i)){
+                topArray.add("anxiety");
+                continue;
+            } else if (emotion.indexOf("hurt") == emoArray.get(i)){
+                topArray.add("hurt");
+                continue;
+            } else if (emotion.indexOf("emb") == emoArray.get(i)){
+                topArray.add("emb");
+                continue;
             }
-            topArray.add(emoArray.get(maxIndex).emo_name); // topArray에 추가
-            emoArray.remove(maxIndex); // emoArray에서 삭제
         }
 
         Toast toast = Toast.makeText(getApplicationContext(), "추출된 감정:"+topArray.get(0)
