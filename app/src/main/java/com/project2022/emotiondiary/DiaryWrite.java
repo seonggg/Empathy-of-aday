@@ -289,6 +289,7 @@ public class DiaryWrite extends AppCompatActivity {
                                     // 감정 분석 화면으로 전환
                                     Intent intent = new Intent(getApplicationContext(), BeadsMaking.class);
                                     intent.putExtra("docid", docid);
+                                    intent.putExtra("content",editText.getText().toString());
                                     startActivity(intent);
                                 }
                             })

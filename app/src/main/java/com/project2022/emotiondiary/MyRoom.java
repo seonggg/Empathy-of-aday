@@ -90,18 +90,18 @@ public class MyRoom extends AppCompatActivity {
 //        getData();
 //    }
 //
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        init();
-        getData();
-    }
-
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        init();
+//        getData();
+//    }
+//
 //    @Override
 //    public void onResume() {
 //        super.onResume();
+//        init();
 //        getData();
-//        adapter.notifyDataSetChanged();
 //    }
 
     @Override

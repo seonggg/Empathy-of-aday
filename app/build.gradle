@@ -62,4 +62,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     //구글 로그인에 필요한 Google Play 서비스 SDK
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
+
+    //감정분석 기능
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
 }
