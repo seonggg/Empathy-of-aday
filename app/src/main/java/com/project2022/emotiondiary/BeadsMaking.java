@@ -29,13 +29,15 @@ public class BeadsMaking extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // server의 url(매번 변경해야 함)
-    private final String BASE_URL = "https://6a9d-222-101-88-23.jp.ngrok.io";
+    private final String BASE_URL = "https://3bf4-222-101-88-23.jp.ngrok.io";
     private EmotionAPI emotionAPI;
 
     String content, result, emotion;
     String docid;
 
     ImageView img;
+
+    Integer post, get;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,9 @@ public class BeadsMaking extends AppCompatActivity {
         content = get_intent.getStringExtra("content");
 
         img=findViewById(R.id.imageView);
+
+        post=0;
+        get=0;
 
         //서버 연결
         initAPI(BASE_URL);
@@ -63,6 +68,7 @@ public class BeadsMaking extends AppCompatActivity {
             public void onResponse(Call<TextItem> call, Response<TextItem> response) {
                 if(response.isSuccessful()){
                     Log.d("감정분석","등록 완료");
+                    post+=1;
                 }else {
                     Log.d("감정분석","Status Code : " + response.code());
                     Log.d("감정분석",response.errorBody().toString());
@@ -75,6 +81,7 @@ public class BeadsMaking extends AppCompatActivity {
                 Log.d("감정분석","Fail msg : " + t.getMessage());
             }
         });
+
 
         new Handler().postDelayed(() -> {
             Log.d("감정분석","GET");

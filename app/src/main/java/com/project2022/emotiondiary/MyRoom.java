@@ -42,7 +42,6 @@ public class MyRoom extends AppCompatActivity {
 
     //테스트
     String email;
-    String id;
 
     private RecyclerViewAdapter adapter;
 
