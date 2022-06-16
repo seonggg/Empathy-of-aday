@@ -15,11 +15,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -39,6 +42,7 @@ public class MyRoom extends AppCompatActivity {
 
     //테스트
     String email;
+    String id;
 
     private RecyclerViewAdapter adapter;
 
@@ -46,6 +50,8 @@ public class MyRoom extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_room);
+
+        Log.d("myroom", "oncreat");
 
         mAuth= FirebaseAuth.getInstance();
         String user_uid = mAuth.getCurrentUser().getUid();
@@ -83,27 +89,6 @@ public class MyRoom extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        init();
-//        getData();
-//    }
-//
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//        init();
-//        getData();
-//    }
-//
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        init();
-//        getData();
-//    }
-
     @Override
     public void onBackPressed() {
         //뒤로가기 막기
@@ -122,6 +107,7 @@ public class MyRoom extends AppCompatActivity {
     }
 
     private void init(){
+        Log.d("myroom", "init");
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
         GridLayoutManager gridmanager = new GridLayoutManager(this, 4);

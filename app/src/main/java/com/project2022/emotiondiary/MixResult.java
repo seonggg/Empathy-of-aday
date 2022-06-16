@@ -58,6 +58,7 @@ public class MixResult extends AppCompatActivity {
         room = findViewById(R.id.room_btn);
         room.setOnClickListener(view -> {
             Intent intent1 = new Intent(getApplicationContext(),MyRoom.class);
+            intent1.putExtra("email",((Info)this.getApplication()).getId());
             startActivity(intent1);
         });
 
