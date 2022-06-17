@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    // adapter에 들어갈 list 입니다.
+    // adapter에 들어갈 list
     private ArrayList<DataBead> listData = new ArrayList<>();
 
     @NonNull
@@ -33,7 +33,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     void addItem(DataBead data) {
-        // 외부에서 item을 추가시킬 함수입니다.
+        // 외부에서 item을 추가
         listData.add(data);
     }
 

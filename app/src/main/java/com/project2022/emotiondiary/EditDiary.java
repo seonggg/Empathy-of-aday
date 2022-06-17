@@ -94,6 +94,7 @@ public class EditDiary extends AppCompatActivity {
 
         weather_button.setOnClickListener(this::OnClickHandler);
 
+        //docid에 해당하는 일기 가져오기
         DocumentReference docRef = db.collection("diary").document(docid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -102,8 +103,6 @@ public class EditDiary extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-
-                        //Diary diary = document.toObject(Diary.class);
 
                         //날짜 불러오기
                         strDate = document.get("date").toString();

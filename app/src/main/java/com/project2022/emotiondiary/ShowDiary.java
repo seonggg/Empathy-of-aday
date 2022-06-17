@@ -83,6 +83,7 @@ public class ShowDiary extends AppCompatActivity {
 
         actionBarView = intent.getBooleanExtra("actionbar",true);
 
+        //docid에 해당하는 일기 불러오기
         DocumentReference docRef = db.collection("diary").document(docid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -180,14 +181,14 @@ public class ShowDiary extends AppCompatActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.edit_btn:
-                Toast.makeText(getApplicationContext(),"수정하기",Toast.LENGTH_SHORT).show();
+                //일기 수정
                 Intent intent = new Intent(getApplicationContext(), EditDiary.class);
                 intent.putExtra("docid", docid);
                 startActivity(intent);
 
                 return true;
             case R.id.delete_btn:
-                Toast.makeText(getApplicationContext(),"삭제하기",Toast.LENGTH_SHORT).show();
+                //일기 삭제
                 AlertDialog.Builder builder = new AlertDialog.Builder(ShowDiary.this);
                 builder.setTitle("일기 삭제하기");
                 builder.setMessage("일기를 삭제하면 복구할 수 없습니다.\n삭제하시겠습니까?");
@@ -206,6 +207,7 @@ public class ShowDiary extends AppCompatActivity {
                 builder.create().show();
                 return true;
             case R.id.show_btn:
+                //같은 감정 일기 보여주기
                 Intent intent2 = new Intent(getApplicationContext(),ShareList.class);
                 intent2.putExtra("show",true);
                 intent2.putExtra("docid",docid);

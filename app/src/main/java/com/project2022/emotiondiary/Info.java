@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
 public class Info extends Application {
+    // 사용자의 아이디, 닉네임 전역변수 선언
 
     private String id;
 

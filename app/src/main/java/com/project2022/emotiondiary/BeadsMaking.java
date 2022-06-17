@@ -29,7 +29,7 @@ public class BeadsMaking extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // server의 url(매번 변경해야 함)
-    private final String BASE_URL = "https://3bf4-222-101-88-23.jp.ngrok.io";
+    private final String BASE_URL = "https://1879-222-101-88-23.jp.ngrok.io";
     private EmotionAPI emotionAPI;
 
     String content, result, emotion;
@@ -62,6 +62,8 @@ public class BeadsMaking extends AppCompatActivity {
         TextItem item = new TextItem();
         item.setText(content);
         Log.d("감정분석",item.getText());
+        
+        //일기 내용 서버로 보내기
         Call<TextItem> postCall = emotionAPI.text_text(item);
         postCall.enqueue(new Callback<TextItem>() {
             @Override
@@ -82,7 +84,7 @@ public class BeadsMaking extends AppCompatActivity {
             }
         });
 
-
+        //분석된 감정 값 가져오기
         new Handler().postDelayed(() -> {
             Log.d("감정분석","GET");
             Call<List<TextItem>> getCall = emotionAPI.get_text();
@@ -111,7 +113,7 @@ public class BeadsMaking extends AppCompatActivity {
                     Log.d("감정분석", "결과값 비었음");
                     result="['happy', 'sad', 'hurt']";
                 }
-
+                
                 Log.d("감정분석",result);
                 Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
                 intent.putExtra("docid",docid);
@@ -128,6 +130,7 @@ public class BeadsMaking extends AppCompatActivity {
         //super.onBackPressed();
     }
 
+    //서버 통신 api 초기화
     private void initAPI(String baseUrl){
 
         Log.d("감정분석","initAPI : " + baseUrl);

@@ -60,7 +60,7 @@ public class MyRoom extends AppCompatActivity {
         Intent intent_e = getIntent();
         email = intent_e.getStringExtra("email");
 
-        //일기 구슬 보여주기
+        //일기 구슬 보여주기(구슬 전시)
         init();
         getData();
 
@@ -105,6 +105,7 @@ public class MyRoom extends AppCompatActivity {
         }
     }
 
+    //구슬 전시 리사이클러뷰 설정
     private void init(){
         Log.d("myroom", "init");
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -116,6 +117,7 @@ public class MyRoom extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    //최근 일기 데이터 불러오기
     private void getData() {
         db.collection("diary")
                 .orderBy("timestamp", Query.Direction.DESCENDING)

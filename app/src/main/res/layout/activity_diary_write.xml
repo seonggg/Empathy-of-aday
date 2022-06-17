@@ -151,7 +151,6 @@
                 android:background="#e9f0ff"
                 android:fontFamily="@font/applesdgothicneo"
                 android:hint="일기를 작성하세요"
-                android:text="신난다! 슬프다. 화난다."
                 android:inputType="textMultiLine"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
