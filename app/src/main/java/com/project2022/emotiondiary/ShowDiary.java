@@ -51,7 +51,7 @@ public class ShowDiary extends AppCompatActivity {
 
     ArrayList<Uri> imgArray = new ArrayList<>();
 
-    String docid;
+    String docid, id;
     Boolean actionBarView;
 
     Integer pictures;
@@ -62,6 +62,8 @@ public class ShowDiary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_diary);
+
+        id = ((Info)this.getApplication()).getId();
 
         //액션바 커스텀
         toolbar = findViewById(R.id.toolbar);
@@ -207,6 +209,7 @@ public class ShowDiary extends AppCompatActivity {
                         db.collection("diary").document(docid).delete();
                         delete_img(docid, pictures);
                         Intent intent = new Intent(getApplicationContext(), MyRoom.class);
+                        intent.putExtra("email",id);
                         startActivity(intent);
                     }
                 });

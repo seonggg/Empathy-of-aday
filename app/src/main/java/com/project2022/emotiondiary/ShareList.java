@@ -269,6 +269,7 @@ public class ShareList extends AppCompatActivity {
 
             homeBtn.setOnClickListener(view -> {
                 Intent intent7 = new Intent(getApplicationContext(),MyRoom.class);
+                intent7.putExtra("email",((Info)this.getApplication()).getId());
                 startActivity(intent7);
             });
         }
