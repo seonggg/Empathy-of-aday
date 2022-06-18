@@ -13,6 +13,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public TextView timeView;
     public TextView contentView;
     public TextView deleteView;
+    public TextView recommentView;
+    public View frontView;
 
     public ViewHolder(Context context, @NonNull View itemView) {
         super(itemView);
@@ -21,5 +23,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         timeView = itemView.findViewById(R.id.time_view);
         contentView = itemView.findViewById(R.id.content_view);
         deleteView = itemView.findViewById(R.id.cDelete_btn);
+        recommentView = itemView.findViewById(R.id.recomment_btn);
+        frontView = itemView.findViewById(R.id.front_view);
     }
 }

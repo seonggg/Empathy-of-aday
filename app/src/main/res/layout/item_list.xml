@@ -2,60 +2,75 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_marginHorizontal="15dp"
     android:layout_marginVertical="10dp">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:visibility="gone"
+        android:id="@+id/front_view"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/nickname_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="viewStart"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/time_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="viewEnd"
+                android:textSize="15sp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:gravity="right">
+
+
+            <TextView
+                android:id="@+id/cDelete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="삭제"
+                android:layout_marginEnd="10dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/recomment_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="답글" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/nickname_view"
+            android:id="@+id/content_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textAlignment="viewStart"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/time_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="viewEnd"
-            android:textSize="15sp"/>
-
+            android:textSize="20sp"/>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:gravity="right">
-
-
-        <TextView
-            android:id="@+id/cDelete_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="삭제"
-            android:layout_marginEnd="10dp"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/recomment_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="답글" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/content_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="viewStart"
-        android:textSize="20sp"/>
 
 </LinearLayout>
