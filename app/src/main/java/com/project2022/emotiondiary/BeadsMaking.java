@@ -29,7 +29,7 @@ public class BeadsMaking extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // server의 url(매번 변경해야 함)
-    private final String BASE_URL = "https://1879-222-101-88-23.jp.ngrok.io";
+    private final String BASE_URL = "https://b251-222-101-88-23.jp.ngrok.io";
     private EmotionAPI emotionAPI;
 
     String content, result, emotion;
@@ -55,7 +55,6 @@ public class BeadsMaking extends AppCompatActivity {
 
         //서버 연결
         initAPI(BASE_URL);
-        //emotion = analysis_emotion(content);
 
         //서버를 통해 감정분석 진행
         Log.d("감정분석","POST");
