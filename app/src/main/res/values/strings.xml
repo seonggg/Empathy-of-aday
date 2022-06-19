@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EmotionDiary</string>
+    <string name="app_name">하루공감</string>
     <string name="title_activity_my_room">MyRoom</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

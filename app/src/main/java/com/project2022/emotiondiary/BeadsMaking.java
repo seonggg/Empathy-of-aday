@@ -110,7 +110,7 @@ public class BeadsMaking extends AppCompatActivity {
                 //서버 연결이 안되면 임의의 값 집어넣기
                 if (result==null){
                     Log.d("감정분석", "결과값 비었음");
-                    result="['happy', 'sad', 'hurt']";
+                    result="['emb', 'sad', 'hurt']";
                 }
                 
                 Log.d("감정분석",result);
@@ -118,8 +118,9 @@ public class BeadsMaking extends AppCompatActivity {
                 intent.putExtra("docid",docid);
                 intent.putExtra("emotion",result);
                 startActivity(intent);
-            },5000);
-        },100000);
+            },1000);
+        },1000);
+        //},100000);
 
     }
 

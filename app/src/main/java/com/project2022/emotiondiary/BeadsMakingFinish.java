@@ -156,7 +156,7 @@ public class BeadsMakingFinish extends AppCompatActivity {
 
         Collections.sort(emoArray, Collections.reverseOrder());
 
-        for (int i=0; i<3; i++){
+        for (int i=0; i<=emoArray.size()-1; i++){
             if (emotion.indexOf("happy") == emoArray.get(i)){
                 topArray.add("happy");
                 continue;
@@ -177,6 +177,8 @@ public class BeadsMakingFinish extends AppCompatActivity {
                 continue;
             }
         }
+        Log.d("감정분석", emoArray.toString());
+        Log.d("감정분석", topArray.toString());
 
         Toast toast = Toast.makeText(getApplicationContext(), "추출된 감정:"+topArray.get(0)
                 +","+topArray.get(1)+","+topArray.get(2),Toast.LENGTH_SHORT);
