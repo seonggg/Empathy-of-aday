@@ -6,11 +6,11 @@
 
     <ImageView
         android:id="@+id/grid_img"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         app:layout_constraintDimensionRatio="1:1"
         android:src="@drawable/happy"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="13dp"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         app:layout_constraintEnd_toEndOf="parent"

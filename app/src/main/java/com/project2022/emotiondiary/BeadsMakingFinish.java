@@ -154,7 +154,7 @@ public class BeadsMakingFinish extends AppCompatActivity {
             emoArray.add(emotion.indexOf("hurt"));
         }
 
-        Collections.sort(emoArray, Collections.reverseOrder());
+        //Collections.sort(emoArray, Collections.reverseOrder());
 
         for (int i=0; i<=emoArray.size()-1; i++){
             if (emotion.indexOf("happy") == emoArray.get(i)){

@@ -120,7 +120,7 @@
                 <ImageView
                     android:id="@+id/photoView"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="300dp"
                     android:adjustViewBounds="true"
                     android:foreground="@drawable/square_border_black"
                     android:scaleType="centerCrop"
@@ -142,7 +142,7 @@
             <EditText
                 android:id="@+id/editText"
                 android:layout_width="0dp"
-                android:layout_height="250dp"
+                android:layout_height="350dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"

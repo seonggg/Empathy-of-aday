@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="댓글 작성"
+            android:fontFamily="@font/applesdgothicneo"
             android:inputType="textLongMessage"
             android:layout_weight="1"
             android:textSize="20sp"/>
@@ -58,6 +59,9 @@
                 android:id="@+id/comment_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/btn_style"
+                android:textColor="#6A8CE0"
+                android:fontFamily="@font/applesdgothicneo"
                 android:text="확인" />
 
         </LinearLayout>

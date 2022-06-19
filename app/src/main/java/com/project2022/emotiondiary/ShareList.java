@@ -280,6 +280,7 @@ public class ShareList extends AppCompatActivity {
             for(int i = 1; i<splitStr.length+1; i++) {
                 if (i == 1) {
                     diaryId1 = splitStr[0];
+                    Log.d("TAG", diaryId1);
                     DocumentReference docRef2 = db.collection("diary").document(diaryId1);
                     docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
