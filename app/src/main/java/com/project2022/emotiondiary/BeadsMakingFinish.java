@@ -141,6 +141,9 @@ public class BeadsMakingFinish extends AppCompatActivity {
         if (emotion.indexOf("angry")>=0){
             emoArray.add(emotion.indexOf("angry"));
         }
+        if (emotion.indexOf("emb")>=0){
+            emoArray.add(emotion.indexOf("emb"));
+        }
         if (emotion.indexOf("sad")>=0){
             emoArray.add(emotion.indexOf("sad"));
         }
@@ -149,9 +152,6 @@ public class BeadsMakingFinish extends AppCompatActivity {
         }
         if (emotion.indexOf("hurt")>=0){
             emoArray.add(emotion.indexOf("hurt"));
-        }
-        if (emotion.indexOf("emb")>=0){
-            emoArray.add(emotion.indexOf("emb"));
         }
 
         Collections.sort(emoArray, Collections.reverseOrder());

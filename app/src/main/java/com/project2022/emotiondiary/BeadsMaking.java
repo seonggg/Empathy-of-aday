@@ -5,20 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.telecom.Call;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -61,10 +55,11 @@ public class BeadsMaking extends AppCompatActivity {
         TextItem item = new TextItem();
         item.setText(content);
         Log.d("감정분석",item.getText());
+
         retrofit2.Call<TextItem> postCall = emotionAPI.text_text(item);
 
         //일기 내용 서버로 보내기
-        Call<TextItem> postCall = emotionAPI.text_text(item);
+        postCall = emotionAPI.text_text(item);
         postCall.enqueue(new Callback<TextItem>() {
             @Override
             public void onResponse(retrofit2.Call<TextItem> call, Response<TextItem> response) {
@@ -119,9 +114,8 @@ public class BeadsMaking extends AppCompatActivity {
                 intent.putExtra("docid",docid);
                 intent.putExtra("emotion",result);
                 startActivity(intent);
-            },1000);
-        },1000);
-        //},100000);
+            },5000);
+        },100000);
 
     }
 
