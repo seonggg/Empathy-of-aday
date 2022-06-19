@@ -1,11 +1,14 @@
 package com.project2022.emotiondiary;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,7 +17,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -31,6 +33,7 @@ import java.util.Objects;
 
 public class ShareList extends AppCompatActivity {
 
+    Toolbar toolbar;
     ArrayList<String> topArray;
     int size;
     String curEmail;
@@ -55,6 +58,14 @@ public class ShareList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_list);
+
+        //액션바 커스텀
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
+        actionBar.setDisplayHomeAsUpEnabled(true); //뒤로 가기 버튼
 
         nickname1 = findViewById(R.id.name_view1);
         nickname2 = findViewById(R.id.name_view2);
@@ -90,7 +101,6 @@ public class ShareList extends AppCompatActivity {
         divider4.setVisibility(View.GONE);
         divider5.setVisibility(View.GONE);
         homeBtn.setVisibility(View.GONE);
-
 
         UserArray = new ArrayList<>();
         saveArray = new ArrayList<>();
@@ -426,5 +436,15 @@ public class ShareList extends AppCompatActivity {
         }
         else
             Toast.makeText(getApplicationContext(),"array가 null",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -54,6 +55,8 @@ public class ShowDiary extends AppCompatActivity {
     Boolean actionBarView;
 
     Integer pictures;
+
+    FloatingActionButton floatBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +167,15 @@ public class ShowDiary extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(), "최신 일기 불러오기 실패", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        //플로팅 버튼
+        floatBtn = findViewById(R.id.floatingActionButton);
+
+        floatBtn.setOnClickListener(view -> {
+            Intent fBtnIntent = new Intent(getApplicationContext(),Comment.class);
+            fBtnIntent.putExtra("docid",docid);
+            startActivity(fBtnIntent);
         });
 
     }

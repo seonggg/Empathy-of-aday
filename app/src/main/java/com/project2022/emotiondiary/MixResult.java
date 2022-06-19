@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.SetOptions;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class MixResult extends AppCompatActivity {
 
@@ -27,11 +29,20 @@ public class MixResult extends AppCompatActivity {
     Button room, share;
 
     String docid;
+    MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mix_result);
+
+        // 재생될 노래 선택
+        int[] mp3Arr = {R.raw.sample1, R.raw.sample2, R.raw.sample3};
+        Random random = new Random();
+        int randNum = random.nextInt(mp3Arr.length);
+
+        mMediaPlayer = MediaPlayer.create(this, mp3Arr[randNum]);
+        mMediaPlayer.start();
 
         bead = findViewById(R.id.bead_img);
 
@@ -60,6 +71,7 @@ public class MixResult extends AppCompatActivity {
             Intent intent1 = new Intent(getApplicationContext(),MyRoom.class);
             intent1.putExtra("email",((Info)this.getApplication()).getId());
             startActivity(intent1);
+            finish(); // 음악 계속 재생됨 방지
         });
 
         //공유하기 버튼
@@ -84,6 +96,7 @@ public class MixResult extends AppCompatActivity {
                     intent.putExtra("size",size);
                     intent.putExtra("docid",docid);
                     startActivity(intent);
+                    finish(); // 음악 계속 재생됨 방지
                 }
             });
             dlg.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -93,6 +106,14 @@ public class MixResult extends AppCompatActivity {
             });
             dlg.show();
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mMediaPlayer.isPlaying()) {
+            mMediaPlayer.stop();
+        }
     }
 
     //뒤로가기 막기

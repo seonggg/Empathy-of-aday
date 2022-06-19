@@ -23,15 +23,6 @@
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="423dp" />
 
-    <Button
-        android:id="@+id/google_login_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Google"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="484dp" />
-
     <TextView
         android:id="@+id/signup_textview"
         android:layout_width="wrap_content"
