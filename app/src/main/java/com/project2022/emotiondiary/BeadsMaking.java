@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -62,10 +62,10 @@ public class BeadsMaking extends AppCompatActivity {
         TextItem item = new TextItem();
         item.setText(content);
         Log.d("감정분석",item.getText());
-        Call<TextItem> postCall = emotionAPI.text_text(item);
+        retrofit2.Call<TextItem> postCall = emotionAPI.text_text(item);
         postCall.enqueue(new Callback<TextItem>() {
             @Override
-            public void onResponse(Call<TextItem> call, Response<TextItem> response) {
+            public void onResponse(retrofit2.Call<TextItem> call, Response<TextItem> response) {
                 if(response.isSuccessful()){
                     Log.d("감정분석","등록 완료");
                     post+=1;
@@ -77,7 +77,7 @@ public class BeadsMaking extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<TextItem> call, Throwable t) {
+            public void onFailure(retrofit2.Call<TextItem> call, Throwable t) {
                 Log.d("감정분석","Fail msg : " + t.getMessage());
             }
         });
@@ -85,10 +85,10 @@ public class BeadsMaking extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             Log.d("감정분석","GET");
-            Call<List<TextItem>> getCall = emotionAPI.get_text();
+            retrofit2.Call<List<TextItem>> getCall = emotionAPI.get_text();
             getCall.enqueue(new Callback<List<TextItem>>() {
                 @Override
-                public void onResponse(Call<List<TextItem>> call, Response<List<TextItem>> response) {
+                public void onResponse(retrofit2.Call<List<TextItem>> call, Response<List<TextItem>> response) {
                     if (response.isSuccessful()) {
                         List<TextItem> mList = response.body();
                         for (TextItem item : mList) {
@@ -100,7 +100,7 @@ public class BeadsMaking extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<List<TextItem>> call, Throwable t) {
+                public void onFailure(retrofit2.Call<List<TextItem>> call, Throwable t) {
                     Log.d("감정분석", "Fail msg : " + t.getMessage());
                 }
             });
