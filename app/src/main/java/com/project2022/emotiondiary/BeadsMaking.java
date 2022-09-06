@@ -23,7 +23,7 @@ public class BeadsMaking extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // server의 url(매번 변경해야 함)
-    private final String BASE_URL = "https://a258-222-101-88-23.jp.ngrok.io";
+    private final String BASE_URL = "https://3cef-220-116-191-32.jp.ngrok.io";
     private EmotionAPI emotionAPI;
 
     String content, result, emotion;
@@ -101,21 +101,21 @@ public class BeadsMaking extends AppCompatActivity {
                     Log.d("감정분석", "Fail msg : " + t.getMessage());
                 }
             });
+        },80000);
 
-            new Handler().postDelayed(() -> {
-                //서버 연결이 안되면 임의의 값 집어넣기
-                if (result==null){
-                    Log.d("감정분석", "결과값 비었음");
-                    result="['emb', 'sad', 'hurt']";
-                }
+        new Handler().postDelayed(() -> {
+            //서버 연결이 안되면 임의의 값 집어넣기
+            if (result==null){
+                Log.d("감정분석", "결과값 비었음");
+                result="['emb', 'sad', 'hurt']";
+            }
 
-                Log.d("감정분석",result);
-                Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
-                intent.putExtra("docid",docid);
-                intent.putExtra("emotion",result);
-                startActivity(intent);
-            },5000);
-        },100000);
+            Log.d("감정분석",result);
+            Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
+            intent.putExtra("docid",docid);
+            intent.putExtra("emotion",result);
+            startActivity(intent);
+        },95000);
 
     }
 
