@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="344dp"
-        android:layout_height="446dp"
+        android:layout_height="400dp"
+        android:backgroundTint="#FED2EF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
@@ -16,17 +17,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.109">
 
-        <CalendarView
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:focusedMonthDateColor="#000000"
-            android:selectedWeekBackgroundColor="#ffffff"
-            android:unfocusedMonthDateColor="#CFCACA"
             android:layout_weight="5"
-            tools:ignore="MissingConstraints">
+            app:mcv_selectionColor="#FED2EF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp">
 
-        </CalendarView>
+        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

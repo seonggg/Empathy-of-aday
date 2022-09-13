@@ -114,7 +114,7 @@ public class MyRoom extends AppCompatActivity {
         calenderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calendarDialog = new CalendarDialog(MyRoom.this);
+                calendarDialog = new CalendarDialog(MyRoom.this,email);
                 calendarDialog.show();
             }
         });
