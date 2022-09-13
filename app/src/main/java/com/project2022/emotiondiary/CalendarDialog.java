@@ -20,6 +20,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter;
+import com.prolificinteractive.materialcalendarview.format.MonthArrayTitleFormatter;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.Calendar;
 
 public class CalendarDialog extends Dialog {
 
@@ -33,6 +39,14 @@ public class CalendarDialog extends Dialog {
         setContentView(R.layout.activity_calendar_dialog);
 
         calendarView = findViewById(R.id.calendar);
+
+//        calendarView.state()
+//                        .edit()
+//                                .setFirstDayOfWeek(DayOfWeek.of(Calendar.SUNDAY))
+//                                        .commit();
+
+        calendarView.setTitleFormatter(new MonthArrayTitleFormatter(getContext().getResources().getTextArray(R.array.custom_months)));
+        calendarView.setWeekDayFormatter(new ArrayWeekDayFormatter(getContext().getResources().getTextArray(R.array.custom_weekdays)));
 
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             String mm,dd;
