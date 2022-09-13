@@ -12,6 +12,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -49,17 +50,18 @@ public class MyRoom extends AppCompatActivity {
 
     private RecyclerViewAdapter adapter;
 
-    Calendar myCalendar = Calendar.getInstance();
-
-    DatePickerDialog.OnDateSetListener myDatePicker = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, month);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            //updateLabel();
-        }
-    };
+//    Calendar myCalendar = Calendar.getInstance();
+//
+//    DatePickerDialog.OnDateSetListener myDatePicker = new DatePickerDialog.OnDateSetListener() {
+//        @Override
+//        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//            myCalendar.set(Calendar.YEAR, year);
+//            myCalendar.set(Calendar.MONTH, month);
+//            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//            //updateLabel();
+//        }
+//    };
+    private CalendarDialog calendarDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,14 +104,30 @@ public class MyRoom extends AppCompatActivity {
             startActivity(intent);*/
         });
 
+        //다이얼로그 밖의 화면은 흐리게 만들어줌
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        layoutParams.dimAmount = 0.8f;
+        getWindow().setAttributes(layoutParams);
+
         calenderBtn=findViewById(R.id.calenderBtn);
         calenderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(MyRoom.this, myDatePicker, myCalendar.get(Calendar.YEAR),
-                        myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                calendarDialog = new CalendarDialog(MyRoom.this);
+                calendarDialog.show();
             }
         });
+
+//        calenderBtn=findViewById(R.id.calenderBtn);
+//        calenderBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                new DatePickerDialog(MyRoom.this, myDatePicker, myCalendar.get(Calendar.YEAR),
+//                        myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+//            }
+//        });
+
     }
 
     @Override

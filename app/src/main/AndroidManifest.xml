@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmotionDiary.NoActionBar">
         <activity
+            android:name=".CalendarDialog"
+            android:exported="false" />
+        <activity
             android:name=".Comment"
             android:exported="false" />
         <activity
