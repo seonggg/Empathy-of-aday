@@ -1,11 +1,14 @@
 package com.project2022.emotiondiary;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +19,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,6 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class ChangeName extends AppCompatActivity {
 
+    Toolbar toolbar;
     EditText nicknameEdit;
     Button checkBtn;
     Button changeBtn;
@@ -39,6 +42,14 @@ public class ChangeName extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_name);
+
+        //액션바 커스텀
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
+        actionBar.setDisplayHomeAsUpEnabled(true); //뒤로 가기 버튼
 
         // 이전 액티비티 종료
         SettingActivity settingActivity = (SettingActivity)SettingActivity.settingActivity;
@@ -104,7 +115,6 @@ public class ChangeName extends AppCompatActivity {
                     });
                     Toast.makeText(ChangeName.this, "닉네임이 변경되었습니다",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ChangeName.this,SettingActivity.class);
-                    intent.putExtra("change", 1);
                     startActivity(intent);
                     finish();
                 }
@@ -114,5 +124,19 @@ public class ChangeName extends AppCompatActivity {
                 Toast.makeText(ChangeName.this, "변경하실 닉네임을 입력하세요", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                //select back button
+                Intent intent = new Intent(ChangeName.this,SettingActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
