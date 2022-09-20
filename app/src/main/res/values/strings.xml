@@ -25,13 +25,13 @@
     </string-array>
 
     <string-array name="custom_weekdays">
-        <item>Sun</item>
         <item>Mon</item>
         <item>Tue</item>
         <item>Wed</item>
         <item>Thu</item>
         <item>Fri</item>
         <item>Sat</item>
+        <item>Sun</item>
     </string-array>
 
     <string-array name="custom_months">
@@ -48,4 +48,6 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
