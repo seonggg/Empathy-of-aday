@@ -19,6 +19,12 @@
             android:name=".CalendarDialog"
             android:exported="false" />
         <activity
+            android:name=".ChangeName"
+            android:exported="false" />
+        <activity
+            android:name=".GoogleSignUp"
+            android:exported="false" />
+        <activity
             android:name=".Comment"
             android:exported="false" />
         <activity

@@ -75,8 +75,12 @@ public class MyRoom extends AppCompatActivity {
         ((Info)this.getApplication()).setId(user_uid);
         ((Info)this.getApplication()).setNick(user_uid);
 
-        Intent intent_e = getIntent();
-        email = intent_e.getStringExtra("email");
+        //Intent intent_e = getIntent();
+        //email = intent_e.getStringExtra("email");
+
+        Toast.makeText(getApplicationContext(), "로그인 되었습니다", Toast.LENGTH_SHORT).show();
+
+        email = mAuth.getCurrentUser().getEmail();
 
         //일기 구슬 보여주기(구슬 전시)
         init();
@@ -93,15 +97,14 @@ public class MyRoom extends AppCompatActivity {
         // 환경설정 버튼
         settingBtn = findViewById(R.id.setting_btn);
         settingBtn.setOnClickListener(view -> {
+            /*
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(MyRoom.this,"로그아웃되었습니다",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MyRoom.this,LoginActivity.class);
             startActivity(intent);
-            /*
-            Toast.makeText(MyRoom.this,"로그아웃되었습니다",Toast.LENGTH_SHORT).show();
+            */
             Intent intent = new Intent(MyRoom.this,SettingActivity.class);
-            intent.putExtra("email",email);
-            startActivity(intent);*/
+            startActivity(intent);
         });
 
         //다이얼로그 밖의 화면은 흐리게 만들어줌

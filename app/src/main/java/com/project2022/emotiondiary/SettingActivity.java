@@ -1,56 +1,117 @@
 package com.project2022.emotiondiary;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import org.w3c.dom.Text;
 
 public class SettingActivity extends AppCompatActivity {
 
-    TextView email;
-    TextView logout;
-    String emailText;
+    TextView nickname;
+    String email;
+    TextView logoutBtn;
+    TextView beadsCount;
+    TextView changeNameBtn;
+    FirebaseAuth mAuth;
+    FirebaseFirestore db= FirebaseFirestore.getInstance();
+    public static Activity settingActivity;
 
-    //*******************************아직 미완성***************************************
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        email = findViewById(R.id.email_editText);
-        logout = findViewById(R.id.logout_textView);
-        Intent intent = getIntent();
-        emailText = intent.getStringExtra("email");
-        email.setText(emailText);
+        settingActivity = SettingActivity.this;
 
-        /*
-        DocumentReference docRef = db.collection("user").document(emailText);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+        nickname = findViewById(R.id.show_nickname);
+        logoutBtn = findViewById(R.id.logout_btn);
+        beadsCount = findViewById(R.id.show_beadscount);
+        changeNameBtn = findViewById(R.id.change_nick_btn);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        // 닉네임 표시
+        DocumentReference docRef = db.collection("user").document(mAuth.getCurrentUser().getUid());
+        docRef.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    nickname.setText(document.get("user_nickname").toString() + " 님");
+                }
+                else{
+                    nickname.setText(document.get("닉네임 오류").toString());
                 }
             }
-        });*/
+            else{
+                Log.d("NoDoc", "No such document");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "최신 일기 불러오기 실패", Toast.LENGTH_SHORT).show();
+                Log.w("DocError", "get failed with ", e);
+            }
+        });
 
-        //로그아웃
-        logout.setOnClickListener(view -> {
-            FirebaseAuth.getInstance().signOut();
-            Toast.makeText(SettingActivity.this,"로그아웃되었습니다",Toast.LENGTH_SHORT).show();
-            Intent intent1 = new Intent(SettingActivity.this,LoginActivity.class);
+        // 구슬 개수 표시
+        email = ((Info)this.getApplication()).getId();
+        CollectionReference colRef = db.collection("diary");
+        colRef.whereEqualTo("writer_id",email).get().addOnCompleteListener(task -> {
+           if(task.isSuccessful()){
+               int count = 0;
+               for (QueryDocumentSnapshot document : task.getResult()) {
+                   count++;
+               }
+               beadsCount.setText("구슬 "+ count + "개 " + "보유중");
+           }
+           else{
+               Log.d("Error", "Error getting documents: ", task.getException());
+           }
+        });
+
+        //**** 설정 목록 ****
+        //닉네임 변경
+        changeNameBtn.setOnClickListener(view -> {
+            Intent intent1 = new Intent(SettingActivity.this,ChangeName.class);
             startActivity(intent1);
         });
+
+        //알림 온오프
+
+        //비밀번호로 잠그기
+
+        //테마 바꾸기
+
+        //로그아웃
+        logoutBtn.setOnClickListener(view -> {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(SettingActivity.this,"로그아웃되었습니다",Toast.LENGTH_SHORT).show();
+            Intent intent5 = new Intent(SettingActivity.this,LoginActivity.class);
+            startActivity(intent5);
+        });
+
+        //의견 보내기
+
+        //FAQ
+
+        //버전 정보
+
+        //이용약관
     }
 }
