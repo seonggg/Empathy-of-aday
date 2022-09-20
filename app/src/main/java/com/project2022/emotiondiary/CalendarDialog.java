@@ -89,9 +89,8 @@ public class CalendarDialog extends Dialog {
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 for (DocumentSnapshot ds : queryDocumentSnapshots.getDocuments()) {
                                     String docid = ds.getId();
-//                                        Intent intent = new Intent(context, ShowDiary.class);
-//                                        intent.putExtra("docid", docid);
-//                                        context.startActivity(intent);
+                                    Log.i("디버깅", docid);
+
                                     //docid에 해당하는 일기 불러오기
                                     DocumentReference docRef = db.collection("diary").document(docid);
                                     docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
