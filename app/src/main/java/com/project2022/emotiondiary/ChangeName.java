@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -59,7 +60,28 @@ public class ChangeName extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        nicknameEdit.setText(((Info)this.getApplication()).getNick());
+        // 에디트텍스트에 본인 닉네임 표시
+        DocumentReference docRef = db.collection("user").document(mAuth.getCurrentUser().getUid());
+        docRef.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    nicknameEdit.setText(document.get("user_nickname").toString());
+                }
+                else{
+                    nicknameEdit.setText(document.get("닉네임 오류").toString());
+                }
+            }
+            else{
+                Log.d("NoDoc", "No such document");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "최신 일기 불러오기 실패", Toast.LENGTH_SHORT).show();
+                Log.w("DocError", "get failed with ", e);
+            }
+        });
 
         // 중복확인
         checkBtn = findViewById(R.id.check_btn);
@@ -101,7 +123,7 @@ public class ChangeName extends AppCompatActivity {
                 }
                 else{
                     //닉네임 업데이트(user 문서 업데이트)
-                    DocumentReference docRef = db.collection("user").document(mAuth.getCurrentUser().getUid());
+                    //DocumentReference docRef = db.collection("user").document(mAuth.getCurrentUser().getUid());
                     docRef.update("user_nickname",nicknameEdit.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {

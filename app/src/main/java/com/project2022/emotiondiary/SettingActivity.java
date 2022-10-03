@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.project2022.emotiondiary.applock.HomePage;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -30,9 +32,13 @@ public class SettingActivity extends AppCompatActivity {
     TextView logoutBtn;
     TextView beadsCount;
     TextView changeNameBtn;
+    TextView noticeBtn;
+    TextView lockBtn;
     FirebaseAuth mAuth;
     FirebaseFirestore db= FirebaseFirestore.getInstance();
     public static Activity settingActivity;
+    public static Context context_main;
+    public static String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +59,13 @@ public class SettingActivity extends AppCompatActivity {
         logoutBtn = findViewById(R.id.logout_btn);
         beadsCount = findViewById(R.id.show_beadscount);
         changeNameBtn = findViewById(R.id.change_nick_btn);
+        noticeBtn = findViewById(R.id.notice_btn);
+        lockBtn = findViewById(R.id.lock_btn);
 
         mAuth = FirebaseAuth.getInstance();
+
+        context_main = this;
+        path = "start";
 
         // 닉네임 표시
         DocumentReference docRef = db.collection("user").document(mAuth.getCurrentUser().getUid());
@@ -95,7 +106,6 @@ public class SettingActivity extends AppCompatActivity {
            }
         });
 
-        //**** 설정 목록 ****
         //닉네임 변경
         changeNameBtn.setOnClickListener(view -> {
             Intent intent1 = new Intent(SettingActivity.this,ChangeName.class);
@@ -103,8 +113,18 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         //알림 온오프
+        noticeBtn.setOnClickListener(view -> {
+            Intent intent2 = new Intent(SettingActivity.this, PushNotification.class);
+            startActivity(intent2);
+        });
 
         //비밀번호로 잠그기
+        lockBtn.setOnClickListener(view -> {
+            path = "setting";
+            Intent intent3 = new Intent(SettingActivity.this, HomePage.class);
+            startActivity(intent3);
+        });
+
 
         //테마 바꾸기
 
