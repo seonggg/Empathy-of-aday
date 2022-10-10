@@ -1,28 +1,50 @@
 package com.project2022.emotiondiary;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.project2022.emotiondiary.applock.HomePage;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -34,11 +56,18 @@ public class SettingActivity extends AppCompatActivity {
     TextView changeNameBtn;
     TextView noticeBtn;
     TextView lockBtn;
+    CircleImageView profileImg;
+
     FirebaseAuth mAuth;
     FirebaseFirestore db= FirebaseFirestore.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
     public static Activity settingActivity;
     public static Context context_main;
     public static String path;
+    String id;
+
+    Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +90,43 @@ public class SettingActivity extends AppCompatActivity {
         changeNameBtn = findViewById(R.id.change_nick_btn);
         noticeBtn = findViewById(R.id.notice_btn);
         lockBtn = findViewById(R.id.lock_btn);
+        profileImg = findViewById(R.id.profileImage);
 
         mAuth = FirebaseAuth.getInstance();
+        id = mAuth.getCurrentUser().getUid();
 
         context_main = this;
         path = "start";
+
+        // 프로필 사진 변경
+        profileImg.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            startActivityResult.launch(intent);
+        });
+
+        // 프로필 사진 불러오기
+        StorageReference storageRef = storage.getReference();
+        StorageReference pathRef = storageRef.child("user");
+        if (pathRef == null) {
+            Toast.makeText(getApplicationContext(), "저장소에 사진이 없습니다.", Toast.LENGTH_SHORT).show();
+        } else {
+            storageRef.child("user/" + id + "_profileImg.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    // Got the download URL for 'users/me/profile.png'
+                    Glide.with(getApplicationContext())
+                            .load(uri)
+                            .into(profileImg);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    Log.d("profile_fail","프로필 사진 불러오기 실패");
+                }
+            });
+        }
 
         // 닉네임 표시
         DocumentReference docRef = db.collection("user").document(mAuth.getCurrentUser().getUid());
@@ -143,6 +204,54 @@ public class SettingActivity extends AppCompatActivity {
         //버전 정보
 
         //이용약관
+    }
+
+    ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == RESULT_OK && result.getData() != null){
+                        uri = result.getData().getData();
+
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+                            profileImg.setImageBitmap(bitmap);
+                            uploadImg(uri);
+                        }catch (FileNotFoundException e){
+                            e.printStackTrace();
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
+    // firebase storage에 프로필 사진 저장
+    private void uploadImg(Uri file){
+        StorageReference storageRef = storage.getReference();
+        StorageReference riversRef = storageRef.child("user/"+id+"_profileImg.jpg");
+        UploadTask uploadTask = riversRef.putFile(file);
+
+        try{
+            InputStream in = getContentResolver().openInputStream(file);
+            in.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SettingActivity.this, "사진 업로드 실패",Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(SettingActivity.this, "사진 업로드 성공",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
