@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.project2022.emotiondiary.LoginActivity;
-import com.project2022.emotiondiary.MyRoom;
 import com.project2022.emotiondiary.R;
 import com.project2022.emotiondiary.SettingActivity;
 import com.project2022.emotiondiary.applock.core.AppLock;
@@ -18,7 +17,6 @@ import com.project2022.emotiondiary.applock.core.BaseActivity;
 import com.project2022.emotiondiary.applock.core.LockManager;
 
 public class HomePage extends BaseActivity implements OnClickListener {
-	//public static final String TAG = "HomePage";
 
 	private Button btOnOff;
 	private Button btChange;
@@ -77,9 +75,14 @@ public class HomePage extends BaseActivity implements OnClickListener {
 		case AppLock.DISABLE_PASSLOCK:
 			break;
 		case AppLock.ENABLE_PASSLOCK:
+			if (resultCode == RESULT_OK) {
+				Toast.makeText(this, "비밀번호 설정 완료",
+						Toast.LENGTH_SHORT).show();
+			}
+			break;
 		case AppLock.CHANGE_PASSWORD:
 			if (resultCode == RESULT_OK) {
-				Toast.makeText(this, getString(R.string.setup_passcode),
+				Toast.makeText(this, "비밀번호 변경 완료",
 						Toast.LENGTH_SHORT).show();
 			}
 			break;
