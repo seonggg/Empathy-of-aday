@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.0'
     implementation 'com.google.firebase:firebase-firestore:24.1.2'
     implementation 'androidx.leanback:leanback:1.0.0'
+    implementation 'com.google.firebase:firebase-messaging:23.0.8'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -73,4 +74,7 @@ dependencies {
 
     //캘린더 기능
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+
+    //푸시 알림
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.0'
 }

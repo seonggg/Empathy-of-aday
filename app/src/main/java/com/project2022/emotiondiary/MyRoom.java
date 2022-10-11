@@ -30,9 +30,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class MyRoom extends AppCompatActivity {
@@ -49,6 +53,29 @@ public class MyRoom extends AppCompatActivity {
     String email;
 
     private RecyclerViewAdapter adapter;
+
+    String TAG = "token";
+
+    //사용자 푸시 토큰 생성해서 저장
+    public void registerPushToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            System.out.println("Failed to get token");
+                            return;
+                        }
+                        String token = task.getResult();
+                        Log.d("sys", token);
+                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        Map<String, String> map = new HashMap<>();
+                        map.put("pushToken", token);
+
+                        db.getInstance().collection("user").document(uid).set(map, SetOptions.merge());
+                    }
+                });
+    }
 
 //    Calendar myCalendar = Calendar.getInstance();
 //
@@ -77,6 +104,9 @@ public class MyRoom extends AppCompatActivity {
 
         Intent intent_e = getIntent();
         email = intent_e.getStringExtra("email");
+
+        //알림을 위한 푸시토큰 생성
+        registerPushToken();
 
         //일기 구슬 보여주기(구슬 전시)
         init();

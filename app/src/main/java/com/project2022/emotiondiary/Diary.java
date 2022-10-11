@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Diary {
+    private String writer_uid;
     private String writer_id;
     private String nickname;
     private String content;
@@ -20,7 +21,8 @@ public class Diary {
     public Diary(){
     }
 
-    public Diary(String writer_id, String nickname, String content, Timestamp timestamp, String date, String weather, Integer pictures){
+    public Diary(String writer_uid, String writer_id, String nickname, String content, Timestamp timestamp, String date, String weather, Integer pictures){
+        this.writer_uid=writer_uid;
         this.writer_id=writer_id;
         this.nickname=nickname;
         this.content=content;
@@ -31,7 +33,8 @@ public class Diary {
         this.share=false;
     }
 
-    public Diary(String writer_id, String nickname, String content, Integer pictures, Timestamp timestamp, String weather, ArrayList<String> emotion, Boolean share){
+    public Diary(String writer_uid, String writer_id, String nickname, String content, Integer pictures, Timestamp timestamp, String weather, ArrayList<String> emotion, Boolean share){
+        this.writer_uid=writer_uid;
         this.writer_id=writer_id;
         this.nickname=nickname;
         this.content=content;
@@ -44,6 +47,7 @@ public class Diary {
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> diary = new HashMap<>();
+        diary.put("writer_uid", writer_uid);
         diary.put("writer_id", writer_id);
         diary.put("content", content);
         diary.put("pictures", pictures);
@@ -53,6 +57,14 @@ public class Diary {
         diary.put("share", share);
 
         return diary;
+    }
+
+    public String getWriter_uid() {
+        return writer_uid;
+    }
+
+    public void setWriter_uid(String writer_uid) {
+        this.writer_uid = writer_uid;
     }
 
     public String getWriter_id() {
