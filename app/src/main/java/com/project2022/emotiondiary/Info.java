@@ -13,6 +13,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.project2022.emotiondiary.applock.core.LockManager;
 
 public class Info extends Application {
     // 사용자의 아이디, 닉네임 전역변수 선언
@@ -77,6 +78,12 @@ public class Info extends Application {
             }
         });
         return nick;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        LockManager.getInstance().enableAppLock(this);
     }
 
 }

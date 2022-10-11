@@ -8,10 +8,13 @@
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
             <value value="C:\Users\rselo\.android\avd\Pixel_2_API_30.avd" />
+            <value value="C:\Users\user\.android\avd\Nexus_5X_API_27.avd" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
     <timeTargetWasSelectedWithDropDown value="2022-10-11T03:08:15.389395200Z" />
+    </targetSelectedWithDropDown>
+    <timeTargetWasSelectedWithDropDown value="2022-09-21T12:27:43.832957900Z" />
   </component>
 </project>

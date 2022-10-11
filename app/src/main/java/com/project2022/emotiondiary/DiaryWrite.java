@@ -87,7 +87,7 @@ public class DiaryWrite extends AppCompatActivity {
 
         mAuth=FirebaseAuth.getInstance();
         String user_uid = mAuth.getCurrentUser().getUid();
-        Toast.makeText(getApplicationContext(), user_uid, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), user_uid, Toast.LENGTH_LONG).show();
         id = ((Info)this.getApplication()).getId();
         nick = ((Info)this.getApplication()).getNick();
 

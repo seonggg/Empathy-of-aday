@@ -13,10 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmotionDiary.NoActionBar">
         <activity
+            android:name=".PushNotification"
+            android:exported="false" />
+        <activity
             android:name=".CalendarToDiary"
             android:exported="false" />
         <activity
             android:name=".CalendarDialog"
+            android:exported="false" />
+        <activity
+            android:name=".ChangeName"
+            android:exported="false" />
+        <activity
+            android:name=".GoogleSignUp"
             android:exported="false" />
         <activity
             android:name=".Comment"
@@ -68,6 +77,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".applock.HomePage">
+        </activity>
+        <activity
+            android:name=".applock.core.AppLockActivity"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
     </application>
 

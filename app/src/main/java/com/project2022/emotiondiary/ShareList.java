@@ -167,7 +167,80 @@ public class ShareList extends AppCompatActivity {
         else{
             homeBtn.setVisibility(View.VISIBLE);
 
+            // 변경 후 코드
+            // share가 true인 일기를 timestamp기준 내림차순 정렬
+            CollectionReference colRef = db.collection("diary");
+            colRef.whereEqualTo("share",true).orderBy("timestamp",Query.Direction.DESCENDING)
+                    .get().addOnCompleteListener(task -> {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document: task.getResult()){
+                                Log.d("diary","일기 아이디:" + document.getId());
+                                // beads배열의 첫 번째 값과 topArray의 첫 번째 값이 같은 일기 찾기
+                                ArrayList<String> tempArray = new ArrayList<>();
+                                tempArray = (ArrayList<String>) document.get("beads"); // db에 저장된 감정 구슬 배열 가져오기
+                                if(document.get("writer_id")!=null && !document.get("writer_id").toString().equals(curEmail)
+                                        && !UserArray.contains(document.get("nickname").toString())
+                                        && tempArray.get(0).equals(topArray.get(0))){
+                                    Log.d(TAG, "UserArray에 새로 추가됨: " + document.get("nickname") + "/" + document.getId());
+                                    Log.d(TAG, "tempArray,topArray 첫 번째 값: " + tempArray.get(0) + ", " + topArray.get(0));
+                                    UserArray.add(Objects.requireNonNull(document.get("nickname")).toString());
+                                    if(UserArray.size()==1){
+                                        nickname1.setText(Objects.requireNonNull(document.get("nickname")).toString());
+                                        diaryId1 = document.getId();
+                                        saveArray.add(diaryId1);
+                                        nickname1.setVisibility(View.VISIBLE);
+                                        readBtn1.setVisibility(View.VISIBLE);
+                                        divider1.setVisibility(View.VISIBLE);
+                                    }
+                                    else if(UserArray.size()==2){
+                                        nickname2.setText(Objects.requireNonNull(document.get("nickname")).toString());
+                                        diaryId2=document.getId();
+                                        saveArray.add(diaryId2);
+                                        nickname2.setVisibility(View.VISIBLE);
+                                        readBtn2.setVisibility(View.VISIBLE);
+                                        divider2.setVisibility(View.VISIBLE);
+                                    }
+                                    else if(UserArray.size()==3){
+                                        nickname3.setText(Objects.requireNonNull(document.get("nickname")).toString());
+                                        diaryId3=document.getId();
+                                        saveArray.add(diaryId3);
+                                        nickname3.setVisibility(View.VISIBLE);
+                                        readBtn3.setVisibility(View.VISIBLE);
+                                        divider3.setVisibility(View.VISIBLE);
+                                    }
+                                    else if(UserArray.size()==4){
+                                        nickname4.setText(Objects.requireNonNull(document.get("nickname")).toString());
+                                        diaryId4=document.getId();
+                                        saveArray.add(diaryId4);
+                                        nickname4.setVisibility(View.VISIBLE);
+                                        readBtn4.setVisibility(View.VISIBLE);
+                                        divider4.setVisibility(View.VISIBLE);
+                                    }
+                                    else if(UserArray.size()==5){
+                                        nickname5.setText(Objects.requireNonNull(document.get("nickname")).toString());
+                                        diaryId5=document.getId();
+                                        saveArray.add(diaryId5);
+                                        nickname5.setVisibility(View.VISIBLE);
+                                        readBtn5.setVisibility(View.VISIBLE);
+                                        divider5.setVisibility(View.VISIBLE);
+                                        break;
+                                    }
+                                }
+                            }
+                            Map<String, Object> data = new HashMap<>();
+                            data.put("same_emo_diary", saveArray);
+
+                            db.collection("diary").document(docid)
+                                    .set(data, SetOptions.merge());
+                        }
+                        else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+            });
+
+            // 변경 전 코드
             // beads가 동일하고 share가 true인 사용자를 찾아 timestamp를 기준으로 내림차순 정렬
+            /*
             CollectionReference colRef = db.collection("diary");
             colRef.whereEqualTo("beads",topArray).whereEqualTo("share",true)
                     .orderBy("timestamp", Query.Direction.DESCENDING)
@@ -232,7 +305,7 @@ public class ShareList extends AppCompatActivity {
                 else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
-            });
+            });*/
 
             //일기 버튼
             readBtn1.setOnClickListener(view -> {
@@ -392,12 +465,8 @@ public class ShareList extends AppCompatActivity {
                                 }
                             }
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "최신 일기 불러오기 실패", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(),
+                            "최신 일기 불러오기 실패", Toast.LENGTH_SHORT).show());
                     break;
                 }
             }
@@ -441,10 +510,9 @@ public class ShareList extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
