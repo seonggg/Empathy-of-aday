@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -23,13 +25,14 @@ public class BeadsMaking extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // server의 url(매번 변경해야 함)
-    private final String BASE_URL = "https://e0c5-220-116-191-34.jp.ngrok.io";
+    private final String BASE_URL = "https://09ab-222-101-88-23.jp.ngrok.io";
     private EmotionAPI emotionAPI;
 
     String content, result, emotion;
     String docid;
 
     ImageView img;
+    TextView skip_btn;
 
     Integer post, get;
 
@@ -101,7 +104,7 @@ public class BeadsMaking extends AppCompatActivity {
                     Log.d("감정분석", "Fail msg : " + t.getMessage());
                 }
             });
-        },80000);
+        },60000);
 
         new Handler().postDelayed(() -> {
             //서버 연결이 안되면 임의의 값 집어넣기
@@ -115,7 +118,19 @@ public class BeadsMaking extends AppCompatActivity {
             intent.putExtra("docid",docid);
             intent.putExtra("emotion",result);
             startActivity(intent);
-        },55000);
+        },80000);
+
+        skip_btn=findViewById(R.id.skip_btn);
+        skip_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                result="['emb', 'sad', 'hurt']";
+                Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
+                intent.putExtra("docid",docid);
+                intent.putExtra("emotion",result);
+                startActivity(intent);
+            }
+        });
 
     }
 
