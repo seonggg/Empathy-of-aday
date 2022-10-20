@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/angry" />
+        app:srcCompat="@drawable/angry_sad_happy" />
 
     <TextView
         android:id="@+id/comment_txt"
@@ -25,6 +25,8 @@
         android:layout_marginTop="50dp"
         android:fontFamily="@font/applesdgothicneo"
         android:text="구슬 생성이 완료되었습니다."
+        android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bead_img" />
@@ -32,7 +34,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +50,7 @@
             android:fontFamily="@font/applesdgothicneo"
             android:text="구슬 공유"
             android:textColor="#365191"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/room_btn"
             tools:ignore="MissingConstraints" />
@@ -62,6 +65,7 @@
             android:fontFamily="@font/applesdgothicneo"
             android:text="방으로 가기"
             android:textColor="#365191"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/share_btn"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />

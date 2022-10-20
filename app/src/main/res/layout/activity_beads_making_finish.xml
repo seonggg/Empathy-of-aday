@@ -14,6 +14,8 @@
         android:layout_marginTop="200dp"
         android:fontFamily="@font/applesdgothicneo"
         android:text="감정 분석이 완료되었습니다."
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +34,7 @@
             android:id="@+id/beadsImage1"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            tools:srcCompat="@drawable/angry"
+            tools:srcCompat="@drawable/happy"
             />
 
         <ImageView
@@ -46,7 +48,7 @@
             android:id="@+id/beadsImage3"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            tools:srcCompat="@drawable/angry" />
+            tools:srcCompat="@drawable/sad" />
 
     </LinearLayout>
 
@@ -69,6 +71,7 @@
             android:fontFamily="@font/applesdgothicneo"
             android:text="구슬 선택"
             android:textColor="#365191"
+            android:textSize="16sp"
             tools:layout_editor_absoluteX="161dp"
             tools:layout_editor_absoluteY="378dp" />
 
@@ -80,6 +83,7 @@
             android:fontFamily="@font/applesdgothicneo"
             android:text="구슬 혼합"
             android:textColor="#365191"
+            android:textSize="16sp"
             tools:layout_editor_absoluteX="161dp"
             tools:layout_editor_absoluteY="439dp" />
 

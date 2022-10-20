@@ -115,7 +115,7 @@ public class BeadsMaking extends AppCompatActivity {
             intent.putExtra("docid",docid);
             intent.putExtra("emotion",result);
             startActivity(intent);
-        },55000);
+        },10000);
 
     }
 
