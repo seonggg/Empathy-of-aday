@@ -1,5 +1,6 @@
 package com.project2022.emotiondiary;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,10 +10,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +41,7 @@ public class BeadsMaking extends AppCompatActivity {
     String docid;
 
     ImageView img;
+    TextView txt_ment;
     TextView skip_btn;
 
     Integer post, get;
@@ -46,6 +56,38 @@ public class BeadsMaking extends AppCompatActivity {
         content = get_intent.getStringExtra("content");
 
         img=findViewById(R.id.imageView);
+        txt_ment=findViewById(R.id.txt_ment);
+
+
+
+        //랜덤 멘트 보여주기
+        int max_num_value = 20;
+        int min_num_value = 1;
+
+        Random random = new Random();
+
+        Integer randomNum = random.nextInt(max_num_value - min_num_value + 1) + min_num_value;
+        String mentid=randomNum.toString();
+
+        DocumentReference docRef = db.collection("text").document(mentid);
+        docRef.get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
+                {
+                   @Override
+                   public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                       if (task.isSuccessful()) {
+                           DocumentSnapshot document = task.getResult();
+                           if (document.exists()) {
+                               Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                               txt_ment.setText(document.get("txt_content").toString());
+                           } else {
+                               Log.d("TAG", "No such document");
+                           }
+                       } else {
+                           Log.d("TAG", "get failed with ", task.getException());
+                       }
+                   }
+               });
 
         post=0;
         get=0;
