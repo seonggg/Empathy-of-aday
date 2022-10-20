@@ -6,11 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,13 +33,15 @@ public class BeadsMaking extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // server의 url(매번 변경해야 함)
-    private final String BASE_URL = "https://46d6-222-101-88-23.jp.ngrok.io";
+    private final String BASE_URL = "https://09ab-222-101-88-23.jp.ngrok.io";
     private EmotionAPI emotionAPI;
 
     String content, result, emotion;
     String docid;
 
     ImageView img;
+    TextView txt_ment;
+    TextView skip_btn;
 
     Integer post, get;
 
@@ -43,6 +55,38 @@ public class BeadsMaking extends AppCompatActivity {
         content = get_intent.getStringExtra("content");
 
         img=findViewById(R.id.imageView);
+        txt_ment=findViewById(R.id.txt_ment);
+
+
+
+        //랜덤 멘트 보여주기
+        int max_num_value = 20;
+        int min_num_value = 1;
+
+        Random random = new Random();
+
+        Integer randomNum = random.nextInt(max_num_value - min_num_value + 1) + min_num_value;
+        String mentid=randomNum.toString();
+
+        DocumentReference docRef = db.collection("text").document(mentid);
+        docRef.get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
+                {
+                   @Override
+                   public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                       if (task.isSuccessful()) {
+                           DocumentSnapshot document = task.getResult();
+                           if (document.exists()) {
+                               Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                               txt_ment.setText(document.get("txt_content").toString());
+                           } else {
+                               Log.d("TAG", "No such document");
+                           }
+                       } else {
+                           Log.d("TAG", "get failed with ", task.getException());
+                       }
+                   }
+               });
 
         post=0;
         get=0;
@@ -101,7 +145,7 @@ public class BeadsMaking extends AppCompatActivity {
                     Log.d("감정분석", "Fail msg : " + t.getMessage());
                 }
             });
-        },80000);
+        },60000);
 
         new Handler().postDelayed(() -> {
             //서버 연결이 안되면 임의의 값 집어넣기
@@ -115,7 +159,19 @@ public class BeadsMaking extends AppCompatActivity {
             intent.putExtra("docid",docid);
             intent.putExtra("emotion",result);
             startActivity(intent);
-        },10000);
+        },80000);
+
+        skip_btn=findViewById(R.id.skip_btn);
+        skip_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                result="['emb', 'sad', 'hurt']";
+                Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
+                intent.putExtra("docid",docid);
+                intent.putExtra("emotion",result);
+                startActivity(intent);
+            }
+        });
 
     }
 

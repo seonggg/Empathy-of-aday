@@ -16,6 +16,7 @@
     <string name="dateDis">여기에 현재 날짜 표시</string>
     <string name="todo">TODO</string>
     <string name="writeTitle">일기 작성</string>
+    <string name="notification_channel_haru">notification_channel_haru</string>
 
     <string-array name="LAN">
         <item>"맑음"</item>
