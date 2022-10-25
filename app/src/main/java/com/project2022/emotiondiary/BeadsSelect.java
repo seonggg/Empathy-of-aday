@@ -131,21 +131,6 @@ public class BeadsSelect extends AppCompatActivity {
                         cb3.setVisibility(View.VISIBLE);
                     }
                     break;
-                case "hurt":
-                    if (i == 0) {
-                        bead1.setImageResource(R.drawable.hurt);
-                        bead1.setVisibility(View.VISIBLE);
-                        cb1.setVisibility(View.VISIBLE);
-                    } else if (i == 1) {
-                        bead2.setImageResource(R.drawable.hurt);
-                        bead2.setVisibility(View.VISIBLE);
-                        cb2.setVisibility(View.VISIBLE);
-                    } else {
-                        bead3.setImageResource(R.drawable.hurt);
-                        bead3.setVisibility(View.VISIBLE);
-                        cb3.setVisibility(View.VISIBLE);
-                    }
-                    break;
                 case "emb":
                     if (i == 0) {
                         bead1.setImageResource(R.drawable.emb);

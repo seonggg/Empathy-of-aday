@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +61,16 @@ public class BeadsMaking extends AppCompatActivity {
         img=findViewById(R.id.imageView);
         txt_ment=findViewById(R.id.txt_ment);
 
+        //Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
+        //img.startAnimation(animation);
 
+        final AnimationDrawable frameAnimation = (AnimationDrawable) img.getBackground();
+        img.post(new Runnable() {
+            @Override
+        public void run() {
+            frameAnimation.start();
+        }
+        });
 
         //랜덤 멘트 보여주기
         int max_num_value = 20;
@@ -152,7 +164,7 @@ public class BeadsMaking extends AppCompatActivity {
             //서버 연결이 안되면 임의의 값 집어넣기
             if (result==null){
                 Log.d("감정분석", "결과값 비었음");
-                result="['emb', 'sad', 'hurt']";
+                result="['emb', 'sad', 'happy']";
             }
 
             Log.d("감정분석",result);
@@ -166,7 +178,7 @@ public class BeadsMaking extends AppCompatActivity {
         skip_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                result="['emb', 'sad', 'hurt']";
+                result="['emb', 'sad', 'happy']";
                 Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
                 intent.putExtra("docid",docid);
                 intent.putExtra("emotion",result);
