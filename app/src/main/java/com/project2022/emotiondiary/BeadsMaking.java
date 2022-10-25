@@ -61,9 +61,6 @@ public class BeadsMaking extends AppCompatActivity {
         img=findViewById(R.id.imageView);
         txt_ment=findViewById(R.id.txt_ment);
 
-        //Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
-        //img.startAnimation(animation);
-
         final AnimationDrawable frameAnimation = (AnimationDrawable) img.getBackground();
         img.post(new Runnable() {
             @Override

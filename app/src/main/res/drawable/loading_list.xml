@@ -2,22 +2,6 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:oneshot="false">
 
-<!--    <item android:drawable="@drawable/loading1" android:duration="200"/>-->
-
-<!--    <item android:drawable="@drawable/loading2" android:duration="200"/>-->
-
-<!--    <item android:drawable="@drawable/loading3" android:duration="200"/>-->
-
-<!--    <item android:drawable="@drawable/loading4" android:duration="200"/>-->
-
-<!--    <item android:drawable="@drawable/loading5" android:duration="200"/>-->
-
-<!--    <item android:drawable="@drawable/loading6" android:duration="200"/>-->
-
-<!--    <item android:drawable="@drawable/loading7" android:duration="200"/>-->
-
-<!--    <item android:drawable="@drawable/loading8" android:duration="200"/>-->
-
     <item android:drawable="@drawable/l1" android:duration="60"/>
     <item android:drawable="@drawable/l2" android:duration="60"/>
     <item android:drawable="@drawable/l3" android:duration="60"/>
@@ -40,9 +24,5 @@
     <item android:drawable="@drawable/l20" android:duration="60"/>
     <item android:drawable="@drawable/l21" android:duration="60"/>
     <item android:drawable="@drawable/l22" android:duration="60"/>
-
-
-
-
 
 </animation-list>
