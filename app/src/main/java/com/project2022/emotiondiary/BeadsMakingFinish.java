@@ -150,9 +150,6 @@ public class BeadsMakingFinish extends AppCompatActivity {
         if (emotion.indexOf("anxiety")>=0){
             emoArray.add(emotion.indexOf("anxiety"));
         }
-        if (emotion.indexOf("hurt")>=0){
-            emoArray.add(emotion.indexOf("hurt"));
-        }
 
         //Collections.sort(emoArray, Collections.reverseOrder());
 
@@ -168,9 +165,6 @@ public class BeadsMakingFinish extends AppCompatActivity {
                 continue;
             } else if (emotion.indexOf("anxiety") == emoArray.get(i)){
                 topArray.add("anxiety");
-                continue;
-            } else if (emotion.indexOf("hurt") == emoArray.get(i)){
-                topArray.add("hurt");
                 continue;
             } else if (emotion.indexOf("emb") == emoArray.get(i)){
                 topArray.add("emb");
@@ -228,18 +222,6 @@ public class BeadsMakingFinish extends AppCompatActivity {
                         bead2.setVisibility(View.VISIBLE);
                     } else {
                         bead3.setImageResource(R.drawable.anxiety);
-                        bead3.setVisibility(View.VISIBLE);
-                    }
-                    break;
-                case "hurt":
-                    if (i == 0) {
-                        bead1.setImageResource(R.drawable.hurt);
-                        bead1.setVisibility(View.VISIBLE);
-                    } else if (i == 1) {
-                        bead2.setImageResource(R.drawable.hurt);
-                        bead2.setVisibility(View.VISIBLE);
-                    } else {
-                        bead3.setImageResource(R.drawable.hurt);
                         bead3.setVisibility(View.VISIBLE);
                     }
                     break;
