@@ -8,20 +8,46 @@
     android:background="@drawable/main_room"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:theme="@style/ToolbarTheme">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="25sp"
+        android:text="@string/my_room"
+        android:textColor="#6A8CE0"
+        android:fontFamily="@font/applesdgothicneo"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:id="@+id/divider6"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="15dp"
+        android:background="#6A8CE0"/>
+
     <ImageButton
         android:id="@+id/calenderBtn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="130dp"
-        android:layout_marginLeft="300dp"
-        android:src="@drawable/calender_btn"/>
+        android:layout_height="97dp"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        android:src="@drawable/calender_btn" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:overScrollMode="never"
-        android:layout_marginTop="50dp"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="50dp"
         android:orientation="horizontal"/>
@@ -29,7 +55,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="150dp"
         android:orientation="horizontal">
 
         <View

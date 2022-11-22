@@ -95,9 +95,19 @@ public class Comment extends AppCompatActivity {
 
                     String nickname, time, content;
 
-                    nickname = Objects.requireNonNull(document.get("c_nickname")).toString();
-                    time = Objects.requireNonNull(document.get("c_time")).toString();
-                    content = Objects.requireNonNull(document.get("c_content")).toString();
+                    if(document.get("c_nickname")!=null){
+                        nickname = document.get("c_nickname").toString();
+                    }
+                    else
+                        nickname = "(알 수 없는 닉네임)";
+                    if(document.get("c_time")!=null)
+                        time = Objects.requireNonNull(document.get("c_time")).toString();
+                    else
+                        time = "(시간 정보 없음)";
+                    if(document.get("c_content")!=null)
+                        content = Objects.requireNonNull(document.get("c_content")).toString();
+                    else
+                        content = "(내용 정보 없음)";
 
                     // 삭제 버튼 보이게 할지 여부
                     del_vision = new AtomicBoolean(false);

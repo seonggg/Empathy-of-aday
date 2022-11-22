@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -129,17 +128,11 @@ public class MixResult extends AppCompatActivity {
             if (topArray.contains("angry")) {
                 bead.setImageResource(R.drawable.angry);
             }
-            else if (topArray.contains("anxiety")) {
-                bead.setImageResource(R.drawable.anxiety);
-            }
-            else if (topArray.contains("emb")) {
-                bead.setImageResource(R.drawable.emb);
-            }
             else if (topArray.contains("happy")) {
                 bead.setImageResource(R.drawable.happy);
             }
             else if (topArray.contains("hurt")) {
-                bead.setImageResource(R.drawable.hurt);
+                bead.setImageResource(R.drawable.anxiety);
             }
             else if (topArray.contains("sad")) {
                 bead.setImageResource(R.drawable.sad);
@@ -148,107 +141,39 @@ public class MixResult extends AppCompatActivity {
         // 감정 2개 추출됐을 때
         else if(size==2){
             if (topArray.contains("angry")) {
-                if(topArray.contains("anxiety"))
-                    bead.setImageResource(R.drawable.angry_anxiety);
-                else if(topArray.contains("emb"))
-                    bead.setImageResource(R.drawable.angry_emb);
-                else if(topArray.contains("happy"))
+                if(topArray.contains("happy"))
                     bead.setImageResource(R.drawable.angry_happy);
                 else if(topArray.contains("hurt"))
-                    bead.setImageResource(R.drawable.angry_hurt);
+                    bead.setImageResource(R.drawable.angry_anxiety);
                 else if(topArray.contains("sad"))
                     bead.setImageResource(R.drawable.angry_sad);
             }
-            else if (topArray.contains("anxiety")) {
-                if(topArray.contains("emb"))
-                    bead.setImageResource(R.drawable.anxiety_emb);
-                else if(topArray.contains("happy"))
-                    bead.setImageResource(R.drawable.anxiety_happy);
-                else if(topArray.contains("hurt"))
-                    bead.setImageResource(R.drawable.anxiety_hurt);
-                else if(topArray.contains("sad"))
-                    bead.setImageResource(R.drawable.sad_anxiety);
-            }
-            else if (topArray.contains("emb")) {
-                if(topArray.contains("happy"))
-                    bead.setImageResource(R.drawable.emb_happy);
-                else if(topArray.contains("hurt"))
-                    bead.setImageResource(R.drawable.hurt_emb);
-                else if(topArray.contains("sad"))
-                    bead.setImageResource(R.drawable.sad_emb);
-            }
             else if (topArray.contains("happy")) {
                 if(topArray.contains("hurt"))
-                    bead.setImageResource(R.drawable.hurt_happy);
+                    bead.setImageResource(R.drawable.anxiety_happy);
                 else if(topArray.contains("sad"))
                     bead.setImageResource(R.drawable.sad_happy);
             }
             else if (topArray.contains("hurt") && topArray.contains("sad")) {
-                bead.setImageResource(R.drawable.sad_hurt);
+                bead.setImageResource(R.drawable.sad_anxiety);
             }
         }
         // 감정 3개 추출됐을 때
         else if(size==3){
             if (topArray.contains("angry")) {
-                if(topArray.contains("anxiety")){
-                    if(topArray.contains("emb"))
-                        bead.setImageResource(R.drawable.emb_angry_anxiety); //분노+불안+당황
-                    else if(topArray.contains("happy"))
-                        bead.setImageResource(R.drawable.happy_angry_anxiety); //분노+불안+기쁨
-                    else if(topArray.contains("hurt"))
-                        bead.setImageResource(R.drawable.angry_anxiety_hurt); //분노+불안+상처
-                    else if(topArray.contains("sad"))
-                        bead.setImageResource(R.drawable.angery_sad_anxiety); //분노+불안+슬픔
-                }
-                else if(topArray.contains("emb")){
-                    if(topArray.contains("happy"))
-                        bead.setImageResource(R.drawable.happy_emb_anxiety); //분노+당황+기쁨
-                    else if(topArray.contains("hurt"))
-                        bead.setImageResource(R.drawable.emb_angry_hurt); //분노+당황+상처
-                    else if(topArray.contains("sad"))
-                        bead.setImageResource(R.drawable.angry_sad_emb); //분노+당황+슬픔
-                }
-                else if(topArray.contains("happy")) {
+                if(topArray.contains("happy")) {
                     if(topArray.contains("hurt"))
-                        bead.setImageResource(R.drawable.happy_angry_hurt); //분노+기쁨+상처
+                        bead.setImageResource(R.drawable.happy_angry_anxiety); //분노+기쁨+상처
                     else if(topArray.contains("sad"))
                         bead.setImageResource(R.drawable.angry_sad_happy); //분노+기쁨+슬픔
                 }
                 else if(topArray.contains("hurt"))
                     if(topArray.contains("sad"))
-                        bead.setImageResource(R.drawable.angry_hurt_sad); //분노+상처+슬픔
-            }
-            else if (topArray.contains("anxiety")) {
-                if(topArray.contains("emb")){
-                    if(topArray.contains("happy"))
-                        bead.setImageResource(R.drawable.happy_emb_anxiety); //불안+당황+기쁨
-                    else if(topArray.contains("hurt"))
-                        bead.setImageResource(R.drawable.emb_anxiety_hurt); // 불안+당황+상처
-                    else if(topArray.contains("sad"))
-                        bead.setImageResource(R.drawable.emb_anxiety_sad); //불안+당황+슬픔
-                }
-                else if(topArray.contains("happy")){
-                    if(topArray.contains("hurt"))
-                        bead.setImageResource(R.drawable.happy_anxiety_hurt); // 불안+기쁨+상처
-                    else if(topArray.contains("sad"))
-                        bead.setImageResource(R.drawable.happy_anxiety_sad); // 불안+기쁨+슬픔
-                }
-                else if(topArray.contains("hurt") && topArray.contains("sad"))
-                    bead.setImageResource(R.drawable.anxiety_hurt_sad); //불안+상처+슬픔
-            }
-            else if (topArray.contains("emb")) {
-                if(topArray.contains("happy")){
-                    if(topArray.contains("hurt"))
-                        bead.setImageResource(R.drawable.happy_emb_hurt); //당황+기쁨+상처
-                    else if(topArray.contains("sad"))
-                        bead.setImageResource(R.drawable.happy_emb_sad); //당황+기쁨+슬픔
-                }
-                else if(topArray.contains("hurt") && topArray.contains("sad"))
-                    bead.setImageResource(R.drawable.emb_hurt_sad); //당황+상처+슬픔
+                        bead.setImageResource(R.drawable.angry_anxiety_sad); //분노+상처+슬픔
             }
             else if (topArray.contains("happy")) {
                 if(topArray.contains("hurt") && topArray.contains("sad"))
-                    bead.setImageResource(R.drawable.happy_hurt_sad); //기쁨+상처+슬픔
+                    bead.setImageResource(R.drawable.happy_anxiety_sad); //기쁨+상처+슬픔
             }
         }
     }

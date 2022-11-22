@@ -28,9 +28,13 @@
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/mainroom_item.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/drawable-v24/button_background.xml" value="0.1" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/drawable/btn_style.xml" value="0.187" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/drawable/btn_style2.xml" value="0.1975" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/drawable/btn_style_gray.xml" value="0.1975" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/drawable/cal_icon.xml" value="0.2" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/drawable/ic_baseline_menu_book_24.xml" value="0.2575" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.195" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/drawable/ic_baseline_photo_album_24.xml" value="0.1875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.1975" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/drawable/mypage1.xml" value="0.195" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/drawable/mypage2.xml" value="0.195" />
@@ -39,12 +43,13 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/font/font.xml" value="0.22958529286019666" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_beads_making.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_beads_making_finish.xml" value="0.264" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_beads_select.xml" value="0.20820863616930313" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_calendar_dialog.xml" value="0.12041884816753927" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_beads_select.xml" value="0.264" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_calendar_dialog.xml" value="0.2" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_change_name.xml" value="0.20820863616930313" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_comment.xml" value="0.20820863616930313" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_diary_write.xml" value="0.264" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_email_login.xml" value="0.4" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_edit_diary.xml" value="0.20820863616930313" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_email_login.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_google_sign_up.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_main.xml" value="0.264" />
@@ -53,12 +58,13 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_push_notification.xml" value="0.20820863616930313" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_setting.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_share_list.xml" value="0.264" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_show_diary.xml" value="0.20820863616930313" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_sign_up.xml" value="0.4" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_show_diary.xml" value="0.264" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/activity_sign_up.xml" value="0.264" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/grid_item.xml" value="0.20820863616930313" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/item_list.xml" value="0.20820863616930313" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/item_slider.xml" value="0.20820863616930313" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/page_home.xml" value="0.2" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/page_passcode.xml" value="0.1" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/page_passcode.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/select_dialog.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/layout/weather_dialog.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Empathy-of-aday/app/src/main/res/menu/menu_show.xml" value="0.20820863616930313" />

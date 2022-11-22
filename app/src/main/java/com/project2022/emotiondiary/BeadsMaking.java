@@ -161,7 +161,7 @@ public class BeadsMaking extends AppCompatActivity {
             //서버 연결이 안되면 임의의 값 집어넣기
             if (result==null){
                 Log.d("감정분석", "결과값 비었음");
-                result="['emb', 'sad', 'happy']";
+                result="['angry', 'sad', 'happy']";
             }
 
             Log.d("감정분석",result);
@@ -175,7 +175,7 @@ public class BeadsMaking extends AppCompatActivity {
         skip_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                result="['emb', 'sad', 'happy']";
+                result="['angry', 'sad', 'happy']";
                 Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
                 intent.putExtra("docid",docid);
                 intent.putExtra("emotion",result);

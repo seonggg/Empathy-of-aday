@@ -32,7 +32,8 @@
             android:layout_marginBottom="50dp"
             android:text="오늘\n나와 같은 구슬을\n공유한 분들입니다."
             android:textAlignment="viewStart"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#6A8CE0"/>
     </LinearLayout>
 
     <LinearLayout
@@ -54,7 +55,8 @@
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/diary"
@@ -62,15 +64,16 @@
                 android:layout_height="wrap_content"
                 android:text="일기"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 
         <View
             android:id="@+id/main_divider"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="?android:attr/listDivider" />
+            android:layout_height="2.5dp"
+            android:background="@color/black"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,16 +88,18 @@
                 android:layout_height="wrap_content"
                 android:text="딸기"
                 android:textAlignment="center"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/black"/>
 
             <ImageButton
                 android:id="@+id/read_btn1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:minHeight="48dp"
                 android:src="@drawable/ic_baseline_menu_book_24"
-                android:layout_weight="1"
-                android:background="@android:color/transparent" />
+                app:tint="@color/black" />
 
         </LinearLayout>
 
@@ -102,7 +107,7 @@
             android:id="@+id/divider1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            android:background="@color/black"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,16 +122,18 @@
                 android:layout_height="wrap_content"
                 android:text="수박바"
                 android:textAlignment="center"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/black"/>
 
             <ImageButton
                 android:id="@+id/read_btn2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:minHeight="48dp"
                 android:src="@drawable/ic_baseline_menu_book_24"
-                android:layout_weight="1"
-                android:background="@android:color/transparent" />
+                app:tint="@color/black" />
 
         </LinearLayout>
 
@@ -134,7 +141,7 @@
             android:id="@+id/divider2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            android:background="@color/black" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -149,7 +156,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="하이"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/black"/>
 
             <ImageButton
                 android:id="@+id/read_btn3"
@@ -158,14 +166,15 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:minHeight="48dp"
-                android:src="@drawable/ic_baseline_menu_book_24" />
+                android:src="@drawable/ic_baseline_menu_book_24"
+                app:tint="@color/black" />
         </LinearLayout>
 
         <View
             android:id="@+id/divider3"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            android:background="@color/black"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -180,23 +189,25 @@
                 android:layout_height="wrap_content"
                 android:text="ksy"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textColor="@color/black"/>
 
             <ImageButton
                 android:id="@+id/read_btn4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:minHeight="48dp"
                 android:src="@drawable/ic_baseline_menu_book_24"
-                android:layout_weight="1"
-                android:background="@android:color/transparent" />
+                app:tint="@color/black" />
         </LinearLayout>
 
         <View
             android:id="@+id/divider4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            android:background="@color/black"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -211,33 +222,35 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="그라미"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/black"/>
 
             <ImageButton
                 android:id="@+id/read_btn5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:minHeight="48dp"
                 android:src="@drawable/ic_baseline_menu_book_24"
-                android:layout_weight="1"
-                android:background="@android:color/transparent" />
+                app:tint="@color/black" />
         </LinearLayout>
 
         <View
             android:id="@+id/divider5"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            android:background="@color/black"/>
 
         <Button
             android:id="@+id/home_btn"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="방으로 돌아가기"
-            android:background="@drawable/btn_style"
-            android:textColor="#6A8CE0"
+            android:background="@drawable/btn_style2"
+            android:textColor="@color/white"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="30dp"/>
 
 
     </LinearLayout>

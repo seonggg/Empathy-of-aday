@@ -17,9 +17,9 @@
 
     <style name="PasscodeButtonStyle" parent="@android:style/Widget.Button">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#FF464646</item>
+        <item name="android:textColor">#6A8CE0</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/button_background</item>
+        <item name="android:background">@drawable/btn_style</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:layout_width">120dp</item>
         <item name="android:layout_height">48dp</item>
