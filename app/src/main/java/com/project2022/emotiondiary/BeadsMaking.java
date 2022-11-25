@@ -157,6 +157,8 @@ public class BeadsMaking extends AppCompatActivity {
             });
         },60000);
 
+        // 감정 분석이 중복으로 나와서 임시로 주석 처리함
+        /*
         new Handler().postDelayed(() -> {
             //서버 연결이 안되면 임의의 값 집어넣기
             if (result==null){
@@ -169,7 +171,7 @@ public class BeadsMaking extends AppCompatActivity {
             intent.putExtra("docid",docid);
             intent.putExtra("emotion",result);
             startActivity(intent);
-        },80000);
+        },80000);*/
 
         skip_btn=findViewById(R.id.skip_btn);
         skip_btn.setOnClickListener(new View.OnClickListener() {

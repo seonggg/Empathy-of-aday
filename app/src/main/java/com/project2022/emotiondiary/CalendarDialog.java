@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,11 +29,11 @@ import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import com.prolificinteractive.materialcalendarview.format.MonthArrayTitleFormatter;
 
 import java.util.Collections;
+import java.util.Objects;
 
 public class CalendarDialog extends Dialog {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth;
 
     private MaterialCalendarView calendarView;
 
@@ -55,7 +56,42 @@ public class CalendarDialog extends Dialog {
         // 오늘 날짜 표시
         calendarView.setSelectedDate(CalendarDay.today());
         // 일기 작성 날짜 점 표시
-        calendarView.addDecorator(new EventDecorator(Collections.singleton(CalendarDay.today()), Color.parseColor("#FF9CDD")));
+        db.collection("diary")
+                .whereEqualTo("writer_id", email)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot ds : queryDocumentSnapshots.getDocuments()) {
+                    String docid = ds.getId();
+                    DocumentReference docRef = db.collection("diary").document(docid);
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    try{
+                                        int year,month,date;
+                                        year = Integer.parseInt(document.get("date").toString().trim().substring(0,4));
+                                        month = Integer.parseInt(document.get("date").toString().trim().substring(6,8));
+                                        date = Integer.parseInt(document.get("date").toString().trim().substring(10,12));
+                                        Log.i("일기작성날짜확인", "year:"+year+"month:"+month+"date:"+date);
+                                        calendarView.addDecorator(new EventDecorator(Collections
+                                                .singleton(CalendarDay.from(year,month,date)), Color.parseColor("#FF9CDD")));
+                                    }
+                                    catch (NumberFormatException e){
+                                        //에러 처리
+                                    }
+                                    catch (NullPointerException e){
+                                        //에러 처리
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             String mm, dd;
