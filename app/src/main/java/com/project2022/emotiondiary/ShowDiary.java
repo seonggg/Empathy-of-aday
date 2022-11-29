@@ -236,7 +236,7 @@ public class ShowDiary extends AppCompatActivity {
             else if (topArray.contains("happy")) {
                 bead.setImageResource(R.drawable.happy);
             }
-            else if (topArray.contains("hurt")) {
+            else if (topArray.contains("anxiety")) {
                 bead.setImageResource(R.drawable.anxiety);
             }
             else if (topArray.contains("sad")) {
@@ -248,18 +248,18 @@ public class ShowDiary extends AppCompatActivity {
             if (topArray.contains("angry")) {
                 if(topArray.contains("happy"))
                     bead.setImageResource(R.drawable.angry_happy);
-                else if(topArray.contains("hurt"))
+                else if(topArray.contains("anxiety"))
                     bead.setImageResource(R.drawable.angry_anxiety);
                 else if(topArray.contains("sad"))
                     bead.setImageResource(R.drawable.angry_sad);
             }
             else if (topArray.contains("happy")) {
-                if(topArray.contains("hurt"))
+                if(topArray.contains("anxiety"))
                     bead.setImageResource(R.drawable.anxiety_happy);
                 else if(topArray.contains("sad"))
                     bead.setImageResource(R.drawable.sad_happy);
             }
-            else if (topArray.contains("hurt") && topArray.contains("sad")) {
+            else if (topArray.contains("anxiety") && topArray.contains("sad")) {
                 bead.setImageResource(R.drawable.sad_anxiety);
             }
         }
@@ -267,17 +267,17 @@ public class ShowDiary extends AppCompatActivity {
         else if(beads_count==3){
             if (topArray.contains("angry")) {
                 if(topArray.contains("happy")) {
-                    if(topArray.contains("hurt"))
+                    if(topArray.contains("anxiety"))
                         bead.setImageResource(R.drawable.happy_angry_anxiety); //분노+기쁨+상처
                     else if(topArray.contains("sad"))
                         bead.setImageResource(R.drawable.angry_sad_happy); //분노+기쁨+슬픔
                 }
-                else if(topArray.contains("hurt"))
+                else if(topArray.contains("anxiety"))
                     if(topArray.contains("sad"))
                         bead.setImageResource(R.drawable.angry_anxiety_sad); //분노+상처+슬픔
             }
             else if (topArray.contains("happy")) {
-                if(topArray.contains("hurt") && topArray.contains("sad"))
+                if(topArray.contains("anxiety") && topArray.contains("sad"))
                     bead.setImageResource(R.drawable.happy_anxiety_sad); //기쁨+상처+슬픔
             }
         }
@@ -299,7 +299,7 @@ public class ShowDiary extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
                         // Got the download URL for 'users/me/profile.png'
                         uriArray.add(uri);
-                        Toast.makeText(getApplicationContext(), imgArray.toString(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), imgArray.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -318,7 +318,7 @@ public class ShowDiary extends AppCompatActivity {
             storage.getReference().child("diary/" + docid + "_" + i + ".jpg").delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
-                    Toast.makeText(getApplicationContext(), "삭제완료", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "삭제완료", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

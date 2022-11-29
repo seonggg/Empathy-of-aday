@@ -57,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="삭제"
+                android:fontFamily="@font/applesdgothicneo"
                 android:visibility="gone" />
 
             <TextView
@@ -64,6 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="답글"
+                android:fontFamily="@font/applesdgothicneo"
                 android:visibility="gone"/>
 
         </LinearLayout>
@@ -74,6 +76,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="viewStart"
             android:textSize="20sp"
+            android:fontFamily="@font/applesdgothicneo"
             android:layout_marginBottom="10dp"/>
 
         <View

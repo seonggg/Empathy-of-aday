@@ -243,7 +243,7 @@ public class DiaryWrite extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(DiaryWrite.this, "사진 업로드 성공",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(DiaryWrite.this, "사진 업로드 성공",Toast.LENGTH_SHORT).show();
             }
         });
     }

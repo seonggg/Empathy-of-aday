@@ -41,6 +41,7 @@
         android:textSize="20sp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
+        android:fontFamily="@font/applesdgothicneo"
         android:layout_gravity="center"/>
 
     <LinearLayout
@@ -54,6 +55,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:fontFamily="@font/applesdgothicneo"
             android:text="Name"
             android:textAlignment="center"/>
 
@@ -64,6 +66,7 @@
             android:text="중복확인"
             android:textSize="16sp"
             android:background="@drawable/btn_style"
+            android:fontFamily="@font/applesdgothicneo"
             android:textColor="#6A8CE0"/>
 
     </LinearLayout>
@@ -77,6 +80,7 @@
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:background="@drawable/btn_style"
+        android:fontFamily="@font/applesdgothicneo"
         android:textColor="#6A8CE0"/>
 
 </LinearLayout>

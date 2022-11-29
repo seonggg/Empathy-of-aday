@@ -3,14 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/drawable-v24/button_background.xml" value="0.104" />
+        <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/drawable-v24/button_normal.xml" value="0.104" />
+        <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/drawable-v24/button_pressed.xml" value="0.104" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/drawable/btn_style.xml" value="0.1" />
+        <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/drawable/btn_style2.xml" value="0.104" />
+        <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/drawable/btn_style_gray.xml" value="0.104" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/drawable/ic_baseline_comment_24.xml" value="0.1" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/drawable/loading_list.xml" value="0.1725" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_beads_making.xml" value="0.1" />
-        <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_beads_making_finish.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_beads_making_finish.xml" value="0.22" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_beads_select.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_change_name.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_comment.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_diary_write.xml" value="0.14166666666666666" />
         <entry key="..\:/Users/rselo/AndroidStudioProjects/EmotionDiary/app/src/main/res/layout/activity_edit_diary.xml" value="0.17916666666666667" />

@@ -36,9 +36,9 @@
     <ImageButton
         android:id="@+id/calenderBtn"
         android:layout_width="wrap_content"
-        android:layout_height="97dp"
+        android:layout_height="110dp"
         android:layout_marginLeft="250dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
         android:src="@drawable/calender_btn" />
@@ -46,7 +46,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="380dp"
         android:overScrollMode="never"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="50dp"

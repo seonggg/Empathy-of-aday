@@ -91,7 +91,7 @@ public class MyRoom extends AppCompatActivity {
         ((Info)this.getApplication()).setId(user_uid);
         ((Info)this.getApplication()).setNick(user_uid);
 
-        Toast.makeText(getApplicationContext(), "로그인 되었습니다", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "로그인 되었습니다", Toast.LENGTH_SHORT).show();
 
         email = mAuth.getCurrentUser().getEmail();
         Log.d("cur_email: ",email);

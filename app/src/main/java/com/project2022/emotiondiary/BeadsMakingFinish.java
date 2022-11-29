@@ -139,9 +139,9 @@ public class BeadsMakingFinish extends AppCompatActivity {
         Log.d("감정분석", emoArray.toString());
         Log.d("감정분석", topArray.toString());
 
-        Toast toast = Toast.makeText(getApplicationContext(), "추출된 감정:"+topArray.get(0)
-                +","+topArray.get(1)+","+topArray.get(2),Toast.LENGTH_SHORT);
-        toast.show();
+        //Toast toast = Toast.makeText(getApplicationContext(), "추출된 감정:"+topArray.get(0)
+        //        +","+topArray.get(1)+","+topArray.get(2),Toast.LENGTH_SHORT);
+        //toast.show();
 
         BeadsMaking();
     }

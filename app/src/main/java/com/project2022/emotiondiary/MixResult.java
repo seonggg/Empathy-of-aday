@@ -131,7 +131,7 @@ public class MixResult extends AppCompatActivity {
             else if (topArray.contains("happy")) {
                 bead.setImageResource(R.drawable.happy);
             }
-            else if (topArray.contains("hurt")) {
+            else if (topArray.contains("anxiety")) {
                 bead.setImageResource(R.drawable.anxiety);
             }
             else if (topArray.contains("sad")) {
@@ -143,18 +143,18 @@ public class MixResult extends AppCompatActivity {
             if (topArray.contains("angry")) {
                 if(topArray.contains("happy"))
                     bead.setImageResource(R.drawable.angry_happy);
-                else if(topArray.contains("hurt"))
+                else if(topArray.contains("anxiety"))
                     bead.setImageResource(R.drawable.angry_anxiety);
                 else if(topArray.contains("sad"))
                     bead.setImageResource(R.drawable.angry_sad);
             }
             else if (topArray.contains("happy")) {
-                if(topArray.contains("hurt"))
+                if(topArray.contains("anxiety"))
                     bead.setImageResource(R.drawable.anxiety_happy);
                 else if(topArray.contains("sad"))
                     bead.setImageResource(R.drawable.sad_happy);
             }
-            else if (topArray.contains("hurt") && topArray.contains("sad")) {
+            else if (topArray.contains("anxiety") && topArray.contains("sad")) {
                 bead.setImageResource(R.drawable.sad_anxiety);
             }
         }
