@@ -3,18 +3,13 @@ package com.project2022.emotiondiary;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -23,21 +18,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.storage.FirebaseStorage;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class MyRoom extends AppCompatActivity {
 
@@ -102,12 +91,10 @@ public class MyRoom extends AppCompatActivity {
         ((Info)this.getApplication()).setId(user_uid);
         ((Info)this.getApplication()).setNick(user_uid);
 
-        //Intent intent_e = getIntent();
-        //email = intent_e.getStringExtra("email");
-
         Toast.makeText(getApplicationContext(), "로그인 되었습니다", Toast.LENGTH_SHORT).show();
 
         email = mAuth.getCurrentUser().getEmail();
+        Log.d("cur_email: ",email);
 
         //알림을 위한 푸시토큰 생성
         registerPushToken();
@@ -127,12 +114,6 @@ public class MyRoom extends AppCompatActivity {
         // 환경설정 버튼
         settingBtn = findViewById(R.id.setting_btn);
         settingBtn.setOnClickListener(view -> {
-            /*
-            FirebaseAuth.getInstance().signOut();
-            Toast.makeText(MyRoom.this,"로그아웃되었습니다",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MyRoom.this,LoginActivity.class);
-            startActivity(intent);
-            */
             Intent intent = new Intent(MyRoom.this,SettingActivity.class);
             startActivity(intent);
         });
@@ -227,12 +208,8 @@ public class MyRoom extends AppCompatActivity {
                 return R.drawable.angry;
             } else if (topArray.contains("anxiety")) {
                 return R.drawable.anxiety;
-            } else if (topArray.contains("emb")) {
-                return R.drawable.emb;
             } else if (topArray.contains("happy")) {
                 return R.drawable.happy;
-            } else if (topArray.contains("hurt")) {
-                return R.drawable.hurt;
             } else if (topArray.contains("sad")) {
                 return R.drawable.sad;
             }
@@ -241,93 +218,36 @@ public class MyRoom extends AppCompatActivity {
         else if (beads_count == 2) {
             if (topArray.contains("angry")) {
                 if (topArray.contains("anxiety"))
-                    return R.drawable.angry_anxiety;
-                else if (topArray.contains("emb"))
-                    return R.drawable.angry_emb;
+                    return R.drawable.angry_anxiety; // 분노,불안
                 else if (topArray.contains("happy"))
-                    return R.drawable.angry_happy;
-                else if (topArray.contains("hurt"))
-                    return R.drawable.angry_hurt;
+                    return R.drawable.angry_happy; // 분노,기쁨
                 else if (topArray.contains("sad"))
-                    return R.drawable.angry_sad;
+                    return R.drawable.angry_sad; // 분노,슬픔
             } else if (topArray.contains("anxiety")) {
-                if (topArray.contains("emb"))
-                    return R.drawable.anxiety_emb;
-                else if (topArray.contains("happy"))
-                    return R.drawable.anxiety_happy;
-                else if (topArray.contains("hurt"))
-                    return R.drawable.anxiety_hurt;
-                else if (topArray.contains("sad"))
-                    return R.drawable.sad_anxiety;
-            } else if (topArray.contains("emb")) {
                 if (topArray.contains("happy"))
-                    return R.drawable.emb_happy;
-                else if (topArray.contains("hurt"))
-                    return R.drawable.hurt_emb;
+                    return R.drawable.anxiety_happy; // 불안,기쁨
                 else if (topArray.contains("sad"))
-                    return R.drawable.sad_emb;
+                    return R.drawable.sad_anxiety; // 불안,슬픔
             } else if (topArray.contains("happy")) {
-                if (topArray.contains("hurt"))
-                    return R.drawable.hurt_happy;
-                else if (topArray.contains("sad"))
-                    return R.drawable.sad_happy;
-            } else if (topArray.contains("hurt") && topArray.contains("sad")) {
-                return R.drawable.sad_hurt;
+                if (topArray.contains("sad"))
+                    return R.drawable.sad_happy; // 슬픔,기쁨
             }
         }
         // 감정 3개 추출됐을 때
         else if (beads_count == 3) {
             if (topArray.contains("angry")) {
                 if (topArray.contains("anxiety")) {
-                    if (topArray.contains("emb"))
-                        return R.drawable.emb_angry_anxiety; //분노+불안+당황
-                    else if (topArray.contains("happy"))
-                        return R.drawable.happy_angry_anxiety; //분노+불안+기쁨
-                    else if (topArray.contains("hurt"))
-                        return R.drawable.angry_anxiety_hurt; //분노+불안+상처
-                    else if (topArray.contains("sad"))
-                        return R.drawable.angery_sad_anxiety; //분노+불안+슬픔
-                } else if (topArray.contains("emb")) {
                     if (topArray.contains("happy"))
-                        return R.drawable.happy_emb_anxiety; //분노+당황+기쁨
-                    else if (topArray.contains("hurt"))
-                        return R.drawable.emb_angry_hurt; //분노+당황+상처
+                        return R.drawable.happy_angry_anxiety; // 분노,불안,기쁨
                     else if (topArray.contains("sad"))
-                        return R.drawable.angry_sad_emb; //분노+당황+슬픔
+                        return R.drawable.angry_anxiety_sad; //분노,불안,슬픔
                 } else if (topArray.contains("happy")) {
-                    if (topArray.contains("hurt"))
-                        return R.drawable.happy_angry_hurt; //분노+기쁨+상처
-                    else if (topArray.contains("sad"))
-                        return R.drawable.angry_sad_happy; //분노+기쁨+슬픔
-                } else if (topArray.contains("hurt"))
                     if (topArray.contains("sad"))
-                        return R.drawable.angry_hurt_sad; //분노+상처+슬픔
-            } else if (topArray.contains("anxiety")) {
-                if (topArray.contains("emb")) {
-                    if (topArray.contains("happy"))
-                        return R.drawable.happy_emb_anxiety; //불안+당황+기쁨
-                    else if (topArray.contains("hurt"))
-                        return R.drawable.emb_anxiety_hurt; // 불안+당황+상처
-                    else if (topArray.contains("sad"))
-                        return R.drawable.emb_anxiety_sad; //불안+당황+슬픔
-                } else if (topArray.contains("happy")) {
-                    if (topArray.contains("hurt"))
-                        return R.drawable.happy_anxiety_hurt; // 불안+기쁨+상처
-                    else if (topArray.contains("sad"))
-                        return R.drawable.happy_anxiety_sad; // 불안+기쁨+슬픔
-                } else if (topArray.contains("hurt") && topArray.contains("sad"))
-                    return R.drawable.anxiety_hurt_sad; //불안+상처+슬픔
-            } else if (topArray.contains("emb")) {
-                if (topArray.contains("happy")) {
-                    if (topArray.contains("hurt"))
-                        return R.drawable.happy_emb_hurt; //당황+기쁨+상처
-                    else if (topArray.contains("sad"))
-                        return R.drawable.happy_emb_sad; //당황+기쁨+슬픔
-                } else if (topArray.contains("hurt") && topArray.contains("sad"))
-                    return R.drawable.emb_hurt_sad; //당황+상처+슬픔
+                        return R.drawable.angry_sad_happy; // 분노,기쁨,슬픔
+                }
             } else if (topArray.contains("happy")) {
-                if (topArray.contains("hurt") && topArray.contains("sad"))
-                    return R.drawable.happy_hurt_sad; //기쁨+상처+슬픔
+                if (topArray.contains("anxiety") && topArray.contains("sad"))
+                    return R.drawable.happy_anxiety_sad; // 기쁨,불안,슬픔
             }
         }
         return 0;

@@ -13,7 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:fontFamily="@font/applesdgothicneo"
-        android:text="감정 분석이 완료되었습니다."
+        android:lineSpacingExtra="8sp"
+        android:text="감정 구슬 생성이\n완료되었습니다."
+        android:textColor="#555555"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,23 +33,23 @@
 
         <ImageView
             android:id="@+id/beadsImage1"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            tools:srcCompat="@drawable/angry"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            tools:srcCompat="@drawable/happy"
             />
 
         <ImageView
             android:id="@+id/beadsImage2"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginHorizontal="10dp"
             tools:srcCompat="@drawable/angry" />
 
         <ImageView
             android:id="@+id/beadsImage3"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            tools:srcCompat="@drawable/angry" />
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            tools:srcCompat="@drawable/sad" />
 
     </LinearLayout>
 
@@ -65,10 +68,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:background="#e9f0ff"
+            android:background="@drawable/btn_style2"
             android:fontFamily="@font/applesdgothicneo"
             android:text="구슬 선택"
-            android:textColor="#365191"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             tools:layout_editor_absoluteX="161dp"
             tools:layout_editor_absoluteY="378dp" />
 
@@ -76,12 +80,14 @@
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#e9f0ff"
+            android:background="@drawable/btn_style2"
             android:fontFamily="@font/applesdgothicneo"
             android:text="구슬 혼합"
-            android:textColor="#365191"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             tools:layout_editor_absoluteX="161dp"
-            tools:layout_editor_absoluteY="439dp" />
+            tools:layout_editor_absoluteY="439dp"
+            android:layout_marginBottom="5dp"/>
 
     </LinearLayout>
 

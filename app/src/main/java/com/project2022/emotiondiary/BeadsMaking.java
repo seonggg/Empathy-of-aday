@@ -160,13 +160,29 @@ public class BeadsMaking extends AppCompatActivity {
                     Log.d("감정분석", "Fail msg : " + t.getMessage());
                 }
             });
-        },55000);
+        },60000);
+
+        // 감정 분석이 중복으로 나와서 임시로 주석 처리함
+        /*
+        new Handler().postDelayed(() -> {
+            //서버 연결이 안되면 임의의 값 집어넣기
+            if (result==null){
+                Log.d("감정분석", "결과값 비었음");
+                result="['angry', 'sad', 'happy']";
+            }
+
+            Log.d("감정분석",result);
+            Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
+            intent.putExtra("docid",docid);
+            intent.putExtra("emotion",result);
+            startActivity(intent);
+        },80000);*/
 
         skip_btn=findViewById(R.id.skip_btn);
         skip_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                result="['sad', 'happy','anxiety']";
+                result="['angry', 'sad', 'happy']";
                 Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
                 intent.putExtra("docid",docid);
                 intent.putExtra("emotion",result);

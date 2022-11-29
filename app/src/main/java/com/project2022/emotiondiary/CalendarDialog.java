@@ -1,20 +1,20 @@
 package com.project2022.emotiondiary;
 
+import static java.lang.Integer.parseInt;
+
 import androidx.annotation.NonNull;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,22 +22,18 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter;
 import com.prolificinteractive.materialcalendarview.format.MonthArrayTitleFormatter;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.temporal.WeekFields;
-import java.util.Calendar;
+import java.util.Collections;
+import java.util.Objects;
 
 public class CalendarDialog extends Dialog {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth;
 
     private MaterialCalendarView calendarView;
 
@@ -57,6 +53,45 @@ public class CalendarDialog extends Dialog {
 
         calendarView.setTitleFormatter(new MonthArrayTitleFormatter(getContext().getResources().getTextArray(R.array.custom_months)));
         calendarView.setWeekDayFormatter(new ArrayWeekDayFormatter(getContext().getResources().getTextArray(R.array.custom_weekdays)));
+        // 오늘 날짜 표시
+        calendarView.setSelectedDate(CalendarDay.today());
+        // 일기 작성 날짜 점 표시
+        db.collection("diary")
+                .whereEqualTo("writer_id", email)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot ds : queryDocumentSnapshots.getDocuments()) {
+                    String docid = ds.getId();
+                    DocumentReference docRef = db.collection("diary").document(docid);
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    try{
+                                        int year,month,date;
+                                        year = Integer.parseInt(document.get("date").toString().trim().substring(0,4));
+                                        month = Integer.parseInt(document.get("date").toString().trim().substring(6,8));
+                                        date = Integer.parseInt(document.get("date").toString().trim().substring(10,12));
+                                        Log.i("일기작성날짜확인", "year:"+year+"month:"+month+"date:"+date);
+                                        calendarView.addDecorator(new EventDecorator(Collections
+                                                .singleton(CalendarDay.from(year,month,date)), Color.parseColor("#FF9CDD")));
+                                    }
+                                    catch (NumberFormatException e){
+                                        //에러 처리
+                                    }
+                                    catch (NullPointerException e){
+                                        //에러 처리
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             String mm, dd;
@@ -129,17 +164,11 @@ public class CalendarDialog extends Dialog {
                                     if (topArray.contains("angry")) {
                                         bead.setImageResource(R.drawable.angry);
                                     }
-                                    else if (topArray.contains("anxiety")) {
-                                        bead.setImageResource(R.drawable.anxiety);
-                                    }
-                                    else if (topArray.contains("emb")) {
-                                        bead.setImageResource(R.drawable.emb);
-                                    }
                                     else if (topArray.contains("happy")) {
                                         bead.setImageResource(R.drawable.happy);
                                     }
                                     else if (topArray.contains("hurt")) {
-                                        bead.setImageResource(R.drawable.hurt);
+                                        bead.setImageResource(R.drawable.anxiety);
                                     }
                                     else if (topArray.contains("sad")) {
                                         bead.setImageResource(R.drawable.sad);
@@ -148,107 +177,39 @@ public class CalendarDialog extends Dialog {
                                 // 감정 2개 추출됐을 때
                                 else if(beads_count==2){
                                     if (topArray.contains("angry")) {
-                                        if(topArray.contains("anxiety"))
-                                            bead.setImageResource(R.drawable.angry_anxiety);
-                                        else if(topArray.contains("emb"))
-                                            bead.setImageResource(R.drawable.angry_emb);
-                                        else if(topArray.contains("happy"))
+                                        if(topArray.contains("happy"))
                                             bead.setImageResource(R.drawable.angry_happy);
                                         else if(topArray.contains("hurt"))
-                                            bead.setImageResource(R.drawable.angry_hurt);
+                                            bead.setImageResource(R.drawable.angry_anxiety);
                                         else if(topArray.contains("sad"))
                                             bead.setImageResource(R.drawable.angry_sad);
                                     }
-                                    else if (topArray.contains("anxiety")) {
-                                        if(topArray.contains("emb"))
-                                            bead.setImageResource(R.drawable.anxiety_emb);
-                                        else if(topArray.contains("happy"))
-                                            bead.setImageResource(R.drawable.anxiety_happy);
-                                        else if(topArray.contains("hurt"))
-                                            bead.setImageResource(R.drawable.anxiety_hurt);
-                                        else if(topArray.contains("sad"))
-                                            bead.setImageResource(R.drawable.sad_anxiety);
-                                    }
-                                    else if (topArray.contains("emb")) {
-                                        if(topArray.contains("happy"))
-                                            bead.setImageResource(R.drawable.emb_happy);
-                                        else if(topArray.contains("hurt"))
-                                            bead.setImageResource(R.drawable.hurt_emb);
-                                        else if(topArray.contains("sad"))
-                                            bead.setImageResource(R.drawable.sad_emb);
-                                    }
                                     else if (topArray.contains("happy")) {
                                         if(topArray.contains("hurt"))
-                                            bead.setImageResource(R.drawable.hurt_happy);
+                                            bead.setImageResource(R.drawable.anxiety_happy);
                                         else if(topArray.contains("sad"))
                                             bead.setImageResource(R.drawable.sad_happy);
                                     }
                                     else if (topArray.contains("hurt") && topArray.contains("sad")) {
-                                        bead.setImageResource(R.drawable.sad_hurt);
+                                        bead.setImageResource(R.drawable.sad_anxiety);
                                     }
                                 }
                                 // 감정 3개 추출됐을 때
                                 else if(beads_count==3){
                                     if (topArray.contains("angry")) {
-                                        if(topArray.contains("anxiety")){
-                                            if(topArray.contains("emb"))
-                                                bead.setImageResource(R.drawable.emb_angry_anxiety); //분노+불안+당황
-                                            else if(topArray.contains("happy"))
-                                                bead.setImageResource(R.drawable.happy_angry_anxiety); //분노+불안+기쁨
-                                            else if(topArray.contains("hurt"))
-                                                bead.setImageResource(R.drawable.angry_anxiety_hurt); //분노+불안+상처
-                                            else if(topArray.contains("sad"))
-                                                bead.setImageResource(R.drawable.angery_sad_anxiety); //분노+불안+슬픔
-                                        }
-                                        else if(topArray.contains("emb")){
-                                            if(topArray.contains("happy"))
-                                                bead.setImageResource(R.drawable.happy_emb_anxiety); //분노+당황+기쁨
-                                            else if(topArray.contains("hurt"))
-                                                bead.setImageResource(R.drawable.emb_angry_hurt); //분노+당황+상처
-                                            else if(topArray.contains("sad"))
-                                                bead.setImageResource(R.drawable.angry_sad_emb); //분노+당황+슬픔
-                                        }
-                                        else if(topArray.contains("happy")) {
+                                        if(topArray.contains("happy")) {
                                             if(topArray.contains("hurt"))
-                                                bead.setImageResource(R.drawable.happy_angry_hurt); //분노+기쁨+상처
+                                                bead.setImageResource(R.drawable.happy_angry_anxiety); //분노+기쁨+상처
                                             else if(topArray.contains("sad"))
                                                 bead.setImageResource(R.drawable.angry_sad_happy); //분노+기쁨+슬픔
                                         }
                                         else if(topArray.contains("hurt"))
                                             if(topArray.contains("sad"))
-                                                bead.setImageResource(R.drawable.angry_hurt_sad); //분노+상처+슬픔
-                                    }
-                                    else if (topArray.contains("anxiety")) {
-                                        if(topArray.contains("emb")){
-                                            if(topArray.contains("happy"))
-                                                bead.setImageResource(R.drawable.happy_emb_anxiety); //불안+당황+기쁨
-                                            else if(topArray.contains("hurt"))
-                                                bead.setImageResource(R.drawable.emb_anxiety_hurt); // 불안+당황+상처
-                                            else if(topArray.contains("sad"))
-                                                bead.setImageResource(R.drawable.emb_anxiety_sad); //불안+당황+슬픔
-                                        }
-                                        else if(topArray.contains("happy")){
-                                            if(topArray.contains("hurt"))
-                                                bead.setImageResource(R.drawable.happy_anxiety_hurt); // 불안+기쁨+상처
-                                            else if(topArray.contains("sad"))
-                                                bead.setImageResource(R.drawable.happy_anxiety_sad); // 불안+기쁨+슬픔
-                                        }
-                                        else if(topArray.contains("hurt") && topArray.contains("sad"))
-                                            bead.setImageResource(R.drawable.anxiety_hurt_sad); //불안+상처+슬픔
-                                    }
-                                    else if (topArray.contains("emb")) {
-                                        if(topArray.contains("happy")){
-                                            if(topArray.contains("hurt"))
-                                                bead.setImageResource(R.drawable.happy_emb_hurt); //당황+기쁨+상처
-                                            else if(topArray.contains("sad"))
-                                                bead.setImageResource(R.drawable.happy_emb_sad); //당황+기쁨+슬픔
-                                        }
-                                        else if(topArray.contains("hurt") && topArray.contains("sad"))
-                                            bead.setImageResource(R.drawable.emb_hurt_sad); //당황+상처+슬픔
+                                                bead.setImageResource(R.drawable.angry_anxiety_sad); //분노+상처+슬픔
                                     }
                                     else if (topArray.contains("happy")) {
                                         if(topArray.contains("hurt") && topArray.contains("sad"))
-                                            bead.setImageResource(R.drawable.happy_hurt_sad); //기쁨+상처+슬픔
+                                            bead.setImageResource(R.drawable.happy_anxiety_sad); //기쁨+상처+슬픔
                                     }
                                 }
                             }

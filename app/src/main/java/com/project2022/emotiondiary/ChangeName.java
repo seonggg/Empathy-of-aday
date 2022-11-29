@@ -34,7 +34,8 @@ public class ChangeName extends AppCompatActivity {
     Button changeBtn;
 
     int n_check;
-    String n_store = null;
+    String n_store = "null";
+    String myNick;
     private InputMethodManager imm;
     FirebaseFirestore db= FirebaseFirestore.getInstance();
     FirebaseAuth mAuth;
@@ -67,6 +68,7 @@ public class ChangeName extends AppCompatActivity {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
                     nicknameEdit.setText(document.get("user_nickname").toString());
+                    myNick = document.get("user_nickname").toString();
                 }
                 else{
                     nicknameEdit.setText(document.get("닉네임 오류").toString());
@@ -96,13 +98,20 @@ public class ChangeName extends AppCompatActivity {
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     for(QueryDocumentSnapshot document : task.getResult()){
                         if(nicknameEdit.getText().toString().equals(document.get("user_nickname"))){
-                            n_check = 1;
+                            // 변경할 닉네임이 현재 닉네임과 동일할 때
+                            if(nicknameEdit.getText().toString().equals(myNick))
+                                n_check = 1;
+                            // 변경할 닉네임이 현재 닉네임과 동일하진 않으나 이미 존재하는 닉네임일 때
+                            else
+                                n_check = 2;
                         }
                     }
                     if(n_check==1)
+                        Toast.makeText(ChangeName.this,"현재 닉네임입니다", Toast.LENGTH_SHORT).show();
+                    else if(n_check==2)
                         Toast.makeText(ChangeName.this,"이미 존재하는 닉네임입니다", Toast.LENGTH_SHORT).show();
                     else{
-                        if(nicknameEdit.getText().toString().equals(""))
+                        if(nicknameEdit.getText().toString().trim().equals(""))
                             Toast.makeText(ChangeName.this,"닉네임을 입력하세요", Toast.LENGTH_SHORT).show();
                         else{
                             Toast.makeText(ChangeName.this,"사용 가능한 닉네임입니다", Toast.LENGTH_SHORT).show();
@@ -118,7 +127,7 @@ public class ChangeName extends AppCompatActivity {
         changeBtn.setOnClickListener(view -> {
             // 에디트 텍스트가 공백이 아닌 경우
             if (!nicknameEdit.getText().toString().equals("")) {
-                if(!n_store.equals(nicknameEdit.getText().toString()) || n_store == null){
+                if(!n_store.equals(nicknameEdit.getText().toString())){
                     Toast.makeText(ChangeName.this, "이메일 혹은 닉네임 중복 확인을 해주세요", Toast.LENGTH_SHORT).show();
                 }
                 else{
