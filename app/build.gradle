@@ -41,8 +41,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
-    implementation 'com.google.firebase:firebase-database:20.0.0'
-    implementation 'com.google.firebase:firebase-firestore:24.1.2'
+    implementation 'com.google.firebase:firebase-database:20.1.0'
+    implementation 'com.google.firebase:firebase-firestore:24.4.0'
     implementation 'androidx.leanback:leanback:1.0.0'
     implementation 'com.google.firebase:firebase-messaging:23.0.8'
     testImplementation 'junit:junit:4.13.2'
@@ -52,7 +52,7 @@ dependencies {
     //firebase 연동
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
     implementation 'com.google.firebase:firebase-analytics-ktx:20.1.2'
-    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.0'
 
     //이미지 저장을 위한 firebase-storage
     implementation 'com.google.firebase:firebase-storage'
@@ -66,7 +66,7 @@ dependencies {
     // Firebase 인증 Android 라이브러리의 종속 항목 선언
     implementation 'com.google.firebase:firebase-auth'
     //구글 로그인에 필요한 Google Play 서비스 SDK
-    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation 'com.google.android.gms:play-services-auth:20.3.0'
 
     //감정분석 기능
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'

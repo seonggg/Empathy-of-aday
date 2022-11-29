@@ -37,7 +37,7 @@ public class BeadsMaking extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // server의 url(매번 변경해야 함)
-    private final String BASE_URL = "https://09ab-222-101-88-23.jp.ngrok.io";
+    private final String BASE_URL = "https://b715-222-101-88-23.jp.ngrok.io";
     private EmotionAPI emotionAPI;
 
     String content, result, emotion;
@@ -144,6 +144,11 @@ public class BeadsMaking extends AppCompatActivity {
                         List<TextItem> mList = response.body();
                         for (TextItem item : mList) {
                             result = item.getText();
+                            Log.d("감정분석",result);
+                            Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
+                            intent.putExtra("docid",docid);
+                            intent.putExtra("emotion",result);
+                            startActivity(intent);
                         }
                     } else {
                         Log.d("감정분석", "Status Code : " + response.code());
@@ -155,27 +160,13 @@ public class BeadsMaking extends AppCompatActivity {
                     Log.d("감정분석", "Fail msg : " + t.getMessage());
                 }
             });
-        },60000);
-
-        new Handler().postDelayed(() -> {
-            //서버 연결이 안되면 임의의 값 집어넣기
-            if (result==null){
-                Log.d("감정분석", "결과값 비었음");
-                result="['emb', 'sad', 'happy']";
-            }
-
-            Log.d("감정분석",result);
-            Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
-            intent.putExtra("docid",docid);
-            intent.putExtra("emotion",result);
-            startActivity(intent);
-        },80000);
+        },55000);
 
         skip_btn=findViewById(R.id.skip_btn);
         skip_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                result="['emb', 'sad', 'happy']";
+                result="['sad', 'happy','anxiety']";
                 Intent intent = new Intent(BeadsMaking.this,BeadsMakingFinish.class);
                 intent.putExtra("docid",docid);
                 intent.putExtra("emotion",result);
