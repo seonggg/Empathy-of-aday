@@ -46,6 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="이메일"
+            android:fontFamily="@font/applesdgothicneo"
             android:layout_marginEnd="20dp"
             android:layout_gravity="center_vertical"
             android:textColor="#6A8CE0"/>
@@ -61,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textEmailAddress"
+                android:fontFamily="@font/applesdgothicneo"
                 android:backgroundTint="#6A8CE0"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -72,6 +74,7 @@
             android:background="@drawable/btn_style"
             android:textColor="#6A8CE0"
             android:text="중복확인"
+            android:fontFamily="@font/applesdgothicneo"
             android:layout_gravity="center"/>
 
     </LinearLayout>
@@ -87,6 +90,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="20dp"
             android:text="비밀번호"
+            android:fontFamily="@font/applesdgothicneo"
             android:textColor="#6A8CE0"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -101,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
+                android:fontFamily="@font/applesdgothicneo"
                 android:backgroundTint="#6A8CE0"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -112,6 +117,7 @@
             android:background="@drawable/btn_style"
             android:textColor="#6A8CE0"
             android:text="중복확인"
+            android:fontFamily="@font/applesdgothicneo"
             android:visibility="invisible"
             tools:ignore="DuplicateIds"
             android:layout_gravity="center"/>
@@ -128,6 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="닉네임"
+            android:fontFamily="@font/applesdgothicneo"
             android:layout_marginEnd="20dp"
             android:layout_gravity="center_vertical"
             android:textColor="#6A8CE0"/>
@@ -142,6 +149,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:fontFamily="@font/applesdgothicneo"
                 android:inputType="textPersonName"
                 android:backgroundTint="#6A8CE0"/>
 
@@ -154,6 +162,7 @@
             android:background="@drawable/btn_style"
             android:textColor="#6A8CE0"
             android:text="중복확인"
+            android:fontFamily="@font/applesdgothicneo"
             android:layout_gravity="center"/>
 
     </LinearLayout>
@@ -163,6 +172,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회원가입"
+        android:fontFamily="@font/applesdgothicneo"
         android:background="@drawable/btn_style"
         android:textColor="#6A8CE0"
         android:layout_marginTop="50dp"/>

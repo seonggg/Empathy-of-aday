@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -37,7 +38,7 @@ public class BeadsMaking extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // server의 url(매번 변경해야 함)
-    private final String BASE_URL = "https://4db8-222-101-88-23.jp.ngrok.io";
+    private final String BASE_URL = "https://a7d4-222-101-88-23.jp.ngrok.io";
     private EmotionAPI emotionAPI;
 
     String content, result, emotion;
@@ -48,6 +49,8 @@ public class BeadsMaking extends AppCompatActivity {
     TextView skip_btn;
 
     Integer post, get;
+
+    MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,14 @@ public class BeadsMaking extends AppCompatActivity {
 
         img=findViewById(R.id.imageView);
         txt_ment=findViewById(R.id.txt_ment);
+
+        // 재생될 노래 선택
+        int[] mp3Arr = {R.raw.sample1, R.raw.sample2, R.raw.sample3};
+        Random rand = new Random();
+        int randNum = rand.nextInt(mp3Arr.length);
+
+        mMediaPlayer = MediaPlayer.create(this, mp3Arr[randNum]);
+        mMediaPlayer.start();
 
         final AnimationDrawable frameAnimation = (AnimationDrawable) img.getBackground();
         img.post(new Runnable() {
@@ -149,6 +160,7 @@ public class BeadsMaking extends AppCompatActivity {
                             intent.putExtra("docid",docid);
                             intent.putExtra("emotion",result);
                             startActivity(intent);
+                            finish(); // 음악 계속 재생됨 방지
                         }
                     } else {
                         Log.d("감정분석", "Status Code : " + response.code());
@@ -187,9 +199,18 @@ public class BeadsMaking extends AppCompatActivity {
                 intent.putExtra("docid",docid);
                 intent.putExtra("emotion",result);
                 startActivity(intent);
+                finish(); // 음악 계속 재생됨 방지
             }
         });
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mMediaPlayer.isPlaying()) {
+            mMediaPlayer.stop();
+        }
     }
 
     //뒤로가기 막기

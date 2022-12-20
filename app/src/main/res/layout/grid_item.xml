@@ -6,23 +6,25 @@
 
     <ImageView
         android:id="@+id/grid_img"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:layout_constraintDimensionRatio="1:1"
-        android:src="@drawable/happy"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="22dp"
         android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/happy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/grid_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="45dp"
-        android:layout_marginBottom="42dp"
+        android:layout_marginBottom="45dp"
         android:text="docid"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

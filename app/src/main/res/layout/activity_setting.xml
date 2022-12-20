@@ -71,6 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="20dp"
                         android:text="닉네임 표시"
+                        android:fontFamily="@font/applesdgothicneo"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -83,6 +84,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="20dp"
+                            android:fontFamily="@font/applesdgothicneo"
                             android:text="구슬 개수 표시" />
 
                         <TextView
@@ -104,6 +106,7 @@
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginVertical="10dp"
                 android:text="맞춤 설정"
+                android:fontFamily="@font/applesdgothicneo"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -121,6 +124,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginHorizontal="10dp"
                     android:text="닉네임 변경"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textSize="16sp" />
 
                 <TextView
@@ -130,6 +134,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginHorizontal="10dp"
                     android:text="알림 ON/OFF"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textSize="16sp" />
 
                 <TextView
@@ -139,6 +144,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginHorizontal="10dp"
                     android:text="비밀번호로 잠그기"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textSize="16sp" />
 
                 <TextView
@@ -148,6 +154,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginHorizontal="10dp"
                     android:text="테마 바꾸기"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textSize="16sp" />
 
                 <TextView
@@ -156,6 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:text="로그아웃"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -166,6 +174,7 @@
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginVertical="10dp"
                 android:text="고객센터"
+                android:fontFamily="@font/applesdgothicneo"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -183,6 +192,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginHorizontal="10dp"
                     android:text="의견 보내기"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textSize="16sp" />
 
                 <TextView
@@ -191,6 +201,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:text="FAQ"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -201,6 +212,7 @@
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginVertical="10dp"
                 android:text="앱 정보"
+                android:fontFamily="@font/applesdgothicneo"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -218,6 +230,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginBottom="20dp"
                     android:text="버전 정보"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textSize="16sp" />
 
                 <TextView
@@ -227,6 +240,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginBottom="20dp"
                     android:text="이용약관"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textSize="16sp" />
 
                 <TextView
@@ -235,6 +249,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:text="개인정보 처리방침"
+                    android:fontFamily="@font/applesdgothicneo"
                     android:textSize="16sp" />
 
             </LinearLayout>

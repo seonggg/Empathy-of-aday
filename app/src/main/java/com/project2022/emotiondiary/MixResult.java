@@ -28,20 +28,20 @@ public class MixResult extends AppCompatActivity {
     Button room, share;
 
     String docid;
-    MediaPlayer mMediaPlayer;
+//    MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mix_result);
 
-        // 재생될 노래 선택
-        int[] mp3Arr = {R.raw.sample1, R.raw.sample2, R.raw.sample3};
-        Random random = new Random();
-        int randNum = random.nextInt(mp3Arr.length);
-
-        mMediaPlayer = MediaPlayer.create(this, mp3Arr[randNum]);
-        mMediaPlayer.start();
+//        // 재생될 노래 선택
+//        int[] mp3Arr = {R.raw.sample1, R.raw.sample2, R.raw.sample3};
+//        Random random = new Random();
+//        int randNum = random.nextInt(mp3Arr.length);
+//
+//        mMediaPlayer = MediaPlayer.create(this, mp3Arr[randNum]);
+//        mMediaPlayer.start();
 
         bead = findViewById(R.id.bead_img);
 
@@ -70,7 +70,7 @@ public class MixResult extends AppCompatActivity {
             Intent intent1 = new Intent(getApplicationContext(),MyRoom.class);
             intent1.putExtra("email",((Info)this.getApplication()).getId());
             startActivity(intent1);
-            finish(); // 음악 계속 재생됨 방지
+//            finish(); // 음악 계속 재생됨 방지
         });
 
         //공유하기 버튼
@@ -95,7 +95,7 @@ public class MixResult extends AppCompatActivity {
                     intent.putExtra("size",size);
                     intent.putExtra("docid",docid);
                     startActivity(intent);
-                    finish(); // 음악 계속 재생됨 방지
+//                    finish(); // 음악 계속 재생됨 방지
                 }
             });
             dlg.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -107,13 +107,13 @@ public class MixResult extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mMediaPlayer.isPlaying()) {
-            mMediaPlayer.stop();
-        }
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (mMediaPlayer.isPlaying()) {
+//            mMediaPlayer.stop();
+//        }
+//    }
 
     //뒤로가기 막기
     @Override
@@ -162,17 +162,17 @@ public class MixResult extends AppCompatActivity {
         else if(size==3){
             if (topArray.contains("angry")) {
                 if(topArray.contains("happy")) {
-                    if(topArray.contains("hurt"))
+                    if(topArray.contains("anxiety"))
                         bead.setImageResource(R.drawable.happy_angry_anxiety); //분노+기쁨+상처
                     else if(topArray.contains("sad"))
                         bead.setImageResource(R.drawable.angry_sad_happy); //분노+기쁨+슬픔
                 }
-                else if(topArray.contains("hurt"))
+                else if(topArray.contains("anxiety"))
                     if(topArray.contains("sad"))
                         bead.setImageResource(R.drawable.angry_anxiety_sad); //분노+상처+슬픔
             }
             else if (topArray.contains("happy")) {
-                if(topArray.contains("hurt") && topArray.contains("sad"))
+                if(topArray.contains("anxiety") && topArray.contains("sad"))
                     bead.setImageResource(R.drawable.happy_anxiety_sad); //기쁨+상처+슬픔
             }
         }
